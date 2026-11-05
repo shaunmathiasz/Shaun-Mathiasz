@@ -1,0 +1,104 @@
+import localFont from "next/font/local";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { Navigation } from "@/components/navigation";
+import { site } from "@/config/site";
+import "./globals.css";
+const editorial = localFont({
+  src: [
+    {
+      path: "../assets/fonts/cormorant-normal-400.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/cormorant-normal-500.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/cormorant-italic-400.ttf",
+      weight: "400",
+      style: "italic",
+    },
+  ],
+  variable: "--font-editorial",
+  display: "swap",
+});
+const body = localFont({
+  src: [
+    { path: "../assets/fonts/manrope-normal-400.ttf", weight: "400" },
+    { path: "../assets/fonts/manrope-normal-500.ttf", weight: "500" },
+    { path: "../assets/fonts/manrope-normal-600.ttf", weight: "600" },
+  ],
+  variable: "--font-body",
+  display: "swap",
+});
+export const metadata: Metadata = {
+  metadataBase: site.url ? new URL(site.url) : undefined,
+  title: {
+    default: "Shaun Mathiasz — Travel, Commerce & Strategy",
+    template: "%s | Shaun Mathiasz",
+  },
+  description: site.description,
+  openGraph: {
+    type: "website",
+    siteName: site.name,
+    title: "Shaun Mathiasz — Travel, Commerce & Strategy",
+    description: site.description,
+    ...(site.url
+      ? { images: [{ url: "/opengraph-image", width: 1200, height: 630 }] }
+      : {}),
+  },
+  twitter: { card: "summary_large_image" },
+};
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const person = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: site.name,
+    jobTitle: site.role,
+    ...(site.url ? { url: site.url } : {}),
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Colombo",
+      addressCountry: "LK",
+    },
+    worksFor: {
+      "@type": "Organization",
+      name: "Moresand Group / Travel Center UK",
+    },
+  };
+  return (
+    <html lang="en" className={`${editorial.variable} ${body.variable}`}>
+      <body>
+        <a className="skip-link" href="#main">
+          Skip to content
+        </a>
+        <Navigation />
+        <main id="main">{children}</main>
+        <footer className="footer">
+          <Link href="/" className="footer-name">
+            Shaun Mathiasz<span className="gold">.</span>
+          </Link>
+          <p>Travel. Commerce. A wider perspective.</p>
+          <div>
+            <span>Colombo, Sri Lanka</span>
+            <Link href="/contact">Contact ↗</Link>
+          </div>
+          <small>© {new Date().getFullYear()} Shaun Mathiasz</small>
+        </footer>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(person).replace(/</g, "\u003c"),
+          }}
+        />
+      </body>
+    </html>
+  );
+}
