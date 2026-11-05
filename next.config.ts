@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 const config: NextConfig = {
   poweredByHeader: false,
+  images: { qualities: [50, 75] },
   async headers() {
     return [
       {

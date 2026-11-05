@@ -1,3 +1,4 @@
+import { CopyEmail } from "@/components/editorial-tools";
 import { pageMetadata } from "@/lib/metadata";
 import { PageIntro } from "@/components/ui";
 import { ContactForm } from "@/components/contact-form";
@@ -63,7 +64,33 @@ export default function Contact() {
             )}
           </div>
         </aside>
-        <ContactForm configured={contactConfigured()} />
+        {contactConfigured() ? (
+          <ContactForm configured />
+        ) : (
+          <div className="contact-alternative">
+            <p className="eyebrow">A DIRECT CONNECTION</p>
+            <h2>
+              Let’s start with
+              <br />
+              <em>a conversation.</em>
+            </h2>
+            <p>
+              Email is the most direct way to discuss a role, collaboration or
+              introduction.
+            </p>
+            <a
+              className="button gold-button"
+              href={`mailto:${site.professionalEmail}`}
+            >
+              Write to Shaun ↗
+            </a>
+            <CopyEmail />
+            <p className="micro-copy">
+              Opens your email app. No message is collected or stored on this
+              website. Website form delivery is not configured.
+            </p>
+          </div>
+        )}
       </section>
     </>
   );

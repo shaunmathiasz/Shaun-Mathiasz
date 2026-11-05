@@ -1,4 +1,4 @@
-# Shaun Mathiasz — Midnight Executive
+# Shaun Mathiasz — Midnight Executive V2
 
 A Next.js App Router portfolio with TypeScript strict mode, Tailwind CSS v4, locally hosted Cormorant Garamond / Manrope, Motion, Lucide, MDX and Zod. Designed for executive hospitality and travel recruitment. No database or authentication.
 
@@ -25,7 +25,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-Playwright covers navigation, mobile menu, page metadata, portfolio filters/details, contact validation, draft articles, 404 and overflow at 360, 390, 768, 1024 and 1440 pixels. Set `PLAYWRIGHT_BASE_URL` to an existing test server to avoid launching one. Browser binaries require a supported local environment. See VALIDATION.md for actual execution results; test files alone do not establish a passing browser review.
+Playwright covers navigation, mobile menu, page metadata, portfolio filters/details, contact validation, draft articles, 404 and overflow at 360, 390, 768, 1024 and 1440 pixels. Set `PLAYWRIGHT_BASE_URL` to an existing test server to avoid launching one. Browser binaries require a supported local environment. See VALIDATION_V2.md for current execution results (VALIDATION.md records the earlier V1 work); test files alone do not establish a passing browser review.
 
 ## Configuration
 
@@ -49,7 +49,6 @@ Email is enabled only when all three mail variables exist. There is no simulated
 The supplied CV is available at `public/documents/shaun-mathiasz-cv.pdf`; all download links are enabled. This public copy permanently removes the precise home address and referees’ details, uses city-level location, and marks IATA as “2026 - Reading” as confirmed by Shaun. The original attachment is untouched and is not included in source control. Employment dates and the two Siyam World positions were transcribed from the supplied CV; no project performance claims were added.
 
 The supplied portrait is used unchanged on Home and About via `next/image`. LinkedIn is set to `https://www.linkedin.com/in/shaun-denver/` per Shaun’s explicit confirmation (overriding the older link embedded in the original CV); Instagram is `https://www.instagram.com/shaun.mathiasz/`. These are user-supplied destinations, not independently authenticated accounts. Professional email is taken from the CV and offered as a mailto link; backend email delivery still requires credentials.
-
 
 ## Security & privacy
 
@@ -89,3 +88,7 @@ No GitHub push or Vercel deployment was performed. GitHub and Vercel integration
 ## Before public launch
 
 Supply the final domain and configure the real recipient address. CV, portrait and social links have been supplied; employment dates and role titles are now documented from the CV. IATA DTTF is Reading as explicitly confirmed by Shaun. Confirm Amadeus training details, any additional education dates desired, permission to use specific projects and evidence of outcomes. Review/approve or remove all draft articles. Do not turn practice overviews into claimed case studies without evidence. Confirm privacy retention and deletion details, review keyboard/screen-reader behavior, run browser smoke tests and test actual email delivery.
+
+## V2 guide
+
+See V2_REVIEW.md for the complete component/interaction inventory, ASSETS.md for image and geographic-data provenance, and VALIDATION_V2.md for measured results. No new runtime dependencies or environment variables were added. No-JavaScript content and hydration-safe reduced-motion support are included.

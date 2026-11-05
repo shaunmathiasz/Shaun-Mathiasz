@@ -3,6 +3,7 @@ export const categories = [
   "Product development",
   "Hospitality",
   "Commercial strategy",
+  "Destination research",
 ] as const;
 export type Project = {
   slug: string;
@@ -84,7 +85,7 @@ export const projects: Project[] = [
   {
     slug: "destination-positioning",
     title: "Finding the story within a destination",
-    category: "Product development",
+    category: "Destination research",
     number: "04",
     summary:
       "Destination research, market positioning and experience-led campaign collaboration.",

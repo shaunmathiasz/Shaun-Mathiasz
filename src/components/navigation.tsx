@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
+import { site } from "@/config/site";
 import { navigation } from "@/config/site";
 export function Navigation() {
   const path = usePathname();
@@ -14,7 +15,7 @@ export function Navigation() {
           href="/"
           className="wordmark"
           onClick={() => setOpen(false)}
-          aria-label="Shaun Mathiasz home"
+          aria-label="SHAUN MATHIASZ. — home"
         >
           SHAUN
           <span>
@@ -32,6 +33,11 @@ export function Navigation() {
             </Link>
           ))}
         </nav>
+        {site.cvUrl && (
+          <a className="nav-cv" href={site.cvUrl} download>
+            CV ↓
+          </a>
+        )}
         <Link href="/contact" className="nav-contact">
           Let’s connect <ArrowUpRight size={15} />
         </Link>

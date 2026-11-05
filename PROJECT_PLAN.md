@@ -17,4 +17,9 @@
 Actual executed check results and environment limitations are in VALIDATION.md. No hosting deployment is claimed.
 
 ## Asset update
+
 Supplied portrait added to Home/About with next/image. Public CV download enabled with permanent removal of home address and referee details. Original attachment untouched. LinkedIn and Instagram added; LinkedIn follows the user-confirmed /in/shaun-denver/ URL. Employment timeline now shows three positions with CV-supplied dates. IATA is Reading.
+
+## V2 implemented
+
+Midnight editorial identity evolved with cinematic hero, local destination imagery, hydration-safe motion, geographic SVG globe, career itinerary/stamp, photographic portfolio, illustrative product builder, richer About, education learning route/constellation, editorial draft journal and reliable direct-contact alternatives. Existing routes, professional facts and public CV retained. New docs: V2_REVIEW.md, ASSETS.md and VALIDATION_V2.md. V1 verification notes above are historical; the V2 validation record supersedes them.

@@ -57,16 +57,47 @@ test("portfolio filters and details", async ({ page }) => {
     ).toBeVisible();
   }
 });
-test("contact validates without pretending to send", async ({ page }) => {
+test("contact offers real alternatives without a nonfunctional form", async ({
+  page,
+}) => {
   await page.goto("/contact");
-  await page
-    .getByRole("button", { name: /Check message|Send message/ })
-    .click();
-  await expect(page.getByText("Please enter your name.")).toBeVisible();
   await expect(
-    page.getByText("Please enter a valid email address."),
+    page.getByRole("link", { name: "Write to Shaun" }),
+  ).toHaveAttribute("href", "mailto:shaun.emirates@gmail.com");
+  await expect(
+    page.getByRole("button", { name: "Copy email address" }),
   ).toBeVisible();
-  await expect(page.getByRole("status")).toContainText("review");
+  await expect(page.locator("form")).toHaveCount(0);
+});
+test("globe keyboard controls and UK context", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: /United Kingdom/ }).click();
+  await expect(page.locator(".place-description")).toContainText(
+    "not UK residence",
+  );
+  await page.getByRole("button", { name: "Rotate globe east" }).click();
+  await expect(
+    page.locator(".place-tabs button[aria-pressed=true]"),
+  ).toContainText("United Kingdom");
+});
+test("builder responds to preferences", async ({ page }) => {
+  await page.goto("/portfolio");
+  await page
+    .getByLabel("Destination", { exact: true })
+    .selectOption("Sri Lanka");
+  await expect(page.locator(".concept h3")).toContainText("Sri Lanka");
+  await page.getByLabel("More destinations", { exact: true }).check();
+  await expect(page.locator(".tradeoff")).toContainText("More stops");
+});
+test("career chapters unlock a stamp", async ({ page }) => {
+  await page.goto("/experience");
+  for (const detail of await page
+    .locator(".journey-card details summary")
+    .all())
+    await detail.click();
+  await expect(page.locator(".passport-reward")).toContainText(
+    "JOURNEY EXPLORER",
+  );
 });
 test("draft article and 404", async ({ page }) => {
   await page.goto("/insights/a-considered-travel-product");
@@ -100,5 +131,37 @@ test("responsive layout fits requested widths", async ({ page }) => {
         ),
       ).toBe(true);
     }
+  }
+});
+test("reduced motion hydrates without runtime errors", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await expect(
+    page.getByRole("button", { name: "Reduced motion" }),
+  ).toBeDisabled();
+  await page.getByRole("button", { name: /United Kingdom/ }).focus();
+  await page.keyboard.press("Enter");
+  await expect(page.locator(".place-description")).toContainText(
+    "not UK residence",
+  );
+  expect(errors).toEqual([]);
+});
+test("core headline and CV are available without JavaScript", async ({
+  browser,
+  baseURL,
+}) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  try {
+    await page.goto((baseURL || "http://127.0.0.1:3000") + "/");
+    await expect(page.locator("h1")).toBeVisible();
+    await expect(page.locator(".nav-cv")).toHaveAttribute(
+      "href",
+      "/documents/shaun-mathiasz-cv.pdf",
+    );
+  } finally {
+    await context.close();
   }
 });

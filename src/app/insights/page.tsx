@@ -1,4 +1,6 @@
 import { pageMetadata } from "@/lib/metadata";
+import Image from "next/image";
+import { readingMinutes } from "@/content/media";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { PageIntro } from "@/components/ui";
@@ -19,10 +21,23 @@ export default function Insights() {
       <section className="section article-list">
         {articles.map((a, i) => (
           <Link href={"/insights/" + a.slug} key={a.slug}>
-            <span className="article-index">0{i + 1}</span>
+            <div className="journal-cover">
+              <Image
+                src={
+                  i === 0
+                    ? "/images/editorial/landscape.jpg"
+                    : "/images/editorial/maldives.jpg"
+                }
+                alt="Contextual destination landscape accompanying an unpublished editorial draft"
+                width={800}
+                height={600}
+                sizes="(max-width:600px) 90vw, 30vw"
+              />
+              <span>FIELD NOTES / 0{i + 1}</span>
+            </div>
             <div>
               <p className="eyebrow">
-                {a.category} · {a.status}
+                {a.category} · {a.status} · {readingMinutes(a.body)} min read
               </p>
               <h2>{a.title}</h2>
               <p>{a.summary}</p>

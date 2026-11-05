@@ -1,3 +1,5 @@
+import { CareerGlobe } from "@/components/career-globe";
+import { HeroAtmosphere } from "@/components/hero-atmosphere";
 import Image from "next/image";
 import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
@@ -24,6 +26,7 @@ export default function Home() {
   return (
     <>
       <section className="hero">
+        <HeroAtmosphere />
         <div className="hero-top">
           <p className="eyebrow">
             <span className="tiny-line" />
@@ -143,6 +146,7 @@ export default function Home() {
         </p>
         <PortfolioGallery limit={2} />
       </section>
+      <CareerGlobe />
       <section className="section career-preview">
         <SectionTitle
           eyebrow="PROFESSIONAL PROGRESSION"

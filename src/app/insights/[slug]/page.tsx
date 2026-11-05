@@ -1,3 +1,5 @@
+import { ArticleTools } from "@/components/editorial-tools";
+import { readingMinutes } from "@/content/media";
 import { pageMetadata } from "@/lib/metadata";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -42,6 +44,10 @@ export default async function Article({
           Unpublished editorial draft · no publication date assigned · awaiting
           Shaun’s review.
         </div>
+        <ArticleTools />
+        <p className="micro-copy">
+          {readingMinutes(a.body)} minute estimated read
+        </p>
         <article className="prose">
           <MDXRemote source={a.body} />
         </article>

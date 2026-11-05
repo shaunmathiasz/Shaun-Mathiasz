@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/reveal";
 import Image from "next/image";
 import { site } from "@/config/site";
 import { pageMetadata } from "@/lib/metadata";
@@ -49,6 +50,11 @@ export default function About() {
             (Hons) in Global Business Management with Cardiff Metropolitan
             University, via ICBT Colombo.
           </p>
+          <blockquote className="editorial-quote">
+            The product promise and the traveller’s experience should belong to
+            the same conversation.
+            <cite>Professional philosophy / Shaun Mathiasz</cite>
+          </blockquote>
           <h3>How I approach the work</h3>
           <p>
             I value clear thinking, thoughtful collaboration and a close
@@ -72,10 +78,12 @@ export default function About() {
         />
         <div className="skills-grid">
           {skills.map((s) => (
-            <article className="skill-card" key={s.title}>
-              <h3>{s.title}</h3>
-              <p>{s.text}</p>
-            </article>
+            <Reveal key={s.title}>
+              <article className="skill-card">
+                <h3>{s.title}</h3>
+                <p>{s.text}</p>
+              </article>
+            </Reveal>
           ))}
         </div>
         <div className="interest-line">

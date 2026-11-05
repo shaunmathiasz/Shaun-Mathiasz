@@ -1,3 +1,5 @@
+import Image from "next/image";
+import { projectMedia } from "@/content/media";
 import { pageMetadata } from "@/lib/metadata";
 import { notFound } from "next/navigation";
 import { projects } from "@/content/projects";
@@ -33,6 +35,18 @@ export default async function Project({
         title={p.title}
         description={p.summary}
       />
+      <figure className="project-hero-image">
+        <Image
+          src={projectMedia[p.number].src}
+          alt={projectMedia[p.number].alt}
+          width={1500}
+          height={900}
+          sizes="100vw"
+        />
+        <figcaption>
+          CONTEXTUAL DESTINATION IMAGERY / PRACTICE OVERVIEW
+        </figcaption>
+      </figure>
       <section className="section detail-grid">
         <aside>
           <TextLink href="/portfolio">All practice overviews</TextLink>
@@ -52,6 +66,24 @@ export default async function Project({
           <p>{p.challenge}</p>
           <h2>Approach</h2>
           <p>{p.approach}</p>
+          <h2>The decision process</h2>
+          <ol className="process-diagram">
+            {[
+              "Understand the traveller",
+              "Research the destination",
+              "Consider the commercial structure",
+              "Review the experience",
+            ].map((step, i) => (
+              <li key={step}>
+                <span>0{i + 1}</span>
+                {step}
+              </li>
+            ))}
+          </ol>
+          <p className="micro-copy">
+            Illustrative thinking framework, not evidence of a specific employer
+            project.
+          </p>
           <h2>Deliverables</h2>
           <ul>
             {p.deliverables.map((d) => (

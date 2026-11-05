@@ -1,3 +1,4 @@
+import { TravelBuilder } from "@/components/travel-builder";
 import { pageMetadata } from "@/lib/metadata";
 import { PageIntro, ContactCTA } from "@/components/ui";
 import { PortfolioGallery } from "@/components/portfolio-gallery";
@@ -22,6 +23,7 @@ export default function Portfolio() {
         </div>
         <PortfolioGallery />
       </section>
+      <TravelBuilder />
       <ContactCTA />
     </>
   );

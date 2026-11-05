@@ -1,3 +1,4 @@
+import { ScrollProgress } from "@/components/editorial-tools";
 import localFont from "next/font/local";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -7,17 +8,17 @@ import "./globals.css";
 const editorial = localFont({
   src: [
     {
-      path: "../assets/fonts/cormorant-normal-400.ttf",
+      path: "../assets/fonts/cormorant-normal-400.woff",
       weight: "400",
       style: "normal",
     },
     {
-      path: "../assets/fonts/cormorant-normal-500.ttf",
+      path: "../assets/fonts/cormorant-normal-500.woff",
       weight: "500",
       style: "normal",
     },
     {
-      path: "../assets/fonts/cormorant-italic-400.ttf",
+      path: "../assets/fonts/cormorant-italic-400.woff",
       weight: "400",
       style: "italic",
     },
@@ -27,9 +28,9 @@ const editorial = localFont({
 });
 const body = localFont({
   src: [
-    { path: "../assets/fonts/manrope-normal-400.ttf", weight: "400" },
-    { path: "../assets/fonts/manrope-normal-500.ttf", weight: "500" },
-    { path: "../assets/fonts/manrope-normal-600.ttf", weight: "600" },
+    { path: "../assets/fonts/manrope-normal-400.woff", weight: "400" },
+    { path: "../assets/fonts/manrope-normal-500.woff", weight: "500" },
+    { path: "../assets/fonts/manrope-normal-600.woff", weight: "600" },
   ],
   variable: "--font-body",
   display: "swap",
@@ -79,6 +80,7 @@ export default function RootLayout({
         <a className="skip-link" href="#main">
           Skip to content
         </a>
+        <ScrollProgress />
         <Navigation />
         <main id="main">{children}</main>
         <footer className="footer">

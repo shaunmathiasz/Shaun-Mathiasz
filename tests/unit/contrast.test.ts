@@ -12,12 +12,12 @@ function ratio(a: string, b: string) {
 }
 describe("core text palette contrast", () => {
   it.each([
-    ["#F4F0E8", "#090B0F"],
-    ["#a0a6b1", "#090B0F"],
-    ["#C9A86A", "#090B0F"],
-    ["#090B0F", "#C9A86A"],
-    ["#a0a6b1", "#171B24"],
-    ["#C9A86A", "#171B24"],
+    ["#F5F2EA", "#060B16"],
+    ["#9DAABD", "#060B16"],
+    ["#D2B88A", "#060B16"],
+    ["#060B16", "#D2B88A"],
+    ["#9DAABD", "#12233B"],
+    ["#D2B88A", "#12233B"],
   ])("%s on %s meets normal-text AA contrast", (fg, bg) =>
     expect(ratio(fg, bg)).toBeGreaterThanOrEqual(4.5),
   );

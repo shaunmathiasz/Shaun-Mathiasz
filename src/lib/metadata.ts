@@ -6,7 +6,7 @@ export function pageMetadata(
   path: string,
 ): Metadata {
   return {
-    title,
+    title: { absolute: `${title} | ${site.name}` },
     description,
     alternates: site.url
       ? { canonical: new URL(path, site.url).toString() }
