@@ -3083,3 +3083,21 @@ details p {
   height: auto;
   min-height: 75px;
 }
+
+/* Supplied identity assets: preserve original colours and proportions. */
+.logo-moresand {
+  background: #12233b;
+  border: 1px solid var(--line);
+}
+.paired-logos {
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+.paired-logos img {
+  flex: 0 1 auto;
+  width: calc((100% - 10px) / 2);
+  height: auto;
+  max-height: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+}

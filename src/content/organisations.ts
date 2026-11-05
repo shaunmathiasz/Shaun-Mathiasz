@@ -4,10 +4,13 @@ export type Organisation = {
   context: string;
   url?: string;
   logo?: string;
+  logos?: { src: string; alt: string }[];
 };
 export const organisations: Record<string, Organisation> = {
   moresand: {
     name: "Moresand Group",
+    logo: "/logos/moresand.png",
+    url: "https://www.moresand.co.uk/",
     kind: "Professional Experience",
     context:
       "Current employer group · Travel Product Specialist · April 2026–Present. UK outbound travel product development.",
@@ -22,6 +25,7 @@ export const organisations: Record<string, Organisation> = {
   },
   siyam: {
     name: "Siyam World Maldives",
+    logo: "/logos/siyam-world.png",
     kind: "Professional Experience",
     context:
       "Luxury hospitality · October 2024–March 2026. WOW Agent / Telephone Operator, followed by Reservations Agent.",
@@ -53,6 +57,16 @@ export const organisations: Record<string, Organisation> = {
   },
   oxford: {
     name: "Saïd Business School, University of Oxford",
+    logos: [
+      {
+        src: "/logos/oxford-university.svg",
+        alt: "University of Oxford official logo",
+      },
+      {
+        src: "/logos/oxford-said.svg",
+        alt: "Saïd Business School official logo",
+      },
+    ],
     kind: "Academic & Professional Development",
     context:
       "Completed short courses in leadership problem-solving with AI and AI, justice and the rule of law. Not an Oxford degree.",
