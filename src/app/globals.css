@@ -3074,3 +3074,12 @@ details p {
   background: #0b1426;
   border: 1px solid var(--line);
 }
+/* Text identities expand naturally for long institutional names. */
+.identity-text {
+  height: auto;
+  min-height: 92px;
+}
+.chapter-brands .identity-text {
+  height: auto;
+  min-height: 75px;
+}
