@@ -48,6 +48,11 @@ export function CredentialCard({ item }: { item: Credential }) {
 }
 export function EducationCredentials() {
   const [filter, setFilter] = useState("All");
+  const [issuer, setIssuer] = useState("All issuers");
+  const issuerNames = [...new Set(certifications.map((c) => c.institution))];
+  const visibleCertifications = certifications.filter(
+    (c) => issuer === "All issuers" || c.institution === issuer,
+  );
   const main = education.filter(
     (e) => filter === "All" || e.category === filter,
   );
@@ -93,9 +98,32 @@ export function EducationCredentials() {
             Short courses & certifications{" "}
             <span>{certifications.length} credentials</span>
           </summary>
-          <div className="credentials-list">
-            {certifications.map((e) => (
-              <CredentialCard key={e.id} item={e} />
+          <div className="certification-toolbar">
+            <p className="eyebrow">
+              CONTINUING CURIOSITY / {visibleCertifications.length} SHORT
+              COURSES
+            </p>
+            <label>
+              Explore by institution
+              <select
+                value={issuer}
+                onChange={(event) => setIssuer(event.target.value)}
+              >
+                <option>All issuers</option>
+                {issuerNames.map((name) => (
+                  <option key={name}>{name}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div
+            className="credentials-list certification-gallery"
+            aria-live="polite"
+          >
+            {visibleCertifications.map((e) => (
+              <Reveal key={e.id}>
+                <CredentialCard item={e} />
+              </Reveal>
             ))}
           </div>
         </details>

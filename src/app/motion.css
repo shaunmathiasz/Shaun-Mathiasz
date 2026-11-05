@@ -901,3 +901,105 @@ html[data-motion="reduced"] .brand-card,
 html[data-motion="reduced"] .hero-portrait img {
   transform: none !important;
 }
+/* Certification journal: deliberate movement, readable issuer identities. */
+.certification-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 30px 0;
+}
+.certification-toolbar label {
+  display: grid;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--muted);
+  max-width: 340px;
+}
+.certification-toolbar select {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  font: inherit;
+}
+.certification-gallery.credentials-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.certification-gallery.credentials-list > div:before {
+  display: none;
+}
+.certification-gallery .credential-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 28px;
+  border: 1px solid var(--line);
+  background: linear-gradient(145deg, #12233b80, #0b142640);
+  transition:
+    border-color 220ms,
+    box-shadow 220ms;
+}
+.certification-gallery .credential-card:hover,
+.certification-gallery .credential-card:focus-within {
+  border-color: #d2b88a88;
+  box-shadow: 0 15px 45px #0002;
+}
+.certification-gallery .credential-logos {
+  margin-bottom: 24px;
+}
+.certification-gallery .organisation-logo {
+  width: 100%;
+  max-width: 260px;
+  min-height: 100px;
+  padding: 20px;
+}
+.certification-gallery .organisation-logo img {
+  object-fit: contain;
+  max-height: 64px;
+  transition: transform 350ms var(--ease-editorial);
+}
+.certification-gallery .credential-card:hover .organisation-logo img {
+  transform: translateY(-2px);
+}
+.certification-gallery h2 {
+  font-size: clamp(26px, 2.5vw, 35px);
+}
+.logo-london,
+.logo-starweaver,
+.logo-glasgow {
+  background: #0b1426;
+  border: 1px solid var(--line);
+}
+.certification-gallery details[open] > p {
+  animation: panel-arrival 350ms var(--ease-editorial);
+}
+@media (max-width: 850px) {
+  .certification-gallery.credentials-list {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .certification-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .certification-gallery .credential-card {
+    padding: 22px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .certification-gallery .credential-card:hover .organisation-logo img {
+    transform: none;
+  }
+}
+html[data-motion="reduced"] .certification-gallery .organisation-logo img {
+  transform: none !important;
+}

@@ -204,6 +204,17 @@ const courses = [
     "Q0NLB1LMXJEE",
   ],
 ];
+const certificationIssuers: Record<string, string> = {
+  "University of Illinois Urbana-Champaign": "illinois",
+  "University of London": "london",
+  Adobe: "adobe",
+  "University of Glasgow": "glasgow",
+  "FIA Business School": "fia",
+  Starweaver: "starweaver",
+  "International Board of Credentialing and Continuing Education Standards (IBCCES)":
+    "ibcces",
+  "ESSEC Business School": "essec",
+};
 export const certifications: Credential[] = courses.map(
   ([id, title, institution, period, credentialId]) => ({
     id,
@@ -211,11 +222,15 @@ export const certifications: Credential[] = courses.map(
     institution,
     period: "Issued " + period,
     credentialId,
-    organisations: [],
+    organisations: certificationIssuers[institution]
+      ? [certificationIssuers[institution]]
+      : [],
     category: "Certifications",
     status: "Completed",
     detail:
-      "Short-course certification. This credential does not represent a university degree.",
+      title === "MBA Essentials"
+        ? "Short-course certification, not an MBA degree."
+        : "Short-course certification.",
   }),
 );
 export const credentialCategories: CredentialCategory[] = [

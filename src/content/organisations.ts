@@ -1,5 +1,6 @@
 export type Organisation = {
   name: string;
+  showcase?: boolean;
   kind: "Professional Experience" | "Academic & Professional Development";
   context: string;
   url?: string;
@@ -93,5 +94,61 @@ export const organisations: Record<string, Organisation> = {
       "Student Affiliate · June 2026–Present. Professional membership, not chartership.",
     url: "https://www.aerosociety.com",
     logo: "/logos/raes.svg",
+  },
+  illinois: {
+    name: "University of Illinois Urbana-Champaign",
+    showcase: false,
+    kind: "Academic & Professional Development",
+    context: "Short-course certification issuer.",
+    logo: "/logos/illinois.svg",
+  },
+  london: {
+    name: "University of London",
+    showcase: false,
+    kind: "Academic & Professional Development",
+    context: "Short-course certification issuer.",
+    logo: "/logos/london.svg",
+  },
+  adobe: {
+    name: "Adobe",
+    showcase: false,
+    kind: "Academic & Professional Development",
+    context: "Short-course certification issuer.",
+    logo: "/logos/adobe.svg",
+  },
+  glasgow: {
+    name: "University of Glasgow",
+    showcase: false,
+    kind: "Academic & Professional Development",
+    context: "Short-course certification issuer.",
+    logo: "/logos/glasgow.svg",
+  },
+  fia: {
+    name: "FIA Business School",
+    showcase: false,
+    kind: "Academic & Professional Development",
+    context: "Short-course certification issuer.",
+    logo: "/logos/fia.png",
+  },
+  starweaver: {
+    name: "Starweaver",
+    showcase: false,
+    kind: "Academic & Professional Development",
+    context: "Short-course certification issuer.",
+    logo: "/logos/starweaver.png",
+  },
+  ibcces: {
+    name: "International Board of Credentialing and Continuing Education Standards (IBCCES)",
+    showcase: false,
+    kind: "Academic & Professional Development",
+    context: "Short-course certification issuer.",
+    logo: "/logos/ibcces.png",
+  },
+  essec: {
+    name: "ESSEC Business School",
+    showcase: false,
+    kind: "Academic & Professional Development",
+    context: "Short-course certification issuer.",
+    logo: "/logos/essec.svg",
   },
 };

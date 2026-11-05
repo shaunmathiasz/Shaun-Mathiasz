@@ -363,3 +363,31 @@ test("cursor stays optional and clears its context when scrolling", async ({
     ).toBe(true);
   }
 });
+
+test("certification gallery uses issuer logos and filters without changing records", async ({
+  page,
+}) => {
+  await page.goto("/education");
+  await page
+    .getByRole("button", { name: "Certifications", exact: true })
+    .click();
+  await expect(
+    page.locator(".certification-gallery .credential-card"),
+  ).toHaveCount(15);
+  await expect(
+    page.locator(".certification-gallery .organisation-logo img"),
+  ).toHaveCount(10);
+  await page
+    .getByLabel("Explore by institution")
+    .selectOption("University of London");
+  await expect(
+    page.locator(".certification-gallery .credential-card"),
+  ).toHaveCount(2);
+  await expect(
+    page.locator(".certification-gallery img").first(),
+  ).toHaveAttribute("alt", "University of London official logo");
+  await page.getByLabel("Explore by institution").selectOption("Amadeus");
+  await expect(
+    page.locator(".certification-gallery .credential-card"),
+  ).toHaveCount(4);
+});

@@ -47,7 +47,7 @@ export function BrandShowcase() {
           <h3>{group}</h3>
           <div className="brand-grid">
             {Object.entries(organisations)
-              .filter(([, o]) => o.kind === group)
+              .filter(([, o]) => o.kind === group && o.showcase !== false)
               .map(([id, org]) => (
                 <Reveal key={id}>
                   <details className="brand-card">
