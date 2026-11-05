@@ -1,3 +1,4 @@
+import { CinematicSystem, MotionToggle } from "@/components/cinematic-system";
 import { ScrollProgress } from "@/components/editorial-tools";
 import { education } from "@/content/credentials";
 import localFont from "next/font/local";
@@ -6,6 +7,7 @@ import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 import { site } from "@/config/site";
 import "./globals.css";
+import "./motion.css";
 const editorial = localFont({
   src: [
     {
@@ -97,18 +99,22 @@ export default function RootLayout({
           Skip to content
         </a>
         <ScrollProgress />
+        <CinematicSystem />
         <Navigation />
         <main id="main">{children}</main>
         <footer className="footer">
-          <Link href="/" className="footer-name">
+          <Link prefetch={false} href="/" className="footer-name">
             Shaun Denver Mathiasz<span className="gold">.</span>
           </Link>
           <p>Travel. Commerce. A wider perspective.</p>
           <div>
             <span>Colombo, Sri Lanka</span>
-            <Link href="/contact">Contact ↗</Link>
+            <Link prefetch={false} href="/contact">
+              Contact ↗
+            </Link>
             <a href={`mailto:${site.professionalEmail}`}>Email Me ↗</a>
           </div>
+          <MotionToggle />
           <small>© {new Date().getFullYear()} Shaun Denver Mathiasz</small>
         </footer>
         <script

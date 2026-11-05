@@ -19,7 +19,7 @@ export default function About() {
         description="I’m Shaun Denver Mathiasz, a Colombo-based travel product professional interested in the intersection of international hospitality, global business and commercial growth."
       />
       <section className="section story-grid">
-        <figure className="portrait-frame">
+        <figure className="portrait-frame" data-cinematic>
           <Image
             src={site.portrait.src}
             alt={site.portrait.alt}
@@ -76,6 +76,33 @@ export default function About() {
             businesses and people connect across borders.
           </p>
         </div>
+      </section>
+      <section className="section about-horizon" data-cinematic>
+        <div>
+          <p className="eyebrow">HOSPITALITY ↔ COMMERCIAL THINKING</p>
+          <h2>
+            The experience matters.
+            <br />
+            <em>So does the thinking behind it.</em>
+          </h2>
+          <p>
+            From the detail of a reservation to the structure of a travel
+            product, I value clear information, thoughtful choices and the
+            traveller’s perspective.
+          </p>
+        </div>
+        <figure>
+          <Image
+            src="/images/editorial/maldives.jpg"
+            alt="Maldives island landscape providing context for Shaun’s hospitality background"
+            width={1000}
+            height={750}
+            sizes="(max-width:600px) 90vw, 45vw"
+          />
+          <figcaption>
+            MALDIVES / A HOSPITALITY FOUNDATION · CONTEXTUAL IMAGERY
+          </figcaption>
+        </figure>
       </section>
       <section className="section">
         <SectionTitle

@@ -15,7 +15,7 @@ export default function Contact() {
     <>
       <PageIntro
         eyebrow="LET’S CONNECT"
-        title="The next possibility starts with a conversation."
+        title="Good conversations. New possibilities."
         description="For recruitment opportunities, professional introductions and thoughtful collaborations across travel and hospitality."
       />
       <section className="section contact-grid">
@@ -87,7 +87,7 @@ export default function Contact() {
             <CopyEmail />
             <p className="micro-copy">
               Opens your email app. No message is collected or stored on this
-              website. Website form delivery is not configured.
+              website.
             </p>
           </div>
         )}

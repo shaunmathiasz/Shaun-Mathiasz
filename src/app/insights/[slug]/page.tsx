@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArticleTools } from "@/components/editorial-tools";
 import { readingMinutes } from "@/content/media";
 import { pageMetadata } from "@/lib/metadata";
@@ -39,6 +40,20 @@ export default async function Article({
         title={a.title}
         description={a.summary}
       />
+      <figure className="journal-hero" data-cinematic>
+        <Image
+          src={
+            a.slug === articles[0].slug
+              ? "/images/editorial/landscape.jpg"
+              : "/images/editorial/maldives.jpg"
+          }
+          alt="Destination landscape accompanying an unpublished editorial draft"
+          width={1500}
+          height={650}
+          sizes="100vw"
+        />
+        <figcaption>FIELD NOTES / UNPUBLISHED DRAFT</figcaption>
+      </figure>
       <section className="section article-detail">
         <div className="notice">Unpublished editorial draft.</div>
         <ArticleTools />

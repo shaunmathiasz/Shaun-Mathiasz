@@ -38,6 +38,8 @@ export function PortfolioGallery({ limit }: { limit?: number }) {
             key={p.slug}
           >
             <Link
+              prefetch={false}
+              data-cursor="VIEW"
               className={"project-card project-" + p.number}
               href={"/portfolio/" + p.slug}
               key={p.slug}
@@ -48,8 +50,12 @@ export function PortfolioGallery({ limit }: { limit?: number }) {
                   src={projectMedia[p.number].src}
                   alt={projectMedia[p.number].alt}
                   fill
+                  quality={50}
                   sizes="(max-width:600px) 90vw, 45vw"
                 />
+                <span className="project-preview">
+                  Explore the thinking <span>↗</span>
+                </span>
                 <span className="project-arrow">
                   <ArrowUpRight size={22} />
                 </span>

@@ -24,7 +24,7 @@ export function ExperienceJourney() {
         MY JOURNEY — FROM HOSPITALITY TO GLOBAL BUSINESS
       </p>
       {roles.map((e, i) => (
-        <article className="journey-stop" key={e.role}>
+        <article className="journey-stop" data-cinematic key={e.role}>
           <div className="stop-meta">
             <span className="stamp-number">0{i + 1}</span>
             <p>{e.period}</p>
@@ -103,23 +103,57 @@ export function ExperienceJourney() {
           }
           aria-live="polite"
         >
+          <div className="passport-stamps" aria-label="Your digital passport">
+            {[
+              {
+                label: "MALDIVES",
+                sub: "Hospitality",
+                unlocked:
+                  visited.length > 0 &&
+                  visited.some((role) => role !== roles[2].role),
+              },
+              {
+                label: "COLOMBO",
+                sub: "Professional base",
+                unlocked: visited.includes(roles[2].role),
+              },
+              {
+                label: "UK MARKET",
+                sub: "Product strategy",
+                unlocked: visited.includes(roles[2].role),
+              },
+            ].map((stamp) => (
+              <div
+                key={stamp.label}
+                className={
+                  stamp.unlocked ? "passport-stamp collected" : "passport-stamp"
+                }
+              >
+                <span>{stamp.label}</span>
+                <small>{stamp.sub}</small>
+                <span className="stamp-state">
+                  {stamp.unlocked ? "EXPLORED" : "TO EXPLORE"}
+                </span>
+              </div>
+            ))}
+          </div>
           {visited.length === 3 ? (
             <>
               <span>✧</span>
               <p className="eyebrow">PASSPORT STAMP / JOURNEY EXPLORER</p>
-              <p>Every journey begins with curiosity.</p>
+              <p>Every great journey begins with curiosity.</p>
             </>
           ) : (
             <p>
-              Open each career chapter to collect a small travel stamp.{" "}
-              {visited.length}/3 explored.
+              Explore the career chapters to collect your digital passport
+              stamps. {visited.length}/3 explored.
             </p>
           )}
-          {visited.length === 3 && (
+          {
             <button className="text-link" onClick={() => setDismissed(true)}>
-              Dismiss stamp ×
+              Dismiss passport ×
             </button>
-          )}
+          }
         </div>
       )}
     </section>

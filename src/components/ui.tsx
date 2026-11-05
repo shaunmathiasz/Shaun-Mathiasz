@@ -44,7 +44,7 @@ export function TextLink({
   children: React.ReactNode;
 }) {
   return (
-    <Link className="text-link" href={href}>
+    <Link prefetch={false} className="text-link" href={href}>
       {children}
       <ArrowUpRight size={17} />
     </Link>
@@ -64,7 +64,7 @@ export function ContactCTA() {
           For opportunities across travel, hospitality and commercial growth,
           let’s start a conversation.
         </p>
-        <Link className="button gold-button" href="/contact">
+        <Link prefetch={false} className="button gold-button" href="/contact">
           Get in touch <ArrowRight size={18} />
         </Link>
       </div>

@@ -1,5 +1,7 @@
+import { HomeIntroduction } from "@/components/home-introduction";
+import { JourneyEditorial } from "@/components/journey-editorial";
 import { BrandShowcase } from "@/components/organisations";
-import { CareerGlobe } from "@/components/career-globe";
+import { CareerGlobeLoader } from "@/components/career-globe-loader";
 import { HeroAtmosphere } from "@/components/hero-atmosphere";
 import Image from "next/image";
 import { pageMetadata } from "@/lib/metadata";
@@ -26,7 +28,8 @@ export default function Home() {
   const icons = [Globe2, ChartNoAxesCombined, Compass, Handshake];
   return (
     <>
-      <section className="hero">
+      <HomeIntroduction />
+      <section className="hero" id="top">
         <HeroAtmosphere />
         <div className="hero-top">
           <p className="eyebrow">
@@ -43,7 +46,7 @@ export default function Home() {
               Shaun Denver Mathiasz
               <span>Travel Product Specialist · UK outbound travel</span>
             </p>
-            <h1>
+            <h1 className="cinematic-headline">
               Beyond
               <br />
               Destinations.
@@ -60,16 +63,30 @@ export default function Home() {
               thinking, and business growth.
             </p>
             <div className="hero-actions">
-              <Link className="button gold-button" href="/portfolio">
+              <Link
+                prefetch={false}
+                className="button gold-button"
+                href="/portfolio"
+              >
                 Explore my work <ArrowUpRight size={18} />
               </Link>
-              <Link className="button outline-button" href="/about">
+              <Link
+                prefetch={false}
+                className="button outline-button"
+                href="/about"
+              >
                 My story <ArrowUpRight size={18} />
               </Link>
             </div>
           </div>
           <div className="hero-visual">
-            <div className="hero-portrait">
+            <Link
+              prefetch={false}
+              href="/about"
+              className="hero-portrait"
+              data-cursor="EXPLORE"
+              aria-label="Shaun Denver Mathiasz / A wider perspective — About"
+            >
               <Image
                 src={site.portrait.src}
                 alt={site.portrait.alt}
@@ -77,13 +94,14 @@ export default function Home() {
                 height={site.portrait.height}
                 sizes="(max-width: 600px) 90vw, 43vw"
                 priority
+                fetchPriority="high"
               />
               <span className="portrait-label">
                 SHAUN DENVER MATHIASZ / A WIDER PERSPECTIVE
               </span>
-            </div>
+            </Link>
             <div className="visual-note">
-              <span>01 / A WIDER PERSPECTIVE</span>
+              <span>06.927° N / 79.861° E</span>
               <p>
                 Rooted in hospitality.
                 <br />
@@ -100,8 +118,8 @@ export default function Home() {
           <span>HOSPITALITY → COMMERCIAL GROWTH</span>
         </div>
       </section>
-      <section id="perspective" className="section positioning">
-        <p className="eyebrow">THE PERSPECTIVE</p>
+      <section id="perspective" className="section positioning" data-cinematic>
+        <p className="eyebrow">CHAPTER 01 / THE PERSPECTIVE</p>
         <div>
           <h2>
             Understanding the journey.
@@ -117,6 +135,7 @@ export default function Home() {
           <TextLink href="/about">More about my approach</TextLink>
         </div>
       </section>
+      <JourneyEditorial />
       <section className="section">
         <SectionTitle
           eyebrow="AREAS OF PRACTICE"
@@ -152,7 +171,7 @@ export default function Home() {
         <PortfolioGallery limit={2} />
       </section>
       <BrandShowcase />
-      <CareerGlobe />
+      <CareerGlobeLoader />
       <section className="section career-preview">
         <SectionTitle
           eyebrow="PROFESSIONAL PROGRESSION"
@@ -177,9 +196,13 @@ export default function Home() {
           <span>Luxury hospitality · Guest experience</span>
         </div>
       </section>
-      <section className="section education-snapshot">
+      <section
+        className="section education-snapshot"
+        id="development"
+        data-cinematic
+      >
         <div>
-          <p className="eyebrow">CONTINUING TO GROW</p>
+          <p className="eyebrow">CHAPTER 05 / CONTINUING TO GROW</p>
           <h2>
             Experience, supported
             <br />

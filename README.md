@@ -1,10 +1,10 @@
-# Shaun Mathiasz — Midnight Executive V2
+# Shaun Denver Mathiasz — Midnight Executive
 
-A Next.js App Router portfolio with TypeScript strict mode, Tailwind CSS v4, locally hosted Cormorant Garamond / Manrope, Motion, Lucide, MDX and Zod. Designed for executive hospitality and travel recruitment. No database or authentication.
+Next.js App Router, React, strict TypeScript, Tailwind CSS, Motion, local fonts and images. A professional portfolio preserving the established midnight travel/business identity. No database, authentication or paid AI service is needed.
 
 ## Local setup
 
-Node.js 22.9+ (Node 24 recommended).
+Use Node.js 24 and npm:
 
 ```sh
 npm ci
@@ -12,83 +12,65 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open http://localhost:3000. For an optimized local build: `npm run build` then `npm start`.
-
-## Checks
+Open http://localhost:3000. Set `NEXT_PUBLIC_SITE_URL=https://shaun-mathiasz.vercel.app` for production metadata. The existing domain stays unchanged.
 
 ```sh
 npm run lint
 npm run typecheck
 npm test
 npm run build
+npm start
 npx playwright install chromium
 npm run test:e2e
 ```
 
-Playwright covers navigation, mobile menu, page metadata, portfolio filters/details, contact validation, draft articles, 404 and overflow at 360, 390, 768, 1024 and 1440 pixels. Set `PLAYWRIGHT_BASE_URL` to an existing test server to avoid launching one. Browser binaries require a supported local environment. See VALIDATION_V2.md for current execution results (VALIDATION.md records the earlier V1 work); test files alone do not establish a passing browser review.
+`PLAYWRIGHT_BASE_URL` can target an existing production-build server or preview. `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` can select system Chromium. The build explicitly uses Next's supported Webpack option. Current measured results are in V4_REVIEW.md; historical reports retain their original scope.
 
-## Configuration
+## Content and components
 
-- `NEXT_PUBLIC_SITE_URL`: final HTTPS domain, with no trailing slash. Drives metadataBase, canonical resolution, sitemap and robots. Without it, robots blocks indexing and sitemap is empty; no invented domain is emitted.
-- `RESEND_API_KEY`: server-only Resend API key.
-- `CONTACT_FROM`: sender on a verified Resend domain, e.g. `Portfolio <portfolio@your-domain>`.
-- `CONTACT_TO`: actual recipient address, server-only.
+- `src/config/site.ts`: full professional name, email, domain, verified user-supplied LinkedIn/Instagram links and CV path.
+- `src/content/profile.ts`, `credentials.ts`, `organisations.ts`, `career-locations.ts`, `projects.ts`, `articles.ts`: typed professional information. Related company brands are one employment chapter; Oxford courses are short courses; IATA is ongoing; RAeS is a student affiliation.
+- `src/components`: navigation, hero atmosphere, organisation identities, career globe, journey, credentials, filtered portfolio, rules-based travel builder and editorial/contact controls.
+- `src/app/globals.css`: established design tokens/layout. `src/app/motion.css`: V4 choreography and responsive/reduced-motion fallbacks.
+- `src/components/cinematic-system.tsx`: optional fine-pointer cursor companion, bounded CTA movement, small card depth and progressive section reveals. Native cursor, links, keyboard and scroll remain intact.
+- `src/components/home-introduction.tsx`: non-blocking 1050ms identity ribbon, skippable via button/Escape, once per session; omitted on late hydration/reduced motion.
+- `ASSETS.md`, `V3_LOGOS.md`: photographic, geographic and official-brand provenance. No reference-site assets/code are reused.
 
-Email is enabled only when all three mail variables exist. There is no simulated success. Missing configuration shows an explicit unavailable state and API 503. Resend acceptance is reported as acceptance, not confirmed inbox delivery. Test with your verified sender and recipient before launch.
+Draft MDX is repository-owned and visibly labelled/noindex. Never render untrusted MDX or publish drafts automatically. Professional practice overviews and example itineraries must not become claimed commercial results. Do not add confidential employer information.
 
-## Content & assets
+## Contact and environment
 
-- `src/config/site.ts`: identity, navigation, domain, CV asset and verified professional links.
-- `src/content/profile.ts`: experience, education and competencies.
-- `src/content/projects.ts`: employer-safe practice overviews, with no invented metrics.
-- `src/content/articles.ts`: typed article metadata and trusted, repository-owned MDX strings. Never render user-supplied MDX. Drafts have no publication date and are noindex. Add verified publication metadata only after approval.
-- `src/assets/fonts`: self-hosted fonts and SIL Open Font License notices.
-- `src/app/globals.css`: design tokens and responsive editorial layouts.
-- `src/app/api/contact/route.ts`: server validation, honeypot, origin check, bounded in-memory throttling and email transport.
+The main public contact experience works without credentials: `mailto:shaun.emirates@gmail.com`, actual clipboard feedback/manual-copy fallback, LinkedIn and CV download. A mailto link opens the visitor's configured email app; website inbox delivery is not claimed.
 
-The supplied CV is available at `public/documents/shaun-mathiasz-cv.pdf`; all download links are enabled. This public copy permanently removes the precise home address and referees’ details, uses city-level location, and marks IATA as “2026 - Reading” as confirmed by Shaun. The original attachment is untouched and is not included in source control. Employment dates and the two Siyam World positions were transcribed from the supplied CV; no project performance claims were added.
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | HTTPS canonical domain, metadataBase, sitemap and robots |
+| `RESEND_API_KEY` | Optional server-only email transport key |
+| `CONTACT_FROM` | Optional verified Resend-domain sender |
+| `CONTACT_TO` | Optional recipient address |
 
-The supplied portrait is used unchanged on Home and About via `next/image`. LinkedIn is set to `https://www.linkedin.com/in/shaun-denver/` per Shaun’s explicit confirmation (overriding the older link embedded in the original CV); Instagram is `https://www.instagram.com/shaun.mathiasz/`. These are user-supplied destinations, not independently authenticated accounts. Professional email is taken from the CV and offered as a mailto link; backend email delivery still requires credentials.
+Only when **all three** mail variables exist does the contact page show its server-validated form. Otherwise the page shows the direct email alternative. The endpoint returns 503 when unconfigured and never simulates success. If enabling it, test provider acceptance and actual inbox delivery with a verified sender before launch. Do not expose secrets through public variables or source control.
 
-## Security & privacy
+The optional form uses Zod, origin checks, honeypot and a bounded in-memory limiter (five attempts per ten minutes per warm instance). Serverless instances do not share limiter state. Add appropriate platform rate limiting if public form traffic warrants it. The form explains email-provider processing; confirm retention/deletion arrangements before enabling collection. No messages are stored in a database or logged by this app.
 
-The form collects name, email, message and consent only. It does not persist messages in the application or log message bodies. Configured mail is processed by Resend and the recipient’s email provider. The visible form explains this. Confirm a retention/deletion policy and privacy contact before a public launch. Keep secrets out of Git and all `NEXT_PUBLIC_*` keys.
+Optional browser storage contains only interface preferences: `shaun-intro-v4` in session storage and `shaun-motion` in local storage. Storage failures are tolerated. No analytics, trackers or third-party frontend media services are added.
 
-The in-memory limiter permits five attempts per ten minutes per forwarded IP on a warm instance. It is best effort: serverless instances do not share state. Before high-volume public launch, configure Vercel Firewall/WAF rate limits for `/api/contact`; confirm trusted proxy headers, sender domain, recipient and delivery. The honeypot and validation remain active. No distributed rate limiting is claimed.
+## Public assets and facts
 
-## GitHub source control
+The authentic user-supplied portrait is delivered via Next Image with CSS colour treatment. The downloadable CV at `public/documents/shaun-mathiasz-cv.pdf` is the existing public derivative: precise home address and referees' private details removed. Historical URLs/file names containing the shorter name are preserved. The original attachment is not published.
 
-This workspace has a separate project directory so existing workspace files remain untouched. If no local Git repository exists:
+The professional name is Shaun Denver Mathiasz. Professional email is shaun.emirates@gmail.com. LinkedIn is https://www.linkedin.com/in/shaun-denver/ and Instagram is https://www.instagram.com/shaun.mathiasz/. These destinations were supplied/confirmed by Shaun; no account-ownership authentication is claimed.
 
-```sh
-git init -b main
-git add .
-git commit -m "Build Midnight Executive portfolio"
-```
+## GitHub and Vercel
 
-Create an empty repository in your GitHub account, then:
+Existing source repository: https://github.com/shaunmathiasz/Shaun-Mathiasz, branch `midnight-executive`. Existing Vercel project: `shaun-mathiasz`; production domain: https://shaun-mathiasz.vercel.app/. Preserve the existing project and domain.
 
-```sh
-git remote add origin https://github.com/YOUR_ACCOUNT/YOUR_REPOSITORY.git
-git push -u origin main
-```
+Deploy a preview of the tested commit first. Validate routes, mobile/keyboard interactions, images, CV, contact actions and 404. Preview without a configured canonical domain intentionally blocks indexing and emits an empty sitemap. Production has `NEXT_PUBLIC_SITE_URL` configured. Once preview QA passes, promote/redeploy those exact source files into the existing project and check the production alias and metadata. Do not change production secrets or domain settings for a visual upgrade.
 
-Never commit `.env.local` or private employer material.
+Native connected GitHub/Vercel tools can publish source and deployments without copying account credentials into the workspace. CLI is an alternative when authenticated locally (`vercel` for preview, then promotion/production deployment only after preview review). If Git-based automatic deployment is desired, verify the Vercel project's Git provider connection and selected production branch; a GitHub repository alone does not establish automatic deployment.
 
-## Vercel deployment
+## Verification scope
 
-1. Import the GitHub repository in Vercel; select the Next.js preset, project root, Node 24, and standard build/output settings.
-2. Add the four environment variables above for the desired environment. Keep preview deployments non-indexable unless a final domain is intentionally configured.
-3. Deploy the pushed commit. Attach the final domain and redeploy with `NEXT_PUBLIC_SITE_URL` set to it.
-4. Verify all routes, canonical URLs, generated `/sitemap.xml`, `/robots.txt`, `/opengraph-image`, mobile navigation and real email delivery.
-5. Enable Vercel Firewall protection and resolve the content/privacy launch gates below before sharing publicly.
+Vitest covers content invariants, contact/security validation, contrast tokens and builder reasoning. Playwright covers the seven main routes, portfolio details/filters, mobile navigation, globe selection, builder/reset, passport, contact clipboard success/failure, session intro, motion preference persistence, descendant active navigation, draft noindex, 404, reduced motion/no runtime errors, no-JavaScript access and overflow at 360/390/768/1024/1440px. Browser results are Chromium desktop and iPhone-emulated Chromium, not physical-device or Safari/Firefox certification.
 
-No GitHub push or Vercel deployment was performed. GitHub and Vercel integrations were discovered and offered for connection; neither connection was confirmed during implementation. The project has an initialized local Git repository.
-
-## Before public launch
-
-Supply the final domain and configure the real recipient address. CV, portrait and social links have been supplied; employment dates and role titles are now documented from the CV. IATA DTTF is Reading as explicitly confirmed by Shaun. Confirm Amadeus training details, any additional education dates desired, permission to use specific projects and evidence of outcomes. Review/approve or remove all draft articles. Do not turn practice overviews into claimed case studies without evidence. Confirm privacy retention and deletion details, review keyboard/screen-reader behavior, run browser smoke tests and test actual email delivery.
-
-## V2 guide
-
-See V2_REVIEW.md for the complete component/interaction inventory, ASSETS.md for image and geographic-data provenance, and VALIDATION_V2.md for measured results. No new runtime dependencies or environment variables were added. No-JavaScript content and hydration-safe reduced-motion support are included.
+Lighthouse lab results are measurements of a local production build with mobile throttling. They are not field Core Web Vitals, real-user INP or a full WCAG conformance claim. Current release evidence, limits, reference findings and motion system are documented in V4_REVIEW.md.

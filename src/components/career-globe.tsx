@@ -2,30 +2,10 @@
 import { useSafeReducedMotion as useReducedMotion } from "@/lib/use-safe-reduced-motion";
 import { useEffect, useRef, useState } from "react";
 
+import Image from "next/image";
+import { animate } from "motion/react";
+import { careerLocations as places } from "@/content/career-locations";
 import land from "@/content/land.json";
-const places = [
-  {
-    name: "Colombo, Sri Lanka",
-    lat: 6.927,
-    lon: 79.861,
-    tag: "PERSONAL & PROFESSIONAL BASE",
-    text: "Based in Colombo, connecting practical travel product work with ongoing studies in global business.",
-  },
-  {
-    name: "Maldives",
-    lat: 5.894,
-    lon: 73.322,
-    tag: "HOSPITALITY FOUNDATION",
-    text: "Reservations and guest operations experience at Siyam World Maldives. The marker represents the resort’s region.",
-  },
-  {
-    name: "United Kingdom",
-    lat: 51.507,
-    lon: -0.128,
-    tag: "COMMERCIAL MARKET FOCUS",
-    text: "UK outbound travel product development through Moresand Group / Travel Center UK. Market focus, not UK residence or on-site employment.",
-  },
-];
 export function projectPoint(lon: number, lat: number, rotation: number) {
   const a = ((lon - rotation) * Math.PI) / 180,
     b = (lat * Math.PI) / 180;
@@ -79,10 +59,24 @@ export function CareerGlobe() {
     }, 100);
     return () => clearInterval(timer);
   }, [paused, visible, reduced, dragging]);
+  const flight = useRef<{ stop: () => void } | null>(null);
+  useEffect(() => {
+    if (reduced) flight.current?.stop();
+    return () => flight.current?.stop();
+  }, [reduced]);
   function choose(i: number) {
+    flight.current?.stop();
     setSelected(i);
     setPaused(true);
-    setRotation(places[i].lon);
+    if (reduced) setRotation(places[i].lon);
+    else {
+      const delta = ((places[i].lon - rotation + 540) % 360) - 180;
+      flight.current = animate(rotation, rotation + delta, {
+        duration: 0.7,
+        ease: [0.22, 1, 0.36, 1],
+        onUpdate: setRotation,
+      });
+    }
   }
   const place = places[selected];
   return (
@@ -95,14 +89,20 @@ export function CareerGlobe() {
         <p className="micro-copy">Three connections. Different perspectives.</p>
       </div>
       <div className="globe-layout">
-        <div className="globe-stage" ref={ref}>
+        <div
+          className="globe-stage"
+          ref={ref}
+          data-active={visible && !paused && !reduced}
+        >
           <svg
             viewBox="0 0 500 500"
             role="img"
             aria-label="Interactive globe. Use the location buttons or rotate controls below."
             className="career-globe"
+            data-cursor="DRAG"
             onPointerDown={(e) => {
               if (e.pointerType === "mouse" || e.pointerType === "touch") {
+                flight.current?.stop();
                 drag.current = e.clientX;
                 setDragging(true);
                 e.currentTarget.setPointerCapture(e.pointerId);
@@ -111,6 +111,7 @@ export function CareerGlobe() {
             onPointerMove={(e) => {
               if (drag.current !== null) {
                 const delta = e.clientX - drag.current;
+                flight.current?.stop();
                 drag.current = e.clientX;
                 setRotation((v) => v - delta * 0.35);
               }
@@ -125,11 +126,20 @@ export function CareerGlobe() {
             }}
           >
             <defs>
-              <radialGradient id="ocean">
-                <stop stopColor="#18364d" />
+              <radialGradient id="ocean" cx="35%" cy="30%" r="75%">
+                <stop stopColor="#244b60" />
                 <stop offset="1" stopColor="#091321" />
               </radialGradient>
             </defs>
+            <circle cx="250" cy="250" r="217" fill="none" stroke="#75b9d01c" />
+            <circle
+              cx="250"
+              cy="250"
+              r="230"
+              fill="none"
+              stroke="#75b9d00c"
+              strokeDasharray="1 8"
+            />
             <circle
               cx="250"
               cy="250"
@@ -207,6 +217,7 @@ export function CareerGlobe() {
           <div className="globe-controls">
             <button
               onClick={() => {
+                flight.current?.stop();
                 setPaused(true);
                 setRotation((v) => v - 20);
               }}
@@ -227,6 +238,7 @@ export function CareerGlobe() {
             </button>
             <button
               onClick={() => {
+                flight.current?.stop();
                 setPaused(true);
                 setRotation((v) => v + 20);
               }}
@@ -254,6 +266,15 @@ export function CareerGlobe() {
               </button>
             ))}
           </div>
+          <figure className="place-image" key={place.name}>
+            <Image
+              src={place.image}
+              alt={place.caption}
+              fill
+              sizes="(max-width:600px) 90vw, 40vw"
+            />
+            <figcaption>{place.caption}</figcaption>
+          </figure>
           <div className="place-description" aria-live="polite">
             <p className="eyebrow">{place.tag}</p>
             <h3>{place.name}</h3>

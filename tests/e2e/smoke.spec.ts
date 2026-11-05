@@ -71,6 +71,7 @@ test("contact offers real alternatives without a nonfunctional form", async ({
 });
 test("globe keyboard controls and UK context", async ({ page }) => {
   await page.goto("/");
+  await page.locator(".borders").scrollIntoViewIfNeeded();
   await page.getByRole("button", { name: /United Kingdom/ }).click();
   await expect(page.locator(".place-description")).toContainText(
     "not UK residence",
@@ -138,6 +139,7 @@ test("reduced motion hydrates without runtime errors", async ({ page }) => {
   page.on("pageerror", (e) => errors.push(e.message));
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
+  await page.locator(".borders").scrollIntoViewIfNeeded();
   await expect(
     page.getByRole("button", { name: "Reduced motion" }),
   ).toBeDisabled();
@@ -197,4 +199,167 @@ test("full name and organisation showcase are readable", async ({ page }) => {
   await expect(page.locator(".brand-card").first()).toContainText(
     "Current employer group",
   );
+});
+
+test("motion can be paused and remains paused after navigation", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Pause visual effects" }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
+  await expect(
+    page.getByRole("button", { name: "Visual effects paused" }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await page.goto("/portfolio");
+  await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
+  await page.getByRole("button", { name: "Visual effects paused" }).click();
+  await expect(page.locator("html")).not.toHaveAttribute(
+    "data-motion",
+    "reduced",
+  );
+});
+
+test("copy email reports success and honest clipboard fallback", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      value: {
+        writeText: async (value: string) => {
+          (window as unknown as { copied: string }).copied = value;
+        },
+      },
+    });
+  });
+  await page.goto("/contact");
+  await page.getByRole("button", { name: "Copy Email Address" }).click();
+  await expect(page.getByRole("status")).toHaveText("Email address copied.");
+  expect(
+    await page.evaluate(() => (window as unknown as { copied: string }).copied),
+  ).toBe("shaun.emirates@gmail.com");
+  await page.evaluate(() => {
+    Object.defineProperty(navigator, "clipboard", {
+      value: {
+        writeText: async () => {
+          throw new Error("Clipboard denied");
+        },
+      },
+    });
+  });
+  await page.getByRole("button", { name: "Copy Email Address" }).click();
+  await expect(page.getByRole("status")).toContainText("Copy unavailable");
+});
+
+test("intro is session scoped and absent with reduced motion", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await expect
+    .poll(() => page.evaluate(() => sessionStorage.getItem("shaun-intro-v4")))
+    .toBe("seen");
+  await page.reload();
+  await expect(page.locator(".identity-intro")).toHaveCount(0);
+  await page.evaluate(() => sessionStorage.removeItem("shaun-intro-v4"));
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.reload();
+  await expect(page.locator(".identity-intro")).toHaveCount(0);
+  await expect(page.locator("h1")).toBeVisible();
+});
+
+test("globe panels and builder imagery match selected geography", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.locator(".borders").scrollIntoViewIfNeeded();
+  await page.getByRole("button", { name: /Maldives/ }).click();
+  await expect(page.locator(".place-image img")).toHaveAttribute(
+    "alt",
+    /Maldives/,
+  );
+  await page.getByRole("button", { name: /United Kingdom/ }).click();
+  await expect(page.locator(".place-image img")).toHaveAttribute(
+    "alt",
+    /Market context/,
+  );
+  await page.goto("/portfolio");
+  await page
+    .getByLabel("Destination", { exact: true })
+    .selectOption("Sri Lanka");
+  await expect(page.locator(".concept-image img")).toHaveAttribute(
+    "alt",
+    /Sri Lanka/,
+  );
+  await page.getByRole("button", { name: "Reset the brief" }).click();
+  await expect(page.getByLabel("Destination", { exact: true })).toHaveValue(
+    "Maldives",
+  );
+});
+
+test("descendant navigation and mobile Escape focus remain usable", async ({
+  page,
+  isMobile,
+}) => {
+  await page.goto("/portfolio/luxury-hospitality");
+  if (isMobile) {
+    await page.getByRole("button", { name: "Open menu" }).click();
+    await expect(page.locator(".mobile-nav a[aria-current=page]")).toHaveText(
+      /Portfolio/,
+    );
+    await page.locator(".mobile-nav a").first().focus();
+    await page.keyboard.press("Escape");
+    await expect(page.getByRole("button", { name: "Open menu" })).toBeFocused();
+    await expect(page.locator(".mobile-nav")).toHaveCount(0);
+  } else {
+    await expect(page.locator(".desktop-nav a[aria-current=page]")).toHaveText(
+      "Portfolio",
+    );
+  }
+});
+
+test("article copy action reports the actual link", async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "share", {
+      configurable: true,
+      value: undefined,
+    });
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      value: {
+        writeText: async (value: string) => {
+          (window as unknown as { copied: string }).copied = value;
+        },
+      },
+    });
+  });
+  await page.goto("/insights/a-considered-travel-product");
+  await page.getByRole("button", { name: "Share / copy link" }).click();
+  await expect(page.getByRole("status")).toHaveText("Article link copied.");
+  expect(
+    await page.evaluate(() => (window as unknown as { copied: string }).copied),
+  ).toBe(page.url());
+});
+
+test("cursor stays optional and clears its context when scrolling", async ({
+  page,
+  isMobile,
+}) => {
+  await page.goto("/portfolio");
+  if (isMobile) {
+    await expect(page.locator(".cursor-companion")).toBeHidden();
+  } else {
+    await page.locator(".project-card").first().hover();
+    await expect(page.locator(".cursor-companion")).toHaveText("VIEW");
+    await page.mouse.wheel(0, 600);
+    await expect(page.locator(".cursor-companion")).toHaveAttribute(
+      "data-visible",
+      "false",
+    );
+    await page.mouse.move(1279, 450);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+  }
 });

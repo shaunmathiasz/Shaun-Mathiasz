@@ -76,11 +76,13 @@ export function EducationCredentials() {
             <CredentialCard item={e} />
           </Reveal>
         ))}
-        {filter === "Executive Education" && (
-          <p className="credential-empty">
-            No executive education entries are currently listed.
-          </p>
-        )}
+        {filter !== "All" &&
+          filter !== "Certifications" &&
+          main.length === 0 && (
+            <p className="credential-empty">
+              No programmes in this category are currently listed.
+            </p>
+          )}
       </div>
       {(filter === "All" || filter === "Certifications") && (
         <details

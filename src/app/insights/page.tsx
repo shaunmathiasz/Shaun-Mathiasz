@@ -20,7 +20,12 @@ export default function Insights() {
       />
       <section className="section article-list">
         {articles.map((a, i) => (
-          <Link href={"/insights/" + a.slug} key={a.slug}>
+          <Link
+            href={"/insights/" + a.slug}
+            key={a.slug}
+            data-cinematic
+            data-cursor="READ"
+          >
             <div className="journal-cover">
               <Image
                 src={

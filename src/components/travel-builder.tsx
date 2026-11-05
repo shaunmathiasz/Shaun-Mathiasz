@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useState } from "react";
 import {
   buildConcept,
@@ -102,41 +103,63 @@ export function TravelBuilder() {
           </button>
         </form>
         <div className="concept" aria-live="polite" aria-atomic="true">
-          <p className="eyebrow">YOUR EXPLORATION / FOUR-DAY SKETCH</p>
-          <h3>{result.title}</h3>
-          <ol>
-            {result.days.map((d, i) => (
-              <li key={i}>
-                <span>0{i + 1}</span>
-                {d}
-              </li>
-            ))}
-          </ol>
-          <details open>
-            <summary>Experience priorities</summary>
-            <ul>
-              {result.priorities.map((p) => (
-                <li key={p}>{p}</li>
+          <figure className="concept-image" key={input.destination}>
+            <Image
+              src={
+                input.destination === "Maldives"
+                  ? "/images/editorial/maldives.jpg"
+                  : input.destination === "Sri Lanka"
+                    ? "/images/editorial/colombo.jpg"
+                    : "/images/editorial/london.jpg"
+              }
+              alt={`${input.destination} destination context for an illustrative travel concept`}
+              fill
+              sizes="(max-width:600px) 90vw, 45vw"
+            />
+            <figcaption>
+              {input.destination} / An illustrative journey
+            </figcaption>
+          </figure>
+          <div className="concept-brief">
+            <p className="eyebrow">YOUR EXPLORATION / FOUR-DAY SKETCH</p>
+            <p className="concept-positioning">
+              {input.traveller} · {input.theme} · {input.budget} · {input.stay}
+            </p>
+            <h3>{result.title}</h3>
+            <ol>
+              {result.days.map((d, i) => (
+                <li key={i}>
+                  <span>0{i + 1}</span>
+                  {d}
+                </li>
               ))}
-            </ul>
-          </details>
-          <details>
-            <summary>Commercial considerations</summary>
-            <ul>
-              {result.commercial.map((p) => (
-                <li key={p}>{p}</li>
-              ))}
-            </ul>
-          </details>
-          <p className="tradeoff">
-            <strong>The trade-off</strong>
-            {result.tradeoff}
-          </p>
-          <p className="micro-copy">
-            Educational example only. No booking, live fares, availability,
-            quotations or supplier pricing. Activities are suggestions to
-            validate, not confirmed inclusions.
-          </p>
+            </ol>
+            <details open>
+              <summary>Experience priorities</summary>
+              <ul>
+                {result.priorities.map((p) => (
+                  <li key={p}>{p}</li>
+                ))}
+              </ul>
+            </details>
+            <details>
+              <summary>Commercial considerations</summary>
+              <ul>
+                {result.commercial.map((p) => (
+                  <li key={p}>{p}</li>
+                ))}
+              </ul>
+            </details>
+            <p className="tradeoff">
+              <strong>The trade-off</strong>
+              {result.tradeoff}
+            </p>
+            <p className="micro-copy">
+              Educational example only. No booking, live fares, availability,
+              quotations or supplier pricing. Activities are suggestions to
+              validate, not confirmed inclusions.
+            </p>
+          </div>
         </div>
       </div>
     </section>

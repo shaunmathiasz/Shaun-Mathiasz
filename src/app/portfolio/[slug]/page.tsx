@@ -28,6 +28,7 @@ export default async function Project({
   const { slug } = await params;
   const p = projects.find((p) => p.slug === slug);
   if (!p) notFound();
+  const next = projects[(projects.indexOf(p) + 1) % projects.length];
   return (
     <>
       <PageIntro
@@ -35,7 +36,7 @@ export default async function Project({
         title={p.title}
         description={p.summary}
       />
-      <figure className="project-hero-image">
+      <figure className="project-hero-image" data-cinematic>
         <Image
           src={projectMedia[p.number].src}
           alt={projectMedia[p.number].alt}
@@ -90,9 +91,22 @@ export default async function Project({
               <li key={d}>{d}</li>
             ))}
           </ul>
+          <h2>Commercial considerations</h2>
+          <ul>
+            {p.commercialConsiderations.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
           <h2>Professional application</h2>
           <p>{p.outcome}</p>
         </div>
+      </section>
+      <section className="section next-practice" data-cinematic>
+        <p className="eyebrow">ANOTHER PERSPECTIVE / {next.number}</p>
+        <h2>{next.title}</h2>
+        <TextLink href={"/portfolio/" + next.slug}>
+          Explore this practice
+        </TextLink>
       </section>
       <ContactCTA />
     </>
