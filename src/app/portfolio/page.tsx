@@ -17,9 +17,8 @@ export default function Portfolio() {
       />
       <section className="section">
         <div className="notice">
-          These are professional practice overviews, not verified project case
-          studies. No confidential employer information or unverified
-          performance results are included.
+          Explore professional practice and illustrative thinking frameworks
+          across travel and hospitality.
         </div>
         <PortfolioGallery />
       </section>

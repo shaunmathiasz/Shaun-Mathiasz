@@ -16,7 +16,7 @@ export default function Insights() {
       <PageIntro
         eyebrow="NOTES & PERSPECTIVES"
         title="A space for considered thinking."
-        description="Exploring the questions that connect travel, hospitality and business. The pieces below are editorial drafts awaiting Shaun’s review."
+        description="Exploring the questions that connect travel, hospitality and business. The pieces below are unpublished editorial drafts."
       />
       <section className="section article-list">
         {articles.map((a, i) => (

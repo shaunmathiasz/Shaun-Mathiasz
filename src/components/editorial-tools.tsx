@@ -20,7 +20,7 @@ export function CopyEmail() {
   async function copy() {
     try {
       await navigator.clipboard.writeText(site.professionalEmail);
-      setStatus("Email copied.");
+      setStatus("Email address copied.");
     } catch {
       setStatus(
         "Copy unavailable. Select the address above or open your email app.",
@@ -30,7 +30,7 @@ export function CopyEmail() {
   return (
     <div className="copy-email">
       <button className="button outline-button" onClick={copy}>
-        Copy email address ↗
+        Copy Email Address ↗
       </button>
       <p role="status">{status}</p>
     </div>

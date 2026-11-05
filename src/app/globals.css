@@ -2733,3 +2733,339 @@ details p {
     margin-top: 25px;
   }
 }
+/* V3: personal identity and authentic organisation context. */
+.hero-identity {
+  font-family: var(--font-editorial), serif;
+  font-size: 26px !important;
+  color: var(--text);
+  line-height: 1.3 !important;
+  margin: 0 0 20px !important;
+  animation: none !important;
+}
+.hero-identity span {
+  display: block;
+  font-family: var(--font-body), sans-serif;
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  margin-top: 8px;
+}
+.wordmark {
+  white-space: nowrap;
+}
+.wordmark > span {
+  font-size: 15px;
+}
+.brand-showcase > h2 {
+  margin: 20px 0;
+}
+.brand-intro {
+  max-width: 700px;
+  font-size: 14px;
+}
+.brand-group {
+  margin: 45px 0;
+}
+.brand-group > h3 {
+  font-size: 18px;
+  margin-bottom: 22px;
+}
+.brand-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+.brand-card {
+  background: #0b1426;
+  border: 1px solid var(--line);
+  height: 100%;
+  padding: 20px;
+}
+.brand-card > summary {
+  border: 0;
+  padding: 0;
+  display: block;
+  list-style: none;
+}
+.brand-card > summary::-webkit-details-marker {
+  display: none;
+}
+.brand-card > summary > span {
+  display: block;
+  color: var(--text);
+  font-size: 13px;
+  margin-top: 15px;
+}
+.brand-card .brand-toggle {
+  color: var(--gold);
+  font-size: 10px;
+}
+.brand-card > p {
+  font-size: 12px;
+}
+.organisation-logo {
+  height: 92px;
+  padding: 15px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  min-width: 0;
+}
+.organisation-logo img {
+  object-fit: contain;
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+}
+.identity-text {
+  background: #12233b;
+  color: var(--text);
+  border: 1px solid #d2b88a33;
+  text-align: center;
+  font-family: var(--font-editorial), serif;
+  font-size: 22px;
+  line-height: 1.15;
+}
+.organisation-pair,
+.chapter-brands {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.organisation-pair p {
+  font-size: 11px;
+  margin-top: 10px;
+}
+.employer-chapters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+.employer-card {
+  border: 1px solid var(--line);
+  padding: 30px;
+  background: #0b1426;
+}
+.employer-card > .eyebrow {
+  margin: 25px 0 12px;
+}
+.employer-card h3 {
+  font-family: var(--font-editorial), serif;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+.employer-card > p:not(.eyebrow) {
+  font-size: 13px;
+}
+.chapter-brands {
+  margin: 0 0 25px;
+  max-width: 440px;
+}
+.chapter-brands .organisation-logo {
+  height: 75px;
+  padding: 12px;
+}
+.chapter-link {
+  font-size: 11px !important;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.credential-section > .filters {
+  margin-top: 0;
+}
+.credentials-list {
+  display: grid;
+  gap: 25px;
+}
+.credential-card {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: 35px;
+  padding: 30px;
+}
+.credential-card h2 {
+  font-size: 34px;
+}
+.credential-card .education-top {
+  gap: 20px;
+  margin-bottom: 22px;
+}
+.credential-card .institution {
+  margin-top: 16px;
+}
+.credential-period {
+  font-size: 12px !important;
+  color: var(--gold);
+  margin-top: 12px !important;
+}
+.credential-logos {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.credential-institution {
+  padding: 24px 15px;
+  background: #12233b;
+  border: 1px solid var(--line);
+  font-family: var(--font-editorial), serif;
+  font-size: 24px;
+  line-height: 1.2;
+}
+.credential-id {
+  overflow-wrap: anywhere;
+  font-size: 11px !important;
+}
+.certifications-section {
+  margin-top: 40px;
+}
+.certifications-section > summary {
+  font-family: var(--font-editorial), serif;
+  font-size: 30px;
+  padding: 25px 0;
+}
+.certifications-section > summary > span {
+  font-family: var(--font-body), sans-serif;
+  font-size: 11px;
+  margin-left: 20px;
+  color: var(--muted);
+}
+.credential-empty {
+  border: 1px solid var(--line);
+  padding: 30px;
+}
+.about-paths {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  border-block: 1px solid var(--line);
+  padding: 20px 0;
+  margin: 25px 0;
+}
+.about-paths a {
+  font-size: 12px;
+  color: var(--gold);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.footer > div {
+  flex-wrap: wrap;
+}
+.passport-reward button {
+  background: transparent;
+  border: 0;
+}
+.hero .hero-copy > p.hero-identity {
+  max-width: none;
+}
+@media (max-width: 1100px) {
+  .brand-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .nav-wrap {
+    gap: 12px;
+  }
+  .desktop-nav {
+    gap: 12px;
+  }
+  .desktop-nav a {
+    font-size: 10px;
+  }
+}
+@media (max-width: 850px) {
+  .brand-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .employer-chapters {
+    grid-template-columns: 1fr;
+  }
+  .credential-card {
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: 24px;
+  }
+}
+@media (max-width: 600px) {
+  .wordmark {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+  }
+  .wordmark > span {
+    font-size: 14px;
+  }
+  .hero-identity {
+    font-size: 24px !important;
+  }
+  .hero-identity span {
+    font-size: 9px;
+    line-height: 1.7;
+    max-width: 280px;
+  }
+  .brand-grid {
+    gap: 12px;
+  }
+  .brand-card {
+    padding: 15px;
+  }
+  .organisation-logo {
+    height: 78px;
+    padding: 12px;
+  }
+  .identity-text {
+    font-size: 19px;
+  }
+  .brand-card > summary > span {
+    font-size: 11px;
+  }
+  .credential-card {
+    grid-template-columns: 1fr;
+    padding: 24px 20px;
+    gap: 25px;
+  }
+  .credential-logos {
+    grid-template-columns: 1fr 1fr;
+  }
+  .credential-logos > .organisation-logo:only-child {
+    grid-column: 1/-1;
+    max-width: 230px;
+    width: 100%;
+  }
+  .credential-card h2 {
+    font-size: 30px;
+  }
+  .credential-institution {
+    grid-column: 1/-1;
+    font-size: 23px;
+  }
+  .credential-card .education-top {
+    flex-wrap: wrap;
+  }
+  .employer-card {
+    padding: 22px;
+  }
+  .organisation-pair {
+    gap: 12px;
+  }
+  .chapter-brands {
+    gap: 12px;
+  }
+  .chapter-brands .identity-text {
+    font-size: 18px;
+  }
+  .certifications-section > summary {
+    font-size: 27px;
+  }
+  .certifications-section > summary > span {
+    display: block;
+    margin: 10px 0 0;
+  }
+  .hero .hero-copy > p.hero-identity {
+    margin-top: 0 !important;
+  }
+  .portrait-label {
+    font-size: 8px;
+    letter-spacing: 0.1em;
+  }
+}

@@ -31,7 +31,7 @@ Destination research, supplier conversations and commercial analysis each offer 
 
 How can product teams communicate the character of a journey as clearly as its inclusions?
 
-*Editorial draft prepared for review. This is not a previously published article or a claim of original research.*`,
+*Unpublished editorial draft.*`,
   },
   {
     slug: "hospitality-and-commercial-thinking",
@@ -51,6 +51,6 @@ The guest experience begins before arrival. The clarity of a package, the practi
 
 A useful product discussion considers experience and commercial structure together. Neither needs to be reduced to a slogan.
 
-*Editorial draft prepared for Shaun’s review and approval. No publication date or authorship history is claimed.*`,
+*Unpublished editorial draft.*`,
   },
 ];

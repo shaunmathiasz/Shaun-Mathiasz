@@ -17,7 +17,8 @@ export const experience: Experience[] = [
       "Research destinations and develop travel products for the UK outbound market.",
       "Build packages and multi-city itineraries with attention to traveller experience.",
       "Collaborate with suppliers and marketing colleagues throughout the product lifecycle.",
-      "Analyse commercial pricing and consider margin optimisation.",
+      "Analyse flight and hotel costing, commercial pricing and product optimisation.",
+      "Evaluate suppliers, develop multi-centre itineraries and coordinate product information for sales and marketing.",
     ],
     tools: [
       "Destination research",
@@ -53,43 +54,6 @@ export const experience: Experience[] = [
     tools: ["Oracle Opera PMS", "Eleanor", "Guest communication"],
   },
 ];
-export type Education = {
-  title: string;
-  institution: string;
-  status:
-    "Ongoing" | "Completed" | "Membership" | "Verification pending" | "Reading";
-  detail: string;
-};
-export const education: Education[] = [
-  {
-    title: "BSc (Hons) Global Business Management",
-    institution: "Cardiff Metropolitan University · via ICBT Colombo",
-    status: "Ongoing",
-    detail:
-      "Developing a broader foundation in global business and management. CV lists 2027 as the anticipated completion year; studies remain ongoing.",
-  },
-  {
-    title: "OTHM Level 4 & Level 5 Business Management",
-    institution: "OTHM",
-    status: "Completed",
-    detail:
-      "Business management qualifications at Levels 4 and 5. CV lists 2025–2026.",
-  },
-  {
-    title: "Diploma in Travel and Tourism Foundation (DTTF)",
-    institution: "IATA",
-    status: "Reading",
-    detail:
-      "Currently reading, as confirmed by Shaun. The supplied CV lists IATA DTTF and 2026; this is not presented as a completed diploma. Amadeus training details require confirmation.",
-  },
-  {
-    title: "Student affiliate",
-    institution: "Royal Aeronautical Society",
-    status: "Membership",
-    detail:
-      "Student affiliate membership; no professional accreditation implied.",
-  },
-];
 export const skills = [
   {
     title: "Travel product development",
@@ -108,3 +72,5 @@ export const skills = [
     text: "Working across supplier relationships, marketing and the product lifecycle.",
   },
 ];
+
+export { education } from "./credentials";

@@ -7,7 +7,7 @@ import { site } from "@/config/site";
 export const dynamic = "force-dynamic";
 export const metadata = pageMetadata(
   "Contact",
-  "Connect with Shaun Mathiasz about recruitment, travel, hospitality and commercial opportunities.",
+  "Connect with Shaun Denver Mathiasz about recruitment, travel, hospitality and commercial opportunities.",
   "/contact",
 );
 export default function Contact() {
@@ -20,7 +20,7 @@ export default function Contact() {
       />
       <section className="section contact-grid">
         <aside>
-          <p className="eyebrow">BASED IN</p>
+          <p className="eyebrow">SHAUN DENVER MATHIASZ / COLOMBO</p>
           <h2>
             Colombo.
             <br />
@@ -82,7 +82,7 @@ export default function Contact() {
               className="button gold-button"
               href={`mailto:${site.professionalEmail}`}
             >
-              Write to Shaun ↗
+              Email Me ↗
             </a>
             <CopyEmail />
             <p className="micro-copy">

@@ -1,4 +1,5 @@
 import { ScrollProgress } from "@/components/editorial-tools";
+import { education } from "@/content/credentials";
 import localFont from "next/font/local";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -38,14 +39,14 @@ const body = localFont({
 export const metadata: Metadata = {
   metadataBase: site.url ? new URL(site.url) : undefined,
   title: {
-    default: "Shaun Mathiasz — Travel, Commerce & Strategy",
-    template: "%s | Shaun Mathiasz",
+    default: "Shaun Denver Mathiasz — Travel, Commerce & Strategy",
+    template: "%s | Shaun Denver Mathiasz",
   },
   description: site.description,
   openGraph: {
     type: "website",
     siteName: site.name,
-    title: "Shaun Mathiasz — Travel, Commerce & Strategy",
+    title: "Shaun Denver Mathiasz — Travel, Commerce & Strategy",
     description: site.description,
     ...(site.url
       ? { images: [{ url: "/opengraph-image", width: 1200, height: 630 }] }
@@ -69,6 +70,21 @@ export default function RootLayout({
       addressLocality: "Colombo",
       addressCountry: "LK",
     },
+    sameAs: site.socialLinks.map((link) => link.url),
+    hasCredential: education
+      .filter((e) => e.status === "Completed")
+      .map((e) => ({
+        "@type": "EducationalOccupationalCredential",
+        name: e.title,
+        credentialCategory:
+          e.category === "Executive Education" ? "Short course" : "Diploma",
+        recognizedBy: { "@type": "Organization", name: e.institution },
+      })),
+    memberOf: {
+      "@type": "Organization",
+      name: "Royal Aeronautical Society",
+      description: "Student Affiliate",
+    },
     worksFor: {
       "@type": "Organization",
       name: "Moresand Group / Travel Center UK",
@@ -85,14 +101,15 @@ export default function RootLayout({
         <main id="main">{children}</main>
         <footer className="footer">
           <Link href="/" className="footer-name">
-            Shaun Mathiasz<span className="gold">.</span>
+            Shaun Denver Mathiasz<span className="gold">.</span>
           </Link>
           <p>Travel. Commerce. A wider perspective.</p>
           <div>
             <span>Colombo, Sri Lanka</span>
             <Link href="/contact">Contact ↗</Link>
+            <a href={`mailto:${site.professionalEmail}`}>Email Me ↗</a>
           </div>
-          <small>© {new Date().getFullYear()} Shaun Mathiasz</small>
+          <small>© {new Date().getFullYear()} Shaun Denver Mathiasz</small>
         </footer>
         <script
           type="application/ld+json"

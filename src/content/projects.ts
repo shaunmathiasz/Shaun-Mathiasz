@@ -40,7 +40,7 @@ export const projects: Project[] = [
       "Product development",
     ],
     outcome:
-      "Responsibilities supplied by Shaun. A specific project, deliverable sample and measurable outcome have not yet been verified.",
+      "Practice focus: connecting destination research, supplier evaluation and product construction for the UK outbound market.",
   },
   {
     slug: "luxury-hospitality",
@@ -60,7 +60,7 @@ export const projects: Project[] = [
     ],
     skills: ["Hospitality", "Reservations", "Communication"],
     outcome:
-      "The supplied CV records WOW Agent / Telephone Operator (October 2024–June 2025) and Reservations Agent (June 2025–March 2026). Project-specific outcomes remain unverified.",
+      "Professional foundation: guest communication, reservations accuracy and pre-arrival coordination at Siyam World Maldives.",
   },
   {
     slug: "commercial-package-design",
@@ -80,7 +80,7 @@ export const projects: Project[] = [
     ],
     skills: ["Pricing analysis", "Package design", "Commercial thinking"],
     outcome:
-      "Scope-based practice overview. No revenue, margin uplift or other performance result is claimed.",
+      "Practice focus: balancing traveller expectations, package inclusions and commercial viability.",
   },
   {
     slug: "destination-positioning",
@@ -100,6 +100,6 @@ export const projects: Project[] = [
     ],
     skills: ["Research", "Market positioning", "Marketing collaboration"],
     outcome:
-      "Practice overview only. Campaign assets, ownership and results require employer-safe verification before inclusion.",
+      "Practice focus: translating destination research into a coherent proposition and clear marketing information.",
   },
 ];

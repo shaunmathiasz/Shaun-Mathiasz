@@ -15,9 +15,9 @@ export function Navigation() {
           href="/"
           className="wordmark"
           onClick={() => setOpen(false)}
-          aria-label="SHAUN MATHIASZ. — home"
+          aria-label="SHAUN DENVER MATHIASZ. — home"
         >
-          SHAUN
+          SHAUN DENVER
           <span>
             MATHIASZ<span className="gold">.</span>
           </span>

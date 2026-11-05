@@ -1,4 +1,5 @@
 "use client";
+import { OrganisationLogo } from "./organisation-logo";
 import { useSafeReducedMotion as useReducedMotion } from "@/lib/use-safe-reduced-motion";
 import { useRef, useState } from "react";
 import { motion, useScroll } from "motion/react";
@@ -11,6 +12,7 @@ export function ExperienceJourney() {
     offset: ["start center", "end center"],
   });
   const reduced = useReducedMotion();
+  const [dismissed, setDismissed] = useState(false);
   const [visited, setVisited] = useState<string[]>([]);
   const roles = [...experience].reverse();
   return (
@@ -18,7 +20,9 @@ export function ExperienceJourney() {
       <div className="journey-rail" aria-hidden="true">
         <motion.div style={{ scaleY: reduced ? 1 : scrollYProgress }} />
       </div>
-      <p className="eyebrow">THREE CHAPTERS / ONE CONTINUING JOURNEY</p>
+      <p className="eyebrow">
+        MY JOURNEY — FROM HOSPITALITY TO GLOBAL BUSINESS
+      </p>
       {roles.map((e, i) => (
         <article className="journey-stop" key={e.role}>
           <div className="stop-meta">
@@ -45,7 +49,20 @@ export function ExperienceJourney() {
               sizes="(max-width:600px) 90vw, 60vw"
             />
             <div className="journey-card-copy">
+              <div className="chapter-brands">
+                {(i === 2
+                  ? ["moresand", "travelcenter"]
+                  : ["siyam", "sunsiyam"]
+                ).map((id) => (
+                  <OrganisationLogo id={id} key={id} />
+                ))}
+              </div>
               <p className="eyebrow">{e.employer}</p>
+              {i === 1 && (
+                <p className="chapter-link">
+                  Continuing within Siyam World Maldives · Sun Siyam Resorts
+                </p>
+              )}
               <h2>{e.role}</h2>
               <p>{e.description}</p>
               <details
@@ -74,35 +91,37 @@ export function ExperienceJourney() {
                 {i === 2
                   ? "UK market focus; based in Colombo."
                   : "Destination imagery is contextual, not a photograph of Shaun’s workplace."}{" "}
-                Dates and responsibilities are drawn from the supplied CV and
-                profile. No performance metrics claimed.
               </p>
             </div>
           </div>
         </article>
       ))}
-      <div
-        className={
-          "passport-reward " + (visited.length === 3 ? "unlocked" : "")
-        }
-        aria-live="polite"
-      >
-        {visited.length === 3 ? (
-          <>
-            <span>✧</span>
-            <p className="eyebrow">PASSPORT STAMP / JOURNEY EXPLORER</p>
+      {!dismissed && (
+        <div
+          className={
+            "passport-reward " + (visited.length === 3 ? "unlocked" : "")
+          }
+          aria-live="polite"
+        >
+          {visited.length === 3 ? (
+            <>
+              <span>✧</span>
+              <p className="eyebrow">PASSPORT STAMP / JOURNEY EXPLORER</p>
+              <p>Every journey begins with curiosity.</p>
+            </>
+          ) : (
             <p>
-              Three chapters explored. Thank you for looking beyond the
-              headline.
+              Open each career chapter to collect a small travel stamp.{" "}
+              {visited.length}/3 explored.
             </p>
-          </>
-        ) : (
-          <p>
-            Open each career chapter to collect a small travel stamp.{" "}
-            {visited.length}/3 explored.
-          </p>
-        )}
-      </div>
+          )}
+          {visited.length === 3 && (
+            <button className="text-link" onClick={() => setDismissed(true)}>
+              Dismiss stamp ×
+            </button>
+          )}
+        </div>
+      )}
     </section>
   );
 }

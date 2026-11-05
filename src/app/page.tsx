@@ -1,3 +1,4 @@
+import { BrandShowcase } from "@/components/organisations";
 import { CareerGlobe } from "@/components/career-globe";
 import { HeroAtmosphere } from "@/components/hero-atmosphere";
 import Image from "next/image";
@@ -38,6 +39,10 @@ export default function Home() {
         </div>
         <div className="hero-content">
           <div className="hero-copy">
+            <p className="hero-identity">
+              Shaun Denver Mathiasz
+              <span>Travel Product Specialist · UK outbound travel</span>
+            </p>
             <h1>
               Beyond
               <br />
@@ -50,9 +55,9 @@ export default function Home() {
               </em>
             </h1>
             <p>
-              I’m Shaun Mathiasz — a travel product and commercial professional
-              bridging international hospitality, strategic thinking, and
-              business growth.
+              I’m Shaun Denver Mathiasz — a travel product and commercial
+              professional bridging international hospitality, strategic
+              thinking, and business growth.
             </p>
             <div className="hero-actions">
               <Link className="button gold-button" href="/portfolio">
@@ -74,7 +79,7 @@ export default function Home() {
                 priority
               />
               <span className="portrait-label">
-                SHAUN MATHIASZ / A WIDER PERSPECTIVE
+                SHAUN DENVER MATHIASZ / A WIDER PERSPECTIVE
               </span>
             </div>
             <div className="visual-note">
@@ -141,11 +146,12 @@ export default function Home() {
           <TextLink href="/portfolio">Explore all work</TextLink>
         </SectionTitle>
         <p className="section-note">
-          Practice overviews drawn from professional scope. Verified project
-          results will be added when available.
+          Professional practice across hospitality, product development and
+          commercial thinking.
         </p>
         <PortfolioGallery limit={2} />
       </section>
+      <BrandShowcase />
       <CareerGlobe />
       <section className="section career-preview">
         <SectionTitle

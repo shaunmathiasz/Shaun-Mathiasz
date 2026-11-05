@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-export const alt = "Shaun Mathiasz — Travel, Commerce & Strategy";
+export const alt = "Shaun Denver Mathiasz — Travel, Commerce & Strategy";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export default function Image() {
@@ -32,7 +32,7 @@ export default function Image() {
         <span style={{ color: "#C9A86A" }}>Towards Possibilities.</span>
       </div>
       <div style={{ fontSize: 24 }}>
-        SHAUN MATHIASZ / Travel Product Specialist
+        SHAUN DENVER MATHIASZ / Travel Product Specialist
       </div>
     </div>,
     size,

@@ -40,10 +40,7 @@ export default async function Article({
         description={a.summary}
       />
       <section className="section article-detail">
-        <div className="notice">
-          Unpublished editorial draft · no publication date assigned · awaiting
-          Shaun’s review.
-        </div>
+        <div className="notice">Unpublished editorial draft.</div>
         <ArticleTools />
         <p className="micro-copy">
           {readingMinutes(a.body)} minute estimated read

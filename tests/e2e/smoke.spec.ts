@@ -34,7 +34,7 @@ test("all primary pages and metadata", async ({ page }) => {
       "content",
       /.+/,
     );
-    await expect(page).toHaveTitle(/Shaun Mathiasz/);
+    await expect(page).toHaveTitle(/Shaun Denver Mathiasz/);
   }
 });
 test("portfolio filters and details", async ({ page }) => {
@@ -43,7 +43,7 @@ test("portfolio filters and details", async ({ page }) => {
   await expect(page.locator(".project-card")).toHaveCount(1);
   await page.locator(".project-card").click();
   await expect(
-    page.getByRole("heading", { name: "Verified outcome" }),
+    page.getByRole("heading", { name: "Professional application" }),
   ).toBeVisible();
   for (const slug of [
     "uk-outbound-product",
@@ -62,10 +62,10 @@ test("contact offers real alternatives without a nonfunctional form", async ({
 }) => {
   await page.goto("/contact");
   await expect(
-    page.getByRole("link", { name: "Write to Shaun" }),
+    page.getByRole("main").getByRole("link", { name: "Email Me" }),
   ).toHaveAttribute("href", "mailto:shaun.emirates@gmail.com");
   await expect(
-    page.getByRole("button", { name: "Copy email address" }),
+    page.getByRole("button", { name: "Copy Email Address" }),
   ).toBeVisible();
   await expect(page.locator("form")).toHaveCount(0);
 });
@@ -164,4 +164,37 @@ test("core headline and CV are available without JavaScript", async ({
   } finally {
     await context.close();
   }
+});
+test("education filters retain precise qualification distinctions", async ({
+  page,
+}) => {
+  await page.goto("/education");
+  await page
+    .getByRole("button", { name: "Executive Education", exact: true })
+    .click();
+  await expect(page.locator(".credential-card")).toHaveCount(2);
+  await expect(
+    page.getByText("Leadership Problem-Solving with AI: Think Like a Leader", {
+      exact: true,
+    }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Memberships", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "Student Affiliate", exact: true }),
+  ).toBeVisible();
+  await page
+    .getByRole("button", { name: "Certifications", exact: true })
+    .click();
+  await expect(page.getByText("WRX283G24BMZ", { exact: false })).toBeAttached();
+});
+test("full name and organisation showcase are readable", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".hero-identity")).toContainText(
+    "Shaun Denver Mathiasz",
+  );
+  await expect(page.locator(".brand-card")).toHaveCount(10);
+  await page.locator(".brand-card summary").first().click();
+  await expect(page.locator(".brand-card").first()).toContainText(
+    "Current employer group",
+  );
 });

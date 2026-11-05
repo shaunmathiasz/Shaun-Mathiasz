@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import Image from "next/image";
 import { site } from "@/config/site";
@@ -6,7 +7,7 @@ import { PageIntro, ContactCTA, SectionTitle } from "@/components/ui";
 import { skills } from "@/content/profile";
 export const metadata = pageMetadata(
   "About",
-  "Meet Shaun Mathiasz: a travel product professional with a foundation in international luxury hospitality.",
+  "Meet Shaun Denver Mathiasz: a travel product professional with a foundation in international luxury hospitality.",
   "/about",
 );
 export default function About() {
@@ -15,7 +16,7 @@ export default function About() {
       <PageIntro
         eyebrow="THE PERSON BEHIND THE PERSPECTIVE"
         title="Hospitality at heart. A wider horizon in mind."
-        description="I’m Shaun Mathiasz, a Colombo-based travel product professional interested in the intersection of international hospitality, global business and commercial growth."
+        description="I’m Shaun Denver Mathiasz, a Colombo-based travel product professional interested in the intersection of international hospitality, global business and commercial growth."
       />
       <section className="section story-grid">
         <figure className="portrait-frame">
@@ -28,7 +29,7 @@ export default function About() {
             className="profile-portrait"
           />
           <figcaption>
-            SHAUN MATHIASZ <span>TRAVEL PRODUCT SPECIALIST</span>
+            SHAUN DENVER MATHIASZ <span>TRAVEL PRODUCT SPECIALIST</span>
           </figcaption>
         </figure>
         <div className="prose">
@@ -53,7 +54,7 @@ export default function About() {
           <blockquote className="editorial-quote">
             The product promise and the traveller’s experience should belong to
             the same conversation.
-            <cite>Professional philosophy / Shaun Mathiasz</cite>
+            <cite>Professional philosophy / Shaun Denver Mathiasz</cite>
           </blockquote>
           <h3>How I approach the work</h3>
           <p>
@@ -63,6 +64,11 @@ export default function About() {
             grow towards greater responsibility in international travel and
             hospitality.
           </p>
+          <div className="about-paths">
+            <Link href="/experience">Explore my experience ↗</Link>
+            <Link href="/portfolio">View professional work ↗</Link>
+            <Link href="/education">Education & development ↗</Link>
+          </div>
           <h3>A global perspective</h3>
           <p>
             Based in Colombo, with experience connected to the Maldives and the

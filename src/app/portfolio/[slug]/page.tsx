@@ -59,8 +59,8 @@ export default async function Project({
         </aside>
         <div className="prose">
           <div className="notice">
-            Scope-based overview. Project-specific evidence and outcomes are
-            pending review.
+            Professional practice overview with an illustrative process
+            framework.
           </div>
           <h2>Challenge</h2>
           <p>{p.challenge}</p>
@@ -90,7 +90,7 @@ export default async function Project({
               <li key={d}>{d}</li>
             ))}
           </ul>
-          <h2>Verified outcome</h2>
+          <h2>Professional application</h2>
           <p>{p.outcome}</p>
         </div>
       </section>

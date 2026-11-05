@@ -1,9 +1,9 @@
 export const site = {
-  name: "Shaun Mathiasz",
+  name: "Shaun Denver Mathiasz",
   role: "Travel Product Specialist",
   location: "Colombo, Sri Lanka",
   description:
-    "Travel product development, international hospitality and commercial thinking. Explore the professional portfolio of Shaun Mathiasz.",
+    "Travel product development, international hospitality and commercial thinking. Explore the professional portfolio of Shaun Denver Mathiasz.",
   url: process.env.NEXT_PUBLIC_SITE_URL || undefined,
   socialLinks: [
     {
@@ -17,7 +17,7 @@ export const site = {
     src: "/images/shaun-mathiasz.jpg",
     width: 1254,
     height: 1254,
-    alt: "Shaun Mathiasz wearing a dark suit and tie against a blue travel-themed background",
+    alt: "Shaun Denver Mathiasz wearing a dark suit and tie against a blue travel-themed background",
   },
   professionalEmail: "shaun.emirates@gmail.com",
 };
