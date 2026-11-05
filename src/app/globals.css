@@ -3069,3 +3069,8 @@ details p {
     letter-spacing: 0.1em;
   }
 }
+
+.logo-othm {
+  background: #0b1426;
+  border: 1px solid var(--line);
+}

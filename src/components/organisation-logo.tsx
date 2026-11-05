@@ -4,7 +4,11 @@ export function OrganisationLogo({ id }: { id: string }) {
   const org = organisations[id];
   if (!org) return null;
   return (
-    <div className={"organisation-logo " + (org.logo ? "" : "identity-text")}>
+    <div
+      className={
+        "organisation-logo logo-" + id + " " + (org.logo ? "" : "identity-text")
+      }
+    >
       {org.logo ? (
         <Image
           src={org.logo}
