@@ -11,6 +11,7 @@ export function PersonalLogo({ priority = false }: { priority?: boolean }) {
       height={724}
       sizes="(max-width: 600px) 164px, 210px"
       priority={priority}
+      fetchPriority={priority ? "high" : undefined}
     />
   );
 }

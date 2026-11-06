@@ -23,3 +23,10 @@ Supplied portrait added to Home/About with next/image. Public CV download enable
 ## V2 implemented
 
 Midnight editorial identity evolved with cinematic hero, local destination imagery, hydration-safe motion, geographic SVG globe, career itinerary/stamp, photographic portfolio, illustrative product builder, richer About, education learning route/constellation, editorial draft journal and reliable direct-contact alternatives. Existing routes, professional facts and public CV retained. New docs: V2_REVIEW.md, ASSETS.md and VALIDATION_V2.md. V1 verification notes above are historical; the V2 validation record supersedes them.
+
+## WORLDWIDE game — local implementation
+
+- Added `/play`, global Play Game access, fictional typed simulation data, five-round engine, seeded events, statement reconciliation and versioned local persistence.
+- Built native WebGL Earth with 2D fallback, responsive map/planning dashboard, event/outcome/results views, audio opt-in and spoiler-free share-card export.
+- Added finance, event, scoring and persistence unit tests plus end-to-end game coverage. QA complete: 41 unit tests and 64 browser tests passed, 15 Axe scans with zero detected violations; mobile Lighthouse 95 performance / 100 accessibility / 100 best practices. Local SEO remains noindex without a configured public URL. Full results and limitations are in WORLDWIDE.md.
+- Separate deployment authorisation is required; do not deploy this task.

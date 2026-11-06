@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...navigation.map((n) => n.href),
     "/contact",
+    "/play",
     ...articles
       .filter((a) => a.status === "Published")
       .map((a) => "/insights/" + a.slug),

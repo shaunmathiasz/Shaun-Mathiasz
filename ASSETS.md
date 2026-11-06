@@ -35,3 +35,7 @@ Social interface icons: Simple Icons v12.4.0, CC0, https://github.com/simple-ico
 ## Personal signature logo — November 2026
 
 - `public/logos/shaun-denver-signature.png`: original 2172 × 724 transparent silver signature supplied by Shaun through https://chatgpt.com/s/m_6aedb8140a5081919c5698b9ee30f7d5 . Downloaded from that public share's original image endpoint, without editing or recolouring. Used at Shaun's explicit request as his personal identity in the header and footer. User-supplied AI-generated personal artwork; not an institutional mark or a stock licence. Copyright/trademark clearance is not independently asserted. The first supplied share contains a dark alternative; it is not used against the midnight background.
+
+## WORLDWIDE game
+
+The `/play` Earth texture and destination map reuse the existing Natural Earth public-domain geographic outlines in `src/content/land.json`. Globe, flight routes, atmosphere, six ambient points and share cards are drawn/generated locally. No third-party photography or audio files were added. Optional sound is synthesised locally after opt-in. Lucide icons and bundled fonts use the existing documented dependencies/assets.

@@ -1660,3 +1660,88 @@ html[data-motion="reduced"] .rolling-static {
     width: 195px;
   }
 }
+
+/* Persistent WORLDWIDE access, including every secondary page. */
+.nav-play {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #d2b88a80;
+  color: #e4cda3;
+  padding: 10px 13px;
+  min-height: 44px;
+  white-space: nowrap;
+  font-size: 10px;
+  background: linear-gradient(130deg, #d2b88a0d, transparent);
+  transition:
+    box-shadow 0.2s,
+    border-color 0.2s;
+  flex-shrink: 0;
+}
+.nav-play:hover,
+.nav-play[aria-current="page"] {
+  border-color: #d2b88a;
+  box-shadow: 0 0 18px #d2b88a1a;
+}
+.nav-play svg {
+  transition: transform 0.2s;
+}
+.nav-play:hover svg {
+  transform: rotate(-8deg);
+}
+@media (min-width: 1101px) and (max-width: 1320px) {
+  .nav-wrap {
+    gap: 14px;
+    padding-inline: 4%;
+  }
+  .desktop-nav {
+    gap: 15px;
+  }
+  .nav-wrap .personal-logo {
+    width: 180px;
+  }
+  .nav-play {
+    padding: 10px;
+  }
+  .nav-contact {
+    font-size: 10px;
+  }
+}
+@media (max-width: 600px) {
+  .nav-wrap {
+    gap: 10px;
+  }
+  .nav-wrap .personal-logo {
+    width: 138px;
+  }
+  .nav-play {
+    padding: 9px;
+    gap: 5px;
+    font-size: 9px;
+  }
+  .nav-play svg {
+    width: 15px;
+  }
+}
+@media (max-width: 380px) {
+  .nav-wrap .personal-logo {
+    width: 120px;
+  }
+  .nav-wrap {
+    padding-inline: 5%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-play,
+  .nav-play svg {
+    transition: none !important;
+  }
+  .nav-play:hover svg {
+    transform: none !important;
+  }
+}
+html[data-motion="reduced"] .nav-play svg {
+  transform: none !important;
+  transition: none !important;
+}

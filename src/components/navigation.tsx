@@ -3,7 +3,7 @@ import Link from "next/link";
 import { PersonalLogo } from "@/components/personal-logo";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowUpRight, Gamepad2 } from "lucide-react";
 import { site } from "@/config/site";
 import { navigation } from "@/config/site";
 export function Navigation() {
@@ -36,6 +36,16 @@ export function Navigation() {
             </Link>
           ))}
         </nav>
+        <Link
+          href="/play"
+          prefetch={false}
+          className="nav-play"
+          aria-current={path === "/play" ? "page" : undefined}
+          onClick={() => setOpen(false)}
+        >
+          <Gamepad2 size={17} aria-hidden="true" />
+          <span>Play Game</span>
+        </Link>
         {site.cvUrl && (
           <a className="nav-cv" href={site.cvUrl} download>
             CV ↓

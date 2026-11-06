@@ -42,12 +42,12 @@ Draft MDX is repository-owned and visibly labelled/noindex. Never render untrust
 
 The main public contact experience works without credentials: `mailto:shaun.emirates@gmail.com`, actual clipboard feedback/manual-copy fallback, LinkedIn and CV download. A mailto link opens the visitor's configured email app; website inbox delivery is not claimed.
 
-| Variable | Purpose |
-| --- | --- |
+| Variable               | Purpose                                                  |
+| ---------------------- | -------------------------------------------------------- |
 | `NEXT_PUBLIC_SITE_URL` | HTTPS canonical domain, metadataBase, sitemap and robots |
-| `RESEND_API_KEY` | Optional server-only email transport key |
-| `CONTACT_FROM` | Optional verified Resend-domain sender |
-| `CONTACT_TO` | Optional recipient address |
+| `RESEND_API_KEY`       | Optional server-only email transport key                 |
+| `CONTACT_FROM`         | Optional verified Resend-domain sender                   |
+| `CONTACT_TO`           | Optional recipient address                               |
 
 Only when **all three** mail variables exist does the contact page show its server-validated form. Otherwise the page shows the direct email alternative. The endpoint returns 503 when unconfigured and never simulates success. If enabling it, test provider acceptance and actual inbox delivery with a verified sender before launch. Do not expose secrets through public variables or source control.
 
@@ -84,3 +84,7 @@ The user approved full publication of the two existing essays on 6 November 2026
 Social profile cards on Contact expand into curated profile-link previews using Shaun's portrait and supplied links. They are not embedded feeds or scraped posts. TikTok/Facebook join the existing Instagram/LinkedIn links. The optional destination-pairs game is linked from the footer and available at `/portfolio#travel-detour`; it uses only local session state and supports keyboard play, reset and Escape dismissal. `src/app/template.tsx` adds a short route-entry treatment without delaying navigation or native scrolling. No new dependencies, accounts or secrets are needed.
 
 All fifteen short-course entries now have local issuer marks, including user-supplied Amadeus and Macquarie assets. See CERTIFICATION_LOGOS.md and ASSETS.md for provenance, licences and trademark limitations.
+
+### WORLDWIDE strategy game
+
+`/play` contains **WORLDWIDE — The Travel Tycoon Challenge**: five rounds, fictional travel-product decisions, event responses, financial statements, local saves/bests and share-card export. It adds no services, API keys or dependencies. Start the local app and visit `/play`. See [WORLDWIDE.md](WORLDWIDE.md) for the financial model, state format, accessibility, tests and asset provenance. This feature has not been deployed as part of its implementation task.
