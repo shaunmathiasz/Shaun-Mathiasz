@@ -1,3 +1,5 @@
+import { BrandPerspective } from "@/components/brand-perspective";
+import { DigitalPresence } from "@/components/digital-presence";
 import { HomeIntroduction } from "@/components/home-introduction";
 import { JourneyEditorial } from "@/components/journey-editorial";
 import { BrandShowcase } from "@/components/organisations";
@@ -135,6 +137,7 @@ export default function Home() {
           <TextLink href="/about">More about my approach</TextLink>
         </div>
       </section>
+      <BrandPerspective />
       <JourneyEditorial />
       <section className="section">
         <SectionTitle
@@ -228,10 +231,11 @@ export default function Home() {
           </a>
         ) : (
           <span aria-disabled="true">
-            Download CV <small>Available when supplied</small>
+            Download CV <small>Available on request</small>
           </span>
         )}
       </section>
+      <DigitalPresence />
       <ContactCTA />
     </>
   );

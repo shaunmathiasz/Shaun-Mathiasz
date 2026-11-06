@@ -205,6 +205,8 @@ const courses = [
   ],
 ];
 const certificationIssuers: Record<string, string> = {
+  Amadeus: "amadeus",
+  "Macquarie University": "macquarie",
   "University of Illinois Urbana-Champaign": "illinois",
   "University of London": "london",
   Adobe: "adobe",

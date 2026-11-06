@@ -47,7 +47,7 @@ export function TravelBuilder() {
           <p className="eyebrow">INTERACTIVE FIELD NOTES / 04</p>
           <h2>Behind the Journey.</h2>
         </div>
-        <span className="status">Illustrative prototype</span>
+        <span className="status">Illustrative travel concept</span>
       </div>
       <p className="builder-intro">
         A considered product starts with a few good questions. Explore how
@@ -155,9 +155,9 @@ export function TravelBuilder() {
               {result.tradeoff}
             </p>
             <p className="micro-copy">
-              Educational example only. No booking, live fares, availability,
-              quotations or supplier pricing. Activities are suggestions to
-              validate, not confirmed inclusions.
+              An illustrative travel concept, not a bookable itinerary.
+              Experiences and arrangements would need confirmation with the
+              relevant providers.
             </p>
           </div>
         </div>

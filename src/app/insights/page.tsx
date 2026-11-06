@@ -7,7 +7,7 @@ import { PageIntro } from "@/components/ui";
 import { articles } from "@/content/articles";
 export const metadata = pageMetadata(
   "Insights",
-  "Draft perspectives on travel products, guest experience and commercial thinking, prepared for review.",
+  "Perspectives by Shaun Denver Mathiasz on travel products, guest experience and commercial thinking.",
   "/insights",
 );
 export default function Insights() {
@@ -15,8 +15,8 @@ export default function Insights() {
     <>
       <PageIntro
         eyebrow="NOTES & PERSPECTIVES"
-        title="A space for considered thinking."
-        description="Exploring the questions that connect travel, hospitality and business. The pieces below are unpublished editorial drafts."
+        title="The Shaun Denver perspective."
+        description="Personal essays on the questions that connect travel, hospitality and business."
       />
       <section className="section article-list">
         {articles.map((a, i) => (
@@ -28,12 +28,8 @@ export default function Insights() {
           >
             <div className="journal-cover">
               <Image
-                src={
-                  i === 0
-                    ? "/images/editorial/landscape.jpg"
-                    : "/images/editorial/maldives.jpg"
-                }
-                alt="Contextual destination landscape accompanying an unpublished editorial draft"
+                src={a.cover}
+                alt={a.coverAlt}
                 width={800}
                 height={600}
                 sizes="(max-width:600px) 90vw, 30vw"

@@ -74,3 +74,13 @@ Native connected GitHub/Vercel tools can publish source and deployments without 
 Vitest covers content invariants, contact/security validation, contrast tokens and builder reasoning. Playwright covers the seven main routes, portfolio details/filters, mobile navigation, globe selection, builder/reset, passport, contact clipboard success/failure, session intro, motion preference persistence, descendant active navigation, draft noindex, 404, reduced motion/no runtime errors, no-JavaScript access and overflow at 360/390/768/1024/1440px. Browser results are Chromium desktop and iPhone-emulated Chromium, not physical-device or Safari/Firefox certification.
 
 Lighthouse lab results are measurements of a local production build with mobile throttling. They are not field Core Web Vitals, real-user INP or a full WCAG conformance claim. Current release evidence, limits, reference findings and motion system are documented in V4_REVIEW.md.
+
+## Personal brand, journal and Digital Presence
+
+The user approved full publication of the two existing essays on 6 November 2026. They now include substantive editorial content, references, author/date/schema metadata, indexable pages and sitemap entries. Future drafts still require explicit approval before publication. Keep illustrative examples clearly distinguishable from professional case-study outcomes.
+
+`src/content/influence.ts` centrally defines the four platforms, approved November 2026 metrics, handles, profile links, approximation markers and combined audience caption. Preserve rounded values and the non-unique-audience caveat; never imply that the rounded sum is an exact or deduplicated count. No live social API, reach, impressions or engagement data is invented. Rolling digits run once on entry, with static final figures for reduced-motion/paused-effects users and screen readers.
+
+Social profile cards on Contact expand into curated profile-link previews using Shaun's portrait and supplied links. They are not embedded feeds or scraped posts. TikTok/Facebook join the existing Instagram/LinkedIn links. The optional destination-pairs game is linked from the footer and available at `/portfolio#travel-detour`; it uses only local session state and supports keyboard play, reset and Escape dismissal. `src/app/template.tsx` adds a short route-entry treatment without delaying navigation or native scrolling. No new dependencies, accounts or secrets are needed.
+
+All fifteen short-course entries now have local issuer marks, including user-supplied Amadeus and Macquarie assets. See CERTIFICATION_LOGOS.md and ASSETS.md for provenance, licences and trademark limitations.

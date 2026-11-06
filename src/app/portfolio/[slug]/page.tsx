@@ -82,8 +82,8 @@ export default async function Project({
             ))}
           </ol>
           <p className="micro-copy">
-            Illustrative thinking framework, not evidence of a specific employer
-            project.
+            An illustrative framework for considering the traveller, destination
+            and product together.
           </p>
           <h2>Deliverables</h2>
           <ul>

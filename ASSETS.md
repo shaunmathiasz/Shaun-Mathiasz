@@ -21,3 +21,12 @@ V2 adds Latin and editorial-punctuation subsets of the supplied font sources in 
 
 No reference-site imagery, video, code or logos were copied. Existing organisation marks retain their documented trademark restrictions in V3_LOGOS.md. No new organisation marks were required in V4.
 - `public/images/career-globe-preview.svg`: original static orthographic rendering generated from the project's existing Natural Earth public-domain coordinates. Used as the no-JavaScript/near-viewport loading fallback for the existing interactive globe; no additional geographic source or external runtime.
+
+## Personal-brand journal imagery
+
+- `airport.jpg`: Eric Prouzet, Beijing International Airport. https://unsplash.com/photos/empty-airport-concierge-RYWC1OPWt9Q — free under the Unsplash License; local 1400px derivative from photo-1563810179081-0da617398af4.
+- `hospitality.jpg`: Lazar Gugleta, Metropol Palace hotel lobby, Belgrade. https://unsplash.com/photos/a-hotel-lobby-with-chandelier-and-seating-area-BgOvvTRLfCA — free under the Unsplash License; local 1400px derivative from photo-1647249893022-9287c83b8cc3.
+
+These are contextual editorial photographs, not photographs of Shaun's workplace or evidence of a personal visit. Original photographer/place information is preserved in article alt text.
+
+Social interface icons: Simple Icons v12.4.0, CC0, https://github.com/simple-icons/simple-icons/tree/12.4.0/icons — TikTok, Instagram, Facebook and LinkedIn SVGs stored locally as `public/logos/social-*.svg`. Monochrome UI icons displayed unchanged on light badges. Brand/trademark rights remain with their owners; these do not imply endorsement.

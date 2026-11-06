@@ -4,8 +4,8 @@ export const projectMedia: Record<string, { src: string; alt: string }> = {
     alt: "London skyline, contextual imagery for the UK outbound market",
   },
   "02": {
-    src: "/images/editorial/maldives.jpg",
-    alt: "Maldives island and ocean, contextual luxury travel imagery",
+    src: "/images/editorial/hospitality.jpg",
+    alt: "Metropol Palace lobby in Belgrade, contextual hospitality photography",
   },
   "03": {
     src: "/images/editorial/landscape.jpg",

@@ -106,9 +106,14 @@ export default function RootLayout({
           <Link prefetch={false} href="/" className="footer-name">
             Shaun Denver Mathiasz<span className="gold">.</span>
           </Link>
-          <p>Travel. Commerce. A wider perspective.</p>
+          <p>
+            A personal perspective on travel, hospitality & global business.
+          </p>
           <div>
             <span>Colombo, Sri Lanka</span>
+            <Link prefetch={false} href="/portfolio#travel-detour">
+              Play a little ↗
+            </Link>
             <Link prefetch={false} href="/contact">
               Contact ↗
             </Link>

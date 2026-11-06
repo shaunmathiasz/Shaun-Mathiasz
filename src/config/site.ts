@@ -3,7 +3,7 @@ export const site = {
   role: "Travel Product Specialist",
   location: "Colombo, Sri Lanka",
   description:
-    "Travel product development, international hospitality and commercial thinking. Explore the professional portfolio of Shaun Denver Mathiasz.",
+    "Travel product development, international hospitality and commercial thinking. The personal website of Shaun Denver Mathiasz: ideas, experience and a wider perspective.",
   url: process.env.NEXT_PUBLIC_SITE_URL || undefined,
   socialLinks: [
     {
@@ -11,6 +11,8 @@ export const site = {
       url: "https://www.linkedin.com/in/shaun-denver/",
     },
     { label: "Instagram", url: "https://www.instagram.com/shaun.mathiasz/" },
+    { label: "TikTok", url: "https://www.tiktok.com/@shaunmathiasz" },
+    { label: "Facebook", url: "https://www.facebook.com/ShaunMathiasz/" },
   ] as { label: string; url: string }[],
   cvUrl: "/documents/shaun-mathiasz-cv.pdf" as string | null,
   portrait: {

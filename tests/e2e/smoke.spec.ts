@@ -100,11 +100,11 @@ test("career chapters unlock a stamp", async ({ page }) => {
     "JOURNEY EXPLORER",
   );
 });
-test("draft article and 404", async ({ page }) => {
+test("published article and 404", async ({ page }) => {
   await page.goto("/insights/a-considered-travel-product");
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
     "content",
-    /noindex/,
+    /^index, follow$/,
   );
   await expect(
     page.getByRole("heading", { name: "Start with the experience" }),
@@ -376,7 +376,7 @@ test("certification gallery uses issuer logos and filters without changing recor
   ).toHaveCount(15);
   await expect(
     page.locator(".certification-gallery .organisation-logo img"),
-  ).toHaveCount(10);
+  ).toHaveCount(15);
   await page
     .getByLabel("Explore by institution")
     .selectOption("University of London");
@@ -390,4 +390,110 @@ test("certification gallery uses issuer logos and filters without changing recor
   await expect(
     page.locator(".certification-gallery .credential-card"),
   ).toHaveCount(4);
+});
+
+test("travel game supports matching, reset and keyboard dismissal", async ({
+  page,
+}) => {
+  await page.clock.install();
+  await page.goto("/portfolio");
+  await page.getByRole("button", { name: "Play destination pairs" }).click();
+  const cards = page.locator(".destination-card");
+  await expect(cards).toHaveCount(12);
+  const locations = new Map<string, number[]>();
+  for (let i = 0; i < 12; i += 2) {
+    for (const j of [i, i + 1]) {
+      await cards.nth(j).click();
+      const city = await cards.nth(j).locator("strong").innerText();
+      locations.set(city, [...(locations.get(city) || []), j]);
+    }
+    await page.clock.runFor(900);
+  }
+  for (const indexes of locations.values()) {
+    if (
+      !(await cards.nth(indexes[0]).getAttribute("aria-label"))?.includes(
+        "matched",
+      )
+    ) {
+      await cards.nth(indexes[0]).click();
+      await cards.nth(indexes[1]).click();
+      await page.clock.runFor(900);
+    }
+  }
+  await expect(page.locator(".game-message")).toContainText(
+    "All six destinations connected",
+  );
+  await page.getByRole("button", { name: "New journey" }).click();
+  await expect(page.locator(".pair-found")).toHaveCount(0);
+  await cards.first().focus();
+  await page.keyboard.press("Escape");
+  await expect(cards).toHaveCount(0);
+  await expect(
+    page.getByRole("button", { name: "Play destination pairs" }),
+  ).toBeFocused();
+});
+
+test("social profiles link to real supplied accounts", async ({ page }) => {
+  await page.goto("/contact");
+  for (const [name, url] of [
+    ["Instagram", "https://www.instagram.com/shaun.mathiasz/"],
+    ["TikTok", "https://www.tiktok.com/@shaunmathiasz"],
+    ["Facebook", "https://www.facebook.com/ShaunMathiasz/"],
+    ["LinkedIn", "https://www.linkedin.com/in/shaun-denver/"],
+  ]) {
+    const card = page.locator(".social-profile").filter({ hasText: name });
+    await card.locator("summary").click();
+    await expect(
+      card.getByRole("link", { name: "Open on " + name }),
+    ).toHaveAttribute("href", url);
+  }
+});
+
+test("digital presence preserves approved figures and rolls once into view", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const section = page.locator(".digital-presence");
+  await section.scrollIntoViewIfNeeded();
+  await expect(section.locator(".digital-platform-card")).toHaveCount(4);
+  for (const value of [
+    "3,521",
+    "7,161",
+    "Approximately 120K",
+    "Approximately 2.7K",
+    "Approximately 8.5K",
+    "Approximately 2K",
+    "500+",
+    "Approximately 15.4K",
+  ])
+    await expect(
+      section.locator(".sr-only").filter({ hasText: value }),
+    ).toBeAttached();
+  await expect(section).toContainText(
+    "Combined platform followers, not unique individuals. Figures as of November 2026.",
+  );
+  const digit = section.locator(".rolling-strip").first();
+  await expect
+    .poll(
+      async () => await digit.evaluate((el) => getComputedStyle(el).transform),
+    )
+    .not.toBe("none");
+  await page.waitForTimeout(2700);
+  const settled = await digit.evaluate((el) => getComputedStyle(el).transform);
+  await page.mouse.wheel(0, -1500);
+  await section.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(100);
+  expect(await digit.evaluate((el) => getComputedStyle(el).transform)).toBe(
+    settled,
+  );
+  for (const name of ["TikTok", "Instagram", "Facebook", "LinkedIn"])
+    await expect(
+      section.getByRole("link", { name: "Visit " + name }),
+    ).toHaveAttribute("href", /^https:/);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.reload();
+  await section.scrollIntoViewIfNeeded();
+  await expect(section.locator(".rolling-static").first()).toBeVisible();
+  await expect(section.locator(".rolling-static").first()).toHaveText("3,521");
+  await expect(section.locator(".rolling-number").first()).toBeHidden();
 });

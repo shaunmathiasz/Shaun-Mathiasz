@@ -1,3 +1,4 @@
+import { SocialProfiles } from "@/components/social-profiles";
 import { CopyEmail } from "@/components/editorial-tools";
 import { pageMetadata } from "@/lib/metadata";
 import { PageIntro } from "@/components/ui";
@@ -50,7 +51,7 @@ export default function Contact() {
                 </a>
               ))
             ) : (
-              <p>Verified professional links will be added when supplied.</p>
+              <p>Connect by email.</p>
             )}
           </div>
           <div className="contact-detail">
@@ -60,7 +61,7 @@ export default function Contact() {
                 Download CV ↗
               </a>
             ) : (
-              <p>CV download available once a current document is supplied.</p>
+              <p>Please email for a current CV.</p>
             )}
           </div>
         </aside>
@@ -92,6 +93,7 @@ export default function Contact() {
           </div>
         )}
       </section>
+      <SocialProfiles />
     </>
   );
 }

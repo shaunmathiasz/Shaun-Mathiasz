@@ -1,3 +1,4 @@
+import { TravelGame } from "@/components/travel-game";
 import { TravelBuilder } from "@/components/travel-builder";
 import { pageMetadata } from "@/lib/metadata";
 import { PageIntro, ContactCTA } from "@/components/ui";
@@ -23,6 +24,7 @@ export default function Portfolio() {
         <PortfolioGallery />
       </section>
       <TravelBuilder />
+      <TravelGame />
       <ContactCTA />
     </>
   );

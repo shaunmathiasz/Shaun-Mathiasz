@@ -151,4 +151,18 @@ export const organisations: Record<string, Organisation> = {
     context: "Short-course certification issuer.",
     logo: "/logos/essec.svg",
   },
+  amadeus: {
+    name: "Amadeus",
+    showcase: false,
+    kind: "Academic & Professional Development",
+    context: "Professional travel technology training issuer.",
+    logo: "/logos/amadeus.png",
+  },
+  macquarie: {
+    name: "Macquarie University",
+    showcase: false,
+    kind: "Academic & Professional Development",
+    context: "Short-course certification issuer.",
+    logo: "/logos/macquarie.png",
+  },
 };

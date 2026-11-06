@@ -90,7 +90,7 @@ export function ExperienceJourney() {
               <p className="micro-copy">
                 {i === 2
                   ? "UK market focus; based in Colombo."
-                  : "Destination imagery is contextual, not a photograph of Shaun’s workplace."}{" "}
+                  : "Maldives / A hospitality foundation."}{" "}
               </p>
             </div>
           </div>

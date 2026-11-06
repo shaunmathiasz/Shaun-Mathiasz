@@ -22,7 +22,7 @@ export async function generateMetadata({
       a?.summary || "Article not found",
       "/insights/" + slug,
     ),
-    robots: { index: false, follow: true },
+    robots: { index: a?.status === "Published", follow: true },
   };
 }
 export default async function Article({
@@ -35,27 +35,39 @@ export default async function Article({
   if (!a) notFound();
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: a.title,
+            datePublished: a.publishedAt,
+            author: { "@type": "Person", name: "Shaun Denver Mathiasz" },
+            description: a.summary,
+          }).replace(/</g, "\u003c"),
+        }}
+      />
       <PageIntro
-        eyebrow={a.category + " / UNPUBLISHED DRAFT"}
+        eyebrow={a.category + " / FIELD NOTES"}
         title={a.title}
         description={a.summary}
       />
       <figure className="journal-hero" data-cinematic>
         <Image
-          src={
-            a.slug === articles[0].slug
-              ? "/images/editorial/landscape.jpg"
-              : "/images/editorial/maldives.jpg"
-          }
-          alt="Destination landscape accompanying an unpublished editorial draft"
+          src={a.cover}
+          alt={a.coverAlt}
           width={1500}
           height={650}
           sizes="100vw"
         />
-        <figcaption>FIELD NOTES / UNPUBLISHED DRAFT</figcaption>
+        <figcaption>FIELD NOTES / SHAUN DENVER MATHIASZ</figcaption>
       </figure>
       <section className="section article-detail">
-        <div className="notice">Unpublished editorial draft.</div>
+        <p className="article-byline">
+          By Shaun Denver Mathiasz ·{" "}
+          <time dateTime={a.publishedAt}>6 November 2026</time>
+        </p>
         <ArticleTools />
         <p className="micro-copy">
           {readingMinutes(a.body)} minute estimated read
