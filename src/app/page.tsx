@@ -1,3 +1,4 @@
+import { SocialPagePreviews } from "@/components/social-page-previews";
 import { BrandPerspective } from "@/components/brand-perspective";
 import { DigitalPresence } from "@/components/digital-presence";
 import { HomeIntroduction } from "@/components/home-introduction";
@@ -236,6 +237,7 @@ export default function Home() {
         )}
       </section>
       <DigitalPresence />
+      <SocialPagePreviews />
       <ContactCTA />
     </>
   );

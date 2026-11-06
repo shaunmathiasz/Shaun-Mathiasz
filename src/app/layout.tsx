@@ -1,3 +1,4 @@
+import { PersonalLogo } from "@/components/personal-logo";
 import { CinematicSystem, MotionToggle } from "@/components/cinematic-system";
 import { ScrollProgress } from "@/components/editorial-tools";
 import { education } from "@/content/credentials";
@@ -104,7 +105,7 @@ export default function RootLayout({
         <main id="main">{children}</main>
         <footer className="footer">
           <Link prefetch={false} href="/" className="footer-name">
-            Shaun Denver Mathiasz<span className="gold">.</span>
+            <PersonalLogo />
           </Link>
           <p>
             A personal perspective on travel, hospitality & global business.

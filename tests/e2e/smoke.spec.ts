@@ -497,3 +497,40 @@ test("digital presence preserves approved figures and rolls once into view", asy
   await expect(section.locator(".rolling-static").first()).toHaveText("3,521");
   await expect(section.locator(".rolling-number").first()).toBeHidden();
 });
+
+test("Instagram and TikTok page previews load only on request and retain profile links", async ({
+  page,
+}) => {
+  await page.route("https://www.instagram.com/**", (route) =>
+    route.fulfill({
+      contentType: "text/html",
+      body: "<html><body>Provider preview contract</body></html>",
+    }),
+  );
+  await page.route("https://www.tiktok.com/**", (route) =>
+    route.fulfill({
+      contentType: "text/html",
+      body: "<html><body>Provider preview contract</body></html>",
+    }),
+  );
+  await page.goto("/contact");
+  const section = page.locator(".social-page-previews");
+  await expect(section.locator("iframe")).toHaveCount(0);
+  for (const [platform, url] of [
+    ["Instagram", "https://www.instagram.com/shaun.mathiasz/embed/?cr=1&v=14"],
+    ["TikTok", "https://www.tiktok.com/embed/@shaunmathiasz"],
+  ]) {
+    await section
+      .getByRole("button", { name: "Load " + platform + " preview" })
+      .click();
+    const frame = section.getByTitle(platform + " page preview", {
+      exact: false,
+    });
+    await expect(frame).toHaveAttribute("src", url);
+    await expect(
+      section.getByRole("link", { name: "Open " + platform + " page" }),
+    ).toHaveAttribute("href", /^https:/);
+    await section.getByRole("button", { name: "Close preview" }).click();
+  }
+  await expect(section.locator("iframe")).toHaveCount(0);
+});

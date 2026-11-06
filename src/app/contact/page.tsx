@@ -1,3 +1,4 @@
+import { SocialPagePreviews } from "@/components/social-page-previews";
 import { SocialProfiles } from "@/components/social-profiles";
 import { CopyEmail } from "@/components/editorial-tools";
 import { pageMetadata } from "@/lib/metadata";
@@ -93,6 +94,7 @@ export default function Contact() {
           </div>
         )}
       </section>
+      <SocialPagePreviews />
       <SocialProfiles />
     </>
   );

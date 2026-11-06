@@ -20,6 +20,7 @@ V2 adds Latin and editorial-punctuation subsets of the supplied font sources in 
 - `public/images/editorial/colombo.jpg`: Dmitriy Sarychev, “City skyline with ocean view at dusk”, Colombo, Sri Lanka. [Original photograph](https://unsplash.com/photos/city-skyline-with-ocean-view-at-dusk-QsyDe3_7OV0), [Unsplash License](https://unsplash.com/license). Source page explicitly marks the image free under that licence. Downloaded locally at 1600px; Next Image generates responsive derivatives. Contextual city imagery; it does not document Shaun's workplace or a commissioned project. Original image URL: `https://images.unsplash.com/photo-1765153743359-cfd5b64b2b64`.
 
 No reference-site imagery, video, code or logos were copied. Existing organisation marks retain their documented trademark restrictions in V3_LOGOS.md. No new organisation marks were required in V4.
+
 - `public/images/career-globe-preview.svg`: original static orthographic rendering generated from the project's existing Natural Earth public-domain coordinates. Used as the no-JavaScript/near-viewport loading fallback for the existing interactive globe; no additional geographic source or external runtime.
 
 ## Personal-brand journal imagery
@@ -30,3 +31,7 @@ No reference-site imagery, video, code or logos were copied. Existing organisati
 These are contextual editorial photographs, not photographs of Shaun's workplace or evidence of a personal visit. Original photographer/place information is preserved in article alt text.
 
 Social interface icons: Simple Icons v12.4.0, CC0, https://github.com/simple-icons/simple-icons/tree/12.4.0/icons — TikTok, Instagram, Facebook and LinkedIn SVGs stored locally as `public/logos/social-*.svg`. Monochrome UI icons displayed unchanged on light badges. Brand/trademark rights remain with their owners; these do not imply endorsement.
+
+## Personal signature logo — November 2026
+
+- `public/logos/shaun-denver-signature.png`: original 2172 × 724 transparent silver signature supplied by Shaun through https://chatgpt.com/s/m_6aedb8140a5081919c5698b9ee30f7d5 . Downloaded from that public share's original image endpoint, without editing or recolouring. Used at Shaun's explicit request as his personal identity in the header and footer. User-supplied AI-generated personal artwork; not an institutional mark or a stock licence. Copyright/trademark clearance is not independently asserted. The first supplied share contains a dark alternative; it is not used against the midnight background.

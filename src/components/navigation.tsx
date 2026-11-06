@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { PersonalLogo } from "@/components/personal-logo";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
@@ -21,10 +22,7 @@ export function Navigation() {
           onClick={() => setOpen(false)}
           aria-label="SHAUN DENVER MATHIASZ. — home"
         >
-          SHAUN DENVER{" "}
-          <span>
-            MATHIASZ<span className="gold">.</span>
-          </span>
+          <PersonalLogo priority />
         </Link>
         <nav aria-label="Main navigation" className="desktop-nav">
           {navigation.map((n) => (

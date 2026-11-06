@@ -1526,3 +1526,137 @@ html[data-motion="reduced"] .rolling-static {
     animation: none;
   }
 }
+.social-page-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.social-page-previews .section-title > p {
+  max-width: 300px;
+  font-size: 13px;
+}
+.social-page-card {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--platform-accent);
+  background: #0b1426;
+}
+.social-page-card > header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 24px;
+}
+.social-page-card > header img {
+  padding: 7px;
+  background: var(--text);
+  border-radius: 6px;
+  box-sizing: content-box;
+}
+.social-page-card h3 {
+  font-size: 18px;
+}
+.social-page-card > header a {
+  font-size: 11px;
+  color: var(--muted);
+}
+.page-preview-cover {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 340px;
+  align-items: center;
+}
+.page-preview-cover > img {
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  object-position: 50% 30%;
+  filter: saturate(0.75);
+}
+.page-preview-cover > div {
+  padding: 22px;
+}
+.page-preview-cover > div > p:not(.eyebrow) {
+  font-family: var(--font-editorial), Georgia, serif;
+  color: var(--text);
+  font-size: 27px;
+  line-height: 1.2;
+  margin: 16px 0 25px;
+}
+.page-preview-cover .button {
+  padding: 12px;
+  font-size: 10px;
+  width: 100%;
+}
+.page-preview-cover small {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-top: 15px;
+}
+.social-page-card > footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px 24px;
+  border-top: 1px solid var(--line);
+}
+.social-page-card footer .text-link {
+  font-size: 11px;
+}
+.provider-frame {
+  background: #fff;
+  min-height: 680px;
+}
+.provider-frame iframe {
+  width: 100%;
+  height: 680px;
+  display: block;
+  border: 0;
+}
+@media (max-width: 1000px) {
+  .social-page-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .page-preview-cover {
+    grid-template-columns: 1fr;
+  }
+  .page-preview-cover > img {
+    height: 250px;
+  }
+  .page-preview-cover > div {
+    padding: 24px;
+  }
+  .provider-frame,
+  .provider-frame iframe {
+    min-height: 600px;
+    height: 600px;
+  }
+}
+
+/* Original personal signature, sized by its native 3:1 proportions. */
+.wordmark {
+  flex-shrink: 0;
+}
+.personal-logo {
+  display: block;
+  width: 210px;
+  height: auto;
+  object-fit: contain;
+}
+.footer-name {
+  width: fit-content;
+}
+@media (max-width: 600px) {
+  .personal-logo {
+    width: 164px;
+  }
+  .footer .personal-logo {
+    width: 195px;
+  }
+}
