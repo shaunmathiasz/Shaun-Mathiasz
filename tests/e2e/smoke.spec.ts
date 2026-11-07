@@ -498,39 +498,58 @@ test("digital presence preserves approved figures and rolls once into view", asy
   await expect(section.locator(".rolling-number").first()).toBeHidden();
 });
 
-test("Instagram and TikTok page previews load only on request and retain profile links", async ({
+test("Instagram and TikTok page previews load on request, size to content and retain profile links", async ({
   page,
 }) => {
   await page.route("https://www.instagram.com/**", (route) =>
     route.fulfill({
       contentType: "text/html",
-      body: "<html><body>Provider preview contract</body></html>",
+      body: `<html><body style="margin:0">Instagram preview<script>parent.postMessage(JSON.stringify({type:'MOUNTED',details:{height:920}}),'*');</script></body></html>`,
     }),
   );
   await page.route("https://www.tiktok.com/**", (route) =>
     route.fulfill({
       contentType: "text/html",
-      body: "<html><body>Provider preview contract</body></html>",
+      body: `<html><body style="margin:0">TikTok preview<script>parent.postMessage(JSON.stringify({signalSource:window.name,height:880}),'*');</script></body></html>`,
     }),
   );
   await page.goto("/contact");
   const section = page.locator(".social-page-previews");
   await expect(section.locator("iframe")).toHaveCount(0);
-  for (const [platform, url] of [
-    ["Instagram", "https://www.instagram.com/shaun.mathiasz/embed/?cr=1&v=14"],
-    ["TikTok", "https://www.tiktok.com/embed/@shaunmathiasz"],
-  ]) {
-    await section
+  for (const [platform, url, height] of [
+    [
+      "Instagram",
+      "https://www.instagram.com/shaun.mathiasz/embed/?cr=1&v=14",
+      920,
+    ],
+    ["TikTok", "https://www.tiktok.com/embed/@shaunmathiasz", 880],
+  ] as const) {
+    const card = section
+      .locator(".social-page-card")
+      .filter({
+        has: page.getByRole("heading", { name: platform, exact: true }),
+      });
+    await card
       .getByRole("button", { name: "Load " + platform + " preview" })
       .click();
-    const frame = section.getByTitle(platform + " page preview", {
-      exact: false,
-    });
+    const frame = card.getByTitle(platform + " page preview", { exact: false });
     await expect(frame).toHaveAttribute("src", url);
+    await expect(frame).toHaveAttribute("data-ready", "true");
+    await expect(frame).toBeVisible();
+    const measurements = await card
+      .locator(".provider-shell")
+      .evaluate((el) => ({
+        height: el.getBoundingClientRect().height,
+        width: el.clientWidth,
+        frameWidth: el.querySelector("iframe")!.getBoundingClientRect().width,
+      }));
+    expect(measurements.frameWidth).toBeLessThanOrEqual(measurements.width + 1);
+    expect(measurements.height).toBeLessThanOrEqual(height + 1);
+    expect(measurements.height).toBeGreaterThan(700);
     await expect(
-      section.getByRole("link", { name: "Open " + platform + " page" }),
+      card.getByRole("link", { name: "Open " + platform + " page" }),
     ).toHaveAttribute("href", /^https:/);
-    await section.getByRole("button", { name: "Close preview" }).click();
+    await card.getByRole("button", { name: "Close preview" }).click();
   }
   await expect(section.locator("iframe")).toHaveCount(0);
 });

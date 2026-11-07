@@ -2260,3 +2260,106 @@ html[data-motion="reduced"] .contact-night-horizon > i {
 html[data-motion="reduced"] .curated-photo-motion {
   transform: none !important;
 }
+
+/* Provider frames use reported content heights, with a themed boundary during loading/failure. */
+.provider-shell {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+  isolation: isolate;
+  min-width: 0;
+}
+.provider-embed {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  border: 0;
+  max-width: none;
+  min-height: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.provider-embed[data-ready="true"] {
+  visibility: visible;
+  pointer-events: auto;
+}
+.provider-notice {
+  position: absolute;
+  inset: 0;
+  padding: 45px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+  background:
+    radial-gradient(ellipse at right top, #213e5640, transparent 65%), #0b1426;
+  color: var(--text);
+}
+.provider-route-mark {
+  color: var(--gold);
+  width: 60px;
+  height: 60px;
+  border: 1px solid #d2b88a55;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+}
+.provider-notice-title,
+.provider-notice h4 {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  max-width: 360px;
+  color: var(--text);
+}
+.provider-notice > p:not(.eyebrow):not(.provider-notice-title) {
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--muted);
+  max-width: 390px;
+}
+.provider-notice h4:focus {
+  outline: none;
+}
+.provider-recovery-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+.provider-recovery-actions .button {
+  font-size: 11px;
+  gap: 8px;
+  padding-inline: 16px;
+  min-height: 48px;
+}
+@media (max-width: 600px) {
+  .provider-notice {
+    padding: 32px 24px;
+    gap: 18px;
+  }
+  .provider-notice-title,
+  .provider-notice h4 {
+    font-size: 36px;
+  }
+  .provider-recovery-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .provider-notice .eyebrow {
+    font-size: 8px;
+  }
+}
+
+/* Keep recovery controls above composited cross-origin iframe hit regions. */
+.social-page-card > footer {
+  position: relative;
+  z-index: 2;
+  isolation: isolate;
+  background: #0b1426;
+}
