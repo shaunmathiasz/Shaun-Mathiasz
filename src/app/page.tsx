@@ -226,15 +226,7 @@ export default function Home() {
       </section>
       <section className="cv-strip">
         <p>A closer look at my professional background.</p>
-        {site.cvUrl ? (
-          <a href={site.cvUrl} className="text-link" download>
-            Download CV ↗
-          </a>
-        ) : (
-          <span aria-disabled="true">
-            Download CV <small>Available on request</small>
-          </span>
-        )}
+        <TextLink href={site.cvRequestUrl}>REQUEST MY CV</TextLink>
       </section>
       <DigitalPresence />
       <SocialPagePreviews />

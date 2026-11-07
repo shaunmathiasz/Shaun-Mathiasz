@@ -2363,3 +2363,15 @@ html[data-motion="reduced"] .curated-photo-motion {
   isolation: isolate;
   background: #0b1426;
 }
+
+/* Keep the longer secure-CV CTA compact in the existing navigation. */
+.nav-cv {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+@media (max-width: 1100px) {
+  .nav-wrap > .nav-cv {
+    display: none;
+  }
+}

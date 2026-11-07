@@ -150,7 +150,7 @@ test("reduced motion hydrates without runtime errors", async ({ page }) => {
   );
   expect(errors).toEqual([]);
 });
-test("core headline and CV are available without JavaScript", async ({
+test("core headline and CV request link are available without JavaScript", async ({
   browser,
   baseURL,
 }) => {
@@ -161,7 +161,7 @@ test("core headline and CV are available without JavaScript", async ({
     await expect(page.locator("h1")).toBeVisible();
     await expect(page.locator(".nav-cv")).toHaveAttribute(
       "href",
-      "/documents/shaun-mathiasz-cv.pdf",
+      "/request-cv",
     );
   } finally {
     await context.close();
@@ -524,11 +524,9 @@ test("Instagram and TikTok page previews load on request, size to content and re
     ],
     ["TikTok", "https://www.tiktok.com/embed/@shaunmathiasz", 880],
   ] as const) {
-    const card = section
-      .locator(".social-page-card")
-      .filter({
-        has: page.getByRole("heading", { name: platform, exact: true }),
-      });
+    const card = section.locator(".social-page-card").filter({
+      has: page.getByRole("heading", { name: platform, exact: true }),
+    });
     await card
       .getByRole("button", { name: "Load " + platform + " preview" })
       .click();

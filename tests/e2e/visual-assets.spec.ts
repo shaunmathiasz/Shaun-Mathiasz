@@ -65,10 +65,11 @@ test("portrait-free contact keeps the full name, email, copy action and CV", asy
   await expect(
     page.getByRole("button", { name: "Copy Email Address" }),
   ).toBeVisible();
-  await expect(page.getByRole("link", { name: "Download CV" })).toHaveAttribute(
-    "href",
-    "/documents/shaun-mathiasz-cv.pdf",
-  );
+  await expect(
+    page
+      .locator(".contact-detail")
+      .getByRole("link", { name: "REQUEST MY CV" }),
+  ).toHaveAttribute("href", "/request-cv");
   await expect(
     page.locator(".page-preview-cover .platform-artwork"),
   ).toHaveCount(2);

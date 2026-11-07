@@ -46,11 +46,15 @@ export function Navigation() {
           <Gamepad2 size={17} aria-hidden="true" />
           <span>Play Game</span>
         </Link>
-        {site.cvUrl && (
-          <a className="nav-cv" href={site.cvUrl} download>
-            CV ↓
-          </a>
-        )}
+        <Link
+          className="nav-cv"
+          href={site.cvRequestUrl}
+          prefetch={false}
+          onClick={() => setOpen(false)}
+          aria-current={path === "/request-cv" ? "page" : undefined}
+        >
+          REQUEST MY CV
+        </Link>
         <Link prefetch={false} href="/contact" className="nav-contact">
           Let’s connect <ArrowUpRight size={15} />
         </Link>
@@ -77,7 +81,11 @@ export function Navigation() {
             }
           }}
         >
-          {[...navigation, { href: "/contact", label: "Contact" }].map((n) => (
+          {[
+            ...navigation,
+            { href: site.cvRequestUrl, label: "REQUEST MY CV" },
+            { href: "/contact", label: "Contact" },
+          ].map((n) => (
             <Link
               prefetch={false}
               href={n.href}

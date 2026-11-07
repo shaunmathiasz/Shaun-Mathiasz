@@ -10,7 +10,11 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "cv:migrate": "node --env-file-if-exists=.env.local scripts/cv-migrate.mjs",
+    "cv:upload": "node --env-file-if-exists=.env.local scripts/cv-upload.mjs",
+    "test:cv": "vitest run tests/unit/cv-portal.test.ts",
+    "cv:check": "node --env-file-if-exists=.env.local scripts/cv-check.mjs"
   },
   "keywords": [],
   "author": "",
@@ -18,18 +22,22 @@
   "type": "module",
   "private": true,
   "dependencies": {
+    "@vercel/blob": "^2.8.2",
     "lucide-react": "^1.68.0",
     "motion": "^14.9.1",
     "next": "^16.4.5",
     "next-mdx-remote": "^6.0.0",
+    "pg": "^8.23.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.15",
     "@playwright/test": "^1.64.1",
     "@tailwindcss/postcss": "^4.3.4",
     "@types/node": "^26.6.6",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "eslint": "^9.39.5",
@@ -37,5 +45,10 @@
     "tailwindcss": "^4.3.4",
     "typescript": "^6.0.3",
     "vitest": "^5.1.0"
+  },
+  "overrides": {
+    "@vercel/cli-config": {
+      "zod": "$zod"
+    }
   }
 }

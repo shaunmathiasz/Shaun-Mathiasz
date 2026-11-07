@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SocialPagePreviews } from "@/components/social-page-previews";
 import { SocialProfiles } from "@/components/social-profiles";
 import { CopyEmail } from "@/components/editorial-tools";
@@ -73,13 +74,9 @@ export default function Contact() {
           </div>
           <div className="contact-detail">
             <span>Curriculum vitae</span>
-            {site.cvUrl ? (
-              <a href={site.cvUrl} download>
-                Download CV ↗
-              </a>
-            ) : (
-              <p>Please email for a current CV.</p>
-            )}
+            <Link href={site.cvRequestUrl} prefetch={false}>
+              REQUEST MY CV ↗
+            </Link>
           </div>
         </aside>
         {contactConfigured() ? (

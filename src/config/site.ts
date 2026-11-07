@@ -15,7 +15,7 @@ export const site = {
     { label: "TikTok", url: "https://www.tiktok.com/@shaunmathiasz" },
     { label: "Facebook", url: "https://www.facebook.com/ShaunMathiasz/" },
   ] as { label: string; url: string }[],
-  cvUrl: "/documents/shaun-mathiasz-cv.pdf" as string | null,
+  cvRequestUrl: "/request-cv",
   portrait: {
     src: photography.portrait.src,
     width: photography.portrait.width,

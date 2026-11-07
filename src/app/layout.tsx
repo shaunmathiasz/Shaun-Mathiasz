@@ -119,6 +119,12 @@ export default function RootLayout({
               Contact ↗
             </Link>
             <a href={`mailto:${site.professionalEmail}`}>Email Me ↗</a>
+            <Link prefetch={false} href={site.cvRequestUrl}>
+              REQUEST MY CV ↗
+            </Link>
+            <Link prefetch={false} href="/request-cv/privacy">
+              CV request privacy ↗
+            </Link>
           </div>
           <MotionToggle />
           <small>© {new Date().getFullYear()} Shaun Denver Mathiasz</small>

@@ -1,6 +1,6 @@
 # Shaun Denver Mathiasz — Midnight Executive
 
-Next.js App Router, React, strict TypeScript, Tailwind CSS, Motion, local fonts and images. A professional portfolio preserving the established midnight travel/business identity. No database, authentication or paid AI service is needed.
+Next.js App Router, React, strict TypeScript, Tailwind CSS, Motion, local fonts and images. A professional portfolio preserving the established midnight travel/business identity. The public brand pages and games need no backend credentials. The V8 secure CV portal adds PostgreSQL, private Blob storage, existing-account Resend email and owner-only authentication; it stays unavailable until configured and verified.
 
 ## Local setup
 
@@ -28,7 +28,7 @@ npm run test:e2e
 
 ## Content and components
 
-- `src/config/site.ts`: full professional name, email, domain, verified user-supplied LinkedIn/Instagram links and CV path.
+- `src/config/site.ts`: full professional name, email, domain, verified user-supplied social links and the secure CV request route.
 - `src/content/profile.ts`, `credentials.ts`, `organisations.ts`, `career-locations.ts`, `projects.ts`, `articles.ts`: typed professional information. Related company brands are one employment chapter; Oxford courses are short courses; IATA is ongoing; RAeS is a student affiliation.
 - `src/components`: navigation, hero atmosphere, organisation identities, career globe, journey, credentials, filtered portfolio, rules-based travel builder and editorial/contact controls.
 - `src/app/globals.css`: established design tokens/layout. `src/app/motion.css`: V4 choreography and responsive/reduced-motion fallbacks.
@@ -40,7 +40,7 @@ Draft MDX is repository-owned and visibly labelled/noindex. Never render untrust
 
 ## Contact and environment
 
-The main public contact experience works without credentials: `mailto:shaun.emirates@gmail.com`, actual clipboard feedback/manual-copy fallback, LinkedIn and CV download. A mailto link opens the visitor's configured email app; website inbox delivery is not claimed.
+The main public contact experience works without credentials: `mailto:shaun.emirates@gmail.com`, actual clipboard feedback/manual-copy fallback, LinkedIn and the CV request link. A mailto link opens the visitor's configured email app; website inbox delivery is not claimed.
 
 | Variable               | Purpose                                                  |
 | ---------------------- | -------------------------------------------------------- |
@@ -51,13 +51,13 @@ The main public contact experience works without credentials: `mailto:shaun.emir
 
 Only when **all three** mail variables exist does the contact page show its server-validated form. Otherwise the page shows the direct email alternative. The endpoint returns 503 when unconfigured and never simulates success. If enabling it, test provider acceptance and actual inbox delivery with a verified sender before launch. Do not expose secrets through public variables or source control.
 
-The optional form uses Zod, origin checks, honeypot and a bounded in-memory limiter (five attempts per ten minutes per warm instance). Serverless instances do not share limiter state. Add appropriate platform rate limiting if public form traffic warrants it. The form explains email-provider processing; confirm retention/deletion arrangements before enabling collection. No messages are stored in a database or logged by this app.
+The optional form uses Zod, origin checks, honeypot and a bounded in-memory limiter (five attempts per ten minutes per warm instance). Serverless instances do not share limiter state. Add appropriate platform rate limiting if public form traffic warrants it. The form explains email-provider processing; confirm retention/deletion arrangements before enabling collection. The general contact endpoint does not persist messages. The separate CV request process stores private records under its disclosed retention policy.
 
 Optional browser storage contains only interface preferences: `shaun-intro-v4` in session storage and `shaun-motion` in local storage. Storage failures are tolerated. No analytics, trackers or third-party frontend media services are added.
 
 ## Public assets and facts
 
-The authentic user-supplied portrait is delivered via Next Image with CSS colour treatment. The downloadable CV at `public/documents/shaun-mathiasz-cv.pdf` is the existing public derivative: precise home address and referees' private details removed. Historical URLs/file names containing the shorter name are preserved. The original attachment is not published.
+The authentic user-supplied portrait is delivered via Next Image with CSS colour treatment. The authentic CV derivative has been moved from the public directory to ignored local staging at `private/shaun-mathiasz-cv.pdf`, unchanged. The new portal requires private Blob storage and verified temporary access; the old static URL returns 410 in this version. Older deployments and downloaded copies are not revoked by a source change. The original attachment is not published.
 
 The professional name is Shaun Denver Mathiasz. Professional email is shaun.emirates@gmail.com. LinkedIn is https://www.linkedin.com/in/shaun-denver/ and Instagram is https://www.instagram.com/shaun.mathiasz/. These destinations were supplied/confirmed by Shaun; no account-ownership authentication is claimed.
 
@@ -92,3 +92,13 @@ All fifteen short-course entries now have local issuer marks, including user-sup
 ### Curated photography and portrait policy
 
 The authentic portrait is reserved for the Home hero. Photo metadata and page-specific reuse live in `src/content/visual-assets.ts`; `src/content/asset-inventory.json` records all public image dimensions, licences and duplicate status. Regenerate from the repository root with `node scripts/visual-asset-inventory.mjs` (Node 24). See [PORTRAIT_VISUAL_AUDIT.md](PORTRAIT_VISUAL_AUDIT.md) for the visual strategy and before/after placement inventory.
+
+## V8 — Secure CV request and owner dashboard
+
+Start with [CV portal setup](docs/CV_PORTAL_SETUP.md) and the [pre-release privacy assessment](docs/CV_PORTAL_PRIVACY_REVIEW.md). The current implementation has **not** been deployed or verified with real cloud email/storage. Do not replace the live site until the release checklist passes.
+
+Routes: `/request-cv`, `/request-cv/privacy`, `/admin/login`, `/admin/cv-requests`. Schema: `migrations/001_cv_portal.sql`. Server logic: `src/lib/cv`. Full environment names and preparation commands are in `.env.example` and the setup guide. No secrets belong in client code or Git.
+
+The portal uses mandatory six-digit email OTP, atomic verification and file-serving claims, five-minute expiry/five attempts, three controlled resends, database rate limits, Turnstile, separate owner sessions, no-store downloads, one-time optional browser geolocation, encrypted private metadata, durable owner-notification retries, safe CSV export and scheduled retention. There is no automatic claim of real delivery: provider acceptance and signed delivered events are separate states.
+
+`npm run cv:migrate`, `npm run cv:upload` and `npm run cv:check` require real service configuration. The local-only fixture helper and PGlite/browser mocks verify application behaviour without contacting recipients; they are not production credentials or end-to-end cloud verification.
