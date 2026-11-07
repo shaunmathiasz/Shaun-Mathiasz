@@ -121,6 +121,20 @@ export function configProblems(env: NodeJS.ProcessEnv = process.env) {
     !/^[A-Za-z0-9/_-]+\.pdf$/.test(env.CV_BLOB_PATHNAME)
   )
     missing.push("CV_BLOB_PATHNAME (fixed private PDF pathname)");
+  for (const name of [
+    "CV_PENDING_RETENTION_HOURS",
+    "CV_IP_RETENTION_DAYS",
+    "CV_GPS_RETENTION_DAYS",
+    "CV_VERIFIED_RETENTION_DAYS",
+  ]) {
+    if (
+      env[name] &&
+      (!Number.isInteger(Number(env[name])) ||
+        Number(env[name]) < 1 ||
+        Number(env[name]) > 365)
+    )
+      missing.push(name + " (positive whole-number duration)");
+  }
   return missing;
 }
 export function getConfig(): CvConfig {

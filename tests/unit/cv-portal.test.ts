@@ -128,6 +128,12 @@ beforeAll(async () => {
         }),
       ),
   } as Database;
+  await pg.exec(
+    await readFile(
+      new URL("../../migrations/003_durable_jobs.sql", import.meta.url),
+      "utf8",
+    ),
+  );
 }, 30000);
 beforeEach(async () => {
   await pg.exec(

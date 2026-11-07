@@ -1,3 +1,5 @@
+import { after } from "next/server";
+import { dispatchCvJobs } from "@/lib/cv/workflows/dispatch";
 import {
   endpoint,
   body,
@@ -27,5 +29,8 @@ export const POST = endpoint(async (req) => {
   );
   cookie(response, COOKIE, result.session);
   cookie(response, GRANT_COOKIE, "", 0);
+  after(async () => {
+    await dispatchCvJobs(s, result.requestId);
+  });
   return response;
 });

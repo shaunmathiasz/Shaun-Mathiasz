@@ -28,7 +28,7 @@ export function CvTurnstile({
         widget = window.turnstile.render(el.current, {
           sitekey: siteKey,
           theme: "dark",
-          size: "flexible",
+          size: el.current.clientWidth < 300 ? "compact" : "flexible",
           action: "cv-request",
           callback: (token: string) => {
             setFailed(false);

@@ -1,3 +1,4 @@
+import { dispatchCvJobs } from "@/lib/cv/workflows/dispatch";
 import { after } from "next/server";
 import {
   endpoint,
@@ -20,6 +21,7 @@ export const POST = endpoint(async (req) => {
   after(async () => {
     try {
       await s.worker(1);
+      await dispatchCvJobs(s);
     } catch {
       /* Durable outbox remains available to the scheduled worker. */
     }

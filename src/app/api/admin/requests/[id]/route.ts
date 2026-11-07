@@ -1,3 +1,4 @@
+import { dispatchCvJobs } from "@/lib/cv/workflows/dispatch";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { endpoint, body, owner, json } from "@/lib/cv/http";
@@ -29,6 +30,10 @@ export const POST = endpoint(async (req) => {
       "UPDATE cv_notification_outbox SET id=CASE WHEN provider_id IS NULL THEN id ELSE $2::uuid END,payload_ciphertext=CASE WHEN provider_id IS NULL THEN payload_ciphertext ELSE NULL END,provider_id=NULL,status='queued',attempts=0,next_attempt_at=now(),last_error=NULL WHERE request_id=$1 AND status='failed' AND (lease_until IS NULL OR lease_until<now()) RETURNING id",
       [id, randomUUID()],
     );
+    await sql.query(
+      "UPDATE cv_background_jobs SET generation=generation+1,run_id=NULL,lease_until=NULL WHERE request_id=$1 AND kind='notification'",
+      [id],
+    );
     if (!r.rowCount)
       throw new PortalError(409, "Only failed notifications can be retried.");
     await sql.query(
@@ -40,6 +45,7 @@ export const POST = endpoint(async (req) => {
       [id],
     );
   });
-  await s.worker(1);
+  await s.worker(1, id);
+  await dispatchCvJobs(s, id);
   return json({ queued: true });
 });

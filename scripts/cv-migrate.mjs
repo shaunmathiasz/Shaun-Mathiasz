@@ -26,7 +26,7 @@ try {
   const c = await pool.connect();
   try {
     await c.query("BEGIN");
-    for (const file of ["001_cv_portal.sql", "002_environment_guard.sql"]) {
+    for (const file of ["001_cv_portal.sql", "002_environment_guard.sql", "003_durable_jobs.sql"]) {
       const source = await fs.readFile(
         new URL("../migrations/" + file, import.meta.url),
         "utf8",
@@ -47,7 +47,7 @@ try {
       [environment],
     );
     await c.query(
-      "INSERT INTO cv_schema_migrations(version) VALUES('001_cv_portal'),('002_environment_guard') ON CONFLICT DO NOTHING",
+      "INSERT INTO cv_schema_migrations(version) VALUES('001_cv_portal'),('002_environment_guard'),('003_durable_jobs') ON CONFLICT DO NOTHING",
     );
     await c.query("COMMIT");
     console.log("CV migrations applied to " + environment + ".");

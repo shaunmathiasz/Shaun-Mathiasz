@@ -220,16 +220,21 @@ export class CvService {
           tokenHash(locationToken),
         ],
       );
+      if (kind === "cv")
+        await sql.query(
+          "INSERT INTO cv_background_jobs(request_id,kind) VALUES($1,'retention')",
+          [id],
+        );
       await event(sql, id, "Request Created");
       return r.rows[0];
     });
     // The cookie is returned even if provider acceptance fails, so retry is scoped to this request.
     try {
       await this.sendCode(row, code, 0);
-      return { session, locationToken, error: null };
+      return { session, locationToken, requestId: id, error: null };
     } catch (e) {
       if (e instanceof PortalError)
-        return { session, locationToken, error: e.message };
+        return { session, locationToken, requestId: id, error: e.message };
       throw e;
     }
   }
@@ -374,6 +379,10 @@ export class CvService {
           "UPDATE cv_requests SET notification_status='queued' WHERE id=$1",
           [r.id],
         );
+        await sql.query(
+          "INSERT INTO cv_background_jobs(request_id,kind) VALUES($1,'notification') ON CONFLICT DO NOTHING",
+          [r.id],
+        );
         await event(sql, r.id, "Owner Notification Queued");
       } else
         await sql.query(
@@ -515,7 +524,7 @@ export class CvService {
       );
     });
   }
-  async worker(limit = 5) {
+  async worker(limit = 5, requestId?: string) {
     await this.db.transaction(async (sql) => {
       const exhausted = await sql.query<{ request_id: string }>(
         "UPDATE cv_notification_outbox SET status='failed',lease_until=NULL,last_error='Worker lease expired at retry limit' WHERE status='processing' AND lease_until<now() AND attempts>=6 RETURNING request_id",
@@ -530,7 +539,8 @@ export class CvService {
       const claimed = await this.db.transaction(async (sql) => {
         const next = (
           await sql.query<{ id: string; request_id: string; attempts: number }>(
-            "SELECT id,request_id,attempts FROM cv_notification_outbox WHERE (status IN ('queued','failed') OR (status='processing' AND lease_until<now())) AND attempts<6 AND next_attempt_at<=now() ORDER BY created_at FOR UPDATE SKIP LOCKED LIMIT 1",
+            "SELECT id,request_id,attempts FROM cv_notification_outbox WHERE (status IN ('queued','failed') OR (status='processing' AND lease_until<now())) AND attempts<6 AND next_attempt_at<=now() AND ($1::uuid IS NULL OR request_id=$1) ORDER BY created_at FOR UPDATE SKIP LOCKED LIMIT 1",
+            [requestId ?? null],
           )
         ).rows[0];
         if (!next) return null;

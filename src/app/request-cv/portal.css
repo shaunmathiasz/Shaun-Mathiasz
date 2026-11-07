@@ -504,3 +504,9 @@
     transition: none;
   }
 }
+
+@media (max-width: 540px) {
+  .cv-security {
+    min-height: 145px;
+  }
+}

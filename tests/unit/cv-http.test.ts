@@ -109,6 +109,12 @@ beforeAll(async () => {
       return new Uint8Array(Buffer.from("%PDF-1.4\nprivate fixture"));
     },
   };
+  await pg.exec(
+    await readFile(
+      new URL("../../migrations/003_durable_jobs.sql", import.meta.url),
+      "utf8",
+    ),
+  );
 }, 30000);
 beforeEach(async () => {
   await pg.exec(
@@ -146,8 +152,8 @@ it("runs form → OTP → private download through route handlers with secure co
   expect((await download(req("/api/cv-download", {}, cookies))).status).toBe(
     410,
   );
-  expect(deps.jobs).toHaveLength(1);
-  await deps.jobs[0]();
+  expect(deps.jobs).toHaveLength(2);
+  await deps.jobs.at(-1)!();
   const owner = sends.find((e) => e.owner)!;
   expect(owner.html).not.toContain("<script>not executable</script>");
   expect(owner.html).toContain("&lt;script&gt;");
@@ -229,7 +235,7 @@ it("requires a valid signed provider event before claiming delivery", async () =
   await verify(
     req("/api/cv-verify", { code: f.code }, { [COOKIE]: f.session }),
   );
-  await deps.jobs[0]();
+  await deps.jobs.at(-1)!();
   const outbox = (
     await deps.db.query("SELECT provider_id FROM cv_notification_outbox")
   ).rows[0];
