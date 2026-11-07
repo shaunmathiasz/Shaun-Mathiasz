@@ -39,3 +39,7 @@ Social interface icons: Simple Icons v12.4.0, CC0, https://github.com/simple-ico
 ## WORLDWIDE game
 
 The `/play` Earth texture and destination map reuse the existing Natural Earth public-domain geographic outlines in `src/content/land.json`. Globe, flight routes, atmosphere, six ambient points and share cards are drawn/generated locally. No third-party photography or audio files were added. Optional sound is synthesised locally after opt-in. Lucide icons and bundled fonts use the existing documented dependencies/assets.
+
+## Curated visual audit — 7 November 2026
+
+No new photographic assets were downloaded. The authentic portrait is reserved for the Home hero. About now uses an original career folio and the existing licensed Colombo photograph. Social fallback covers use original platform-specific HTML/CSS compositions with existing Simple Icons, and the reservations chapter uses an original process illustration. Full inventory, dimensions, alt text, provenance and duplicate status: `src/content/asset-inventory.json`; typed photography definitions: `src/content/visual-assets.ts`. Regenerate on Node 24 with `node scripts/visual-asset-inventory.mjs`. See `PORTRAIT_VISUAL_AUDIT.md` for every removed portrait placement and the validation results.

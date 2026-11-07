@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
-import Image from "next/image";
-import { site } from "@/config/site";
+import { EditorialImage } from "@/components/editorial-image";
 import { pageMetadata } from "@/lib/metadata";
 import { PageIntro, ContactCTA, SectionTitle } from "@/components/ui";
-import { skills } from "@/content/profile";
+import { skills, experience } from "@/content/profile";
 export const metadata = pageMetadata(
   "About",
   "Meet Shaun Denver Mathiasz: a travel product professional with a foundation in international luxury hospitality.",
@@ -19,19 +18,42 @@ export default function About() {
         description="I’m Shaun Denver Mathiasz, a Colombo-based travel product professional interested in the intersection of international hospitality, global business and commercial growth."
       />
       <section className="section story-grid">
-        <figure className="portrait-frame" data-cinematic>
-          <Image
-            src={site.portrait.src}
-            alt={site.portrait.alt}
-            width={site.portrait.width}
-            height={site.portrait.height}
-            sizes="(max-width: 600px) 90vw, 40vw"
-            className="profile-portrait"
-          />
-          <figcaption>
-            SHAUN DENVER MATHIASZ <span>TRAVEL PRODUCT SPECIALIST</span>
-          </figcaption>
-        </figure>
+        <aside
+          className="story-folio"
+          aria-label="Professional journey in perspective"
+        >
+          <p className="eyebrow">FIELD NOTES / AN EVOLVING PERSPECTIVE</p>
+          <h2>
+            The detail.
+            <br />
+            The journey.
+            <br />
+            <em>The bigger picture.</em>
+          </h2>
+          <div className="folio-route" aria-hidden="true">
+            <span>MLE</span>
+            <i />
+            <span>CMB</span>
+            <i />
+            <span>UK MARKET</span>
+          </div>
+          <ol>
+            {[...experience].reverse().map((role, i) => (
+              <li key={role.role}>
+                <span>0{i + 1}</span>
+                <div>
+                  <p>{role.role}</p>
+                  <small>{role.period}</small>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <p className="folio-base">
+            COLOMBO / SRI LANKA
+            <br />
+            <span>My professional and academic base.</span>
+          </p>
+        </aside>
         <div className="prose">
           <p className="eyebrow">MY STORY</p>
           <h2>From the guest experience to the product behind it.</h2>
@@ -91,18 +113,10 @@ export default function About() {
             traveller’s perspective.
           </p>
         </div>
-        <figure>
-          <Image
-            src="/images/editorial/maldives.jpg"
-            alt="Maldives island landscape providing context for Shaun’s hospitality background"
-            width={1000}
-            height={750}
-            sizes="(max-width:600px) 90vw, 45vw"
-          />
-          <figcaption>
-            MALDIVES / A HOSPITALITY FOUNDATION · CONTEXTUAL IMAGERY
-          </figcaption>
-        </figure>
+        <EditorialImage
+          asset="colombo"
+          caption="COLOMBO / MY PROFESSIONAL & ACADEMIC BASE · CONTEXTUAL PHOTOGRAPHY"
+        />
       </section>
       <section className="section">
         <SectionTitle

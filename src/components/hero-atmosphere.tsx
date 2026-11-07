@@ -1,4 +1,5 @@
 "use client";
+import { photography } from "@/content/visual-assets";
 import { useSafeReducedMotion as useReducedMotion } from "@/lib/use-safe-reduced-motion";
 import { useRef } from "react";
 import Image from "next/image";
@@ -15,7 +16,7 @@ export function HeroAtmosphere() {
     <div className="hero-atmosphere" ref={ref} aria-hidden="true">
       <motion.div style={{ y: reduced ? 0 : y }}>
         <Image
-          src="/images/editorial/maldives.jpg"
+          src={photography.maldives.src}
           alt=""
           fill
           sizes="(max-width: 600px) 1px, 100vw"

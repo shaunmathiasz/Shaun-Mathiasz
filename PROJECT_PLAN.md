@@ -30,3 +30,10 @@ Midnight editorial identity evolved with cinematic hero, local destination image
 - Built native WebGL Earth with 2D fallback, responsive map/planning dashboard, event/outcome/results views, audio opt-in and spoiler-free share-card export.
 - Added finance, event, scoring and persistence unit tests plus end-to-end game coverage. QA complete: 41 unit tests and 64 browser tests passed, 15 Axe scans with zero detected violations; mobile Lighthouse 95 performance / 100 accessibility / 100 best practices. Local SEO remains noindex without a configured public URL. Full results and limitations are in WORLDWIDE.md.
 - Separate deployment authorisation is required; do not deploy this task.
+
+## Portrait deduplication & curated visual upgrade — 7 November 2026
+
+- Audited 10 rendered portrait placements and retained only the Home hero (1). About now uses an original career folio and Colombo feature; social previews/cards use platform-specific graphics. Contact is portrait-free with a typography-led horizon. Reservations has a distinct original process illustration.
+- Central typed photo library and generated 34-image inventory record source/licence, dimensions, use, alt text and duplicate status; no byte-identical duplicate groups, no new photo downloads.
+- Lint, typecheck, 41 unit tests, production build and 70 browser tests passed. Twelve visual/Axe scans had zero detected violations, broken images or overflow. Local mobile Contact Lighthouse: 94 performance / 100 accessibility / 100 best practices; LCP 0.9s, CLS 0, TBT 300ms. See PORTRAIT_VISUAL_AUDIT.md for limits and full placement audit.
+- Local implementation only; the existing production deployment is unchanged. A later deployment should use the established preview verification workflow.

@@ -2,7 +2,6 @@ import { SocialPagePreviews } from "@/components/social-page-previews";
 import { SocialProfiles } from "@/components/social-profiles";
 import { CopyEmail } from "@/components/editorial-tools";
 import { pageMetadata } from "@/lib/metadata";
-import { PageIntro } from "@/components/ui";
 import { ContactForm } from "@/components/contact-form";
 import { contactConfigured } from "@/lib/contact";
 import { site } from "@/config/site";
@@ -15,11 +14,28 @@ export const metadata = pageMetadata(
 export default function Contact() {
   return (
     <>
-      <PageIntro
-        eyebrow="LET’S CONNECT"
-        title="Good conversations. New possibilities."
-        description="For recruitment opportunities, professional introductions and thoughtful collaborations across travel and hospitality."
-      />
+      <section className="page-intro contact-horizon-intro">
+        <div className="contact-night-horizon" aria-hidden="true">
+          <span />
+          <i />
+        </div>
+        <p className="eyebrow">LET’S CONNECT / SHAUN DENVER MATHIASZ</p>
+        <h1>
+          Good conversations.
+          <br />
+          <em>New possibilities.</em>
+        </h1>
+        <p className="lead">
+          For recruitment opportunities, professional introductions and
+          thoughtful collaborations across travel and hospitality.
+        </p>
+        <a
+          className="contact-intro-email text-link"
+          href={`mailto:${site.professionalEmail}`}
+        >
+          {site.professionalEmail} ↗
+        </a>
+      </section>
       <section className="section contact-grid">
         <aside>
           <p className="eyebrow">SHAUN DENVER MATHIASZ / COLOMBO</p>

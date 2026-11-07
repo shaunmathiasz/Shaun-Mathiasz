@@ -1,0 +1,772 @@
+{
+  "schemaVersion": 1,
+  "scope": "Public raster/SVG images. Fonts and historical PDF are documented separately, not image placements.",
+  "portraitPolicy": "One authentic portrait, one rendered placement in the Home hero. Third-party provider embeds control their own media.",
+  "photos": 7,
+  "assetCount": 34,
+  "byteDuplicateGroups": 0,
+  "authoredVisuals": [
+    {
+      "path": "src/components/platform-artwork.tsx",
+      "pages": [
+        "/",
+        "/contact"
+      ],
+      "purpose": "Four distinct profile-link graphics, never represented as real posts",
+      "format": "HTML/CSS + existing platform SVG",
+      "dimensions": "Responsive; full and compact variants",
+      "licence": "Original website graphics; existing Simple Icons are CC0 with retained trademark restrictions",
+      "alt": "Visible platform, profile handle and descriptive text; icon is decorative",
+      "duplicateStatus": "Intentional component reuse with four platform treatments"
+    },
+    {
+      "path": "src/app/about/page.tsx",
+      "pages": [
+        "/about"
+      ],
+      "purpose": "Original field-notes career folio in place of the repeated portrait",
+      "format": "Semantic HTML/CSS",
+      "dimensions": "Responsive",
+      "licence": "Original website artwork",
+      "alt": "Native ordered career list with verified titles and periods",
+      "duplicateStatus": "Unique authored composition"
+    },
+    {
+      "path": "src/components/experience-journey.tsx",
+      "pages": [
+        "/experience"
+      ],
+      "purpose": "Reservations process illustration, not internal operational data",
+      "format": "Semantic HTML/CSS",
+      "dimensions": "Responsive",
+      "licence": "Original website artwork",
+      "alt": "Clear reservation details, thoughtful communication, guest confidence",
+      "duplicateStatus": "Unique reservations chapter composition"
+    },
+    {
+      "path": "src/app/motion.css",
+      "pages": [
+        "/contact"
+      ],
+      "purpose": "Decorative midnight horizon and one-pass light accent",
+      "format": "CSS",
+      "dimensions": "Responsive",
+      "licence": "Original website artwork",
+      "alt": "Decorative, hidden from assistive technology",
+      "duplicateStatus": "Unique authored composition"
+    }
+  ],
+  "assets": [
+    {
+      "path": "public/images/career-globe-preview.svg",
+      "url": "/images/career-globe-preview.svg",
+      "width": 500,
+      "height": 500,
+      "format": "svg",
+      "bytes": 16027,
+      "sha256": "f740111e57051f3b89c0cff43b3f0ca2d9b45ec03b58884a5ac557d2cacef389",
+      "pages": [
+        "/"
+      ],
+      "purpose": "No-JavaScript and loading fallback for the interactive career globe.",
+      "attribution": "Original website rendering / Natural Earth",
+      "source": "https://www.naturalearthdata.com/about/terms-of-use/",
+      "licence": "Natural Earth public-domain geography; original SVG rendering.",
+      "alt": "Static career globe showing the Maldives, Colombo and the UK market connection",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/images/editorial/airport.jpg",
+      "url": "/images/editorial/airport.jpg",
+      "width": 1400,
+      "height": 932,
+      "format": "jpeg",
+      "bytes": 275470,
+      "sha256": "9e2f5a0527aacb7ec816a525e75f7fe50f663c60ca10f73736723f088fdbbd36",
+      "pages": [
+        "/",
+        "/insights",
+        "/insights/a-considered-travel-product"
+      ],
+      "purpose": "Travel-product journal cover, without implying a personal visit.",
+      "attribution": "Eric Prouzet / Unsplash",
+      "source": "https://unsplash.com/photos/empty-airport-concierge-RYWC1OPWt9Q",
+      "licence": "Unsplash License — https://unsplash.com/license",
+      "alt": "Beijing International Airport concourse photographed by Eric Prouzet, contextual travel imagery",
+      "reuse": "Article cover and its matching index/related/home article cards.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/images/editorial/colombo.jpg",
+      "url": "/images/editorial/colombo.jpg",
+      "width": 1600,
+      "height": 1067,
+      "format": "jpeg",
+      "bytes": 247635,
+      "sha256": "420a0ada9f24b3d1f3dd5d7184d021921795130616647e8d2acb380245f1d029",
+      "pages": [
+        "/",
+        "/about",
+        "/portfolio"
+      ],
+      "purpose": "Professional base and international perspective.",
+      "attribution": "Dmitriy Sarychev / Unsplash",
+      "source": "https://unsplash.com/photos/city-skyline-with-ocean-view-at-dusk-QsyDe3_7OV0",
+      "licence": "Unsplash License — https://unsplash.com/license",
+      "alt": "Colombo coastal skyline at dusk, contextual photography of Shaun’s professional and academic base",
+      "reuse": "Intentional geographic reuse: base marker, professional transition, Sri Lanka example and About city feature.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/images/editorial/hospitality.jpg",
+      "url": "/images/editorial/hospitality.jpg",
+      "width": 1400,
+      "height": 1616,
+      "format": "jpeg",
+      "bytes": 468711,
+      "sha256": "ecf545f77201865a8d343eb62e1968af180fb41a3c18da51d1cad58d66df5135",
+      "pages": [
+        "/",
+        "/portfolio",
+        "/portfolio/luxury-hospitality",
+        "/insights",
+        "/insights/hospitality-and-commercial-thinking"
+      ],
+      "purpose": "Hospitality editorial/practice illustration; not a photograph of Shaun’s employer.",
+      "attribution": "Lazar Gugleta / Unsplash",
+      "source": "https://unsplash.com/photos/a-hotel-lobby-with-chandelier-and-seating-area-BgOvvTRLfCA",
+      "licence": "Unsplash License — https://unsplash.com/license",
+      "alt": "Metropol Palace hotel lobby in Belgrade photographed by Lazar Gugleta, contextual hospitality imagery",
+      "reuse": "Related hospitality practice and journal material only; not a cover for unrelated project categories.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/images/editorial/landscape.jpg",
+      "url": "/images/editorial/landscape.jpg",
+      "width": 1200,
+      "height": 800,
+      "format": "jpeg",
+      "bytes": 231463,
+      "sha256": "ae36becd5ad303eda0d9c7c2b22294fb0f8ccb8864e9455c9431f2e6c0fa449a",
+      "pages": [
+        "/",
+        "/portfolio",
+        "/portfolio/commercial-package-design"
+      ],
+      "purpose": "Experience and itinerary composition for the commercial strategy overview.",
+      "attribution": "Unsplash",
+      "source": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1",
+      "licence": "Unsplash License — https://unsplash.com/license",
+      "alt": "Lake and mountain landscape illustrating the experience within a travel package",
+      "reuse": "One portfolio category cover, reused for its matching detail page and selected-work card.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/images/editorial/london.jpg",
+      "url": "/images/editorial/london.jpg",
+      "width": 1200,
+      "height": 800,
+      "format": "jpeg",
+      "bytes": 265895,
+      "sha256": "ec4ed2cce636f98795e6cd68521e1a29c1f007bf56dce11c2febe20f7eb17094",
+      "pages": [
+        "/",
+        "/experience",
+        "/portfolio",
+        "/portfolio/uk-outbound-product"
+      ],
+      "purpose": "UK market focus, distinct from physical employment location.",
+      "attribution": "Unsplash",
+      "source": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad",
+      "licence": "Unsplash License — https://unsplash.com/license",
+      "alt": "London skyline illustrating the UK outbound travel market, not a UK employment location",
+      "reuse": "Intentional UK-market context across the career map, commercial chapter and relevant travel-product overview.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/images/editorial/maldives.jpg",
+      "url": "/images/editorial/maldives.jpg",
+      "width": 1500,
+      "height": 1875,
+      "format": "jpeg",
+      "bytes": 606625,
+      "sha256": "8d876ad9c94f8ebd3e7e5ef3e647448896818f924b2c45896123a2199abbf51d",
+      "pages": [
+        "/",
+        "/experience",
+        "/portfolio",
+        "/portfolio/destination-positioning"
+      ],
+      "purpose": "Geographic context for the hospitality foundation and Maldives travel concepts.",
+      "attribution": "Unsplash",
+      "source": "https://images.unsplash.com/photo-1514282401047-d79a71a590e8",
+      "licence": "Unsplash License — https://unsplash.com/license",
+      "alt": "Overwater villas and turquoise water in the Maldives, contextual destination photography",
+      "reuse": "Intentional location-specific reuse: hero atmosphere, Maldives chapter/map, destination research and illustrative Maldives brief. Never presented as Siyam World photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/images/shaun-mathiasz.jpg",
+      "url": "/images/shaun-mathiasz.jpg",
+      "width": 1254,
+      "height": 1254,
+      "format": "jpeg",
+      "bytes": 182677,
+      "sha256": "2f2c44279f5f794de963d9c9afb2b92a827475aee43ddfea0acf30cb13b6b7d2",
+      "pages": [
+        "/"
+      ],
+      "purpose": "Signature authentic personal photograph; retained only in the Home hero.",
+      "attribution": "Shaun Denver Mathiasz — user-supplied authentic photograph",
+      "source": "User-provided original photograph",
+      "licence": "Supplied by the subject for this website; no general reuse licence asserted.",
+      "alt": "Shaun Denver Mathiasz wearing a dark suit and tie against a blue travel-themed background",
+      "reuse": "One rendered placement: Home hero. No desktop/mobile duplicate elements.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/adobe.svg",
+      "url": "/logos/adobe.svg",
+      "width": 65,
+      "height": 35,
+      "format": "svg",
+      "bytes": 1234,
+      "sha256": "54213e56d564e8174ec2de6aa5f91907aebadc38215f4c3597d1e9b83cce127a",
+      "pages": [
+        "/education"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "Adobe",
+      "source": "Original website artwork; existing asset provenance in ASSETS.md",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "Adobe official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/amadeus.png",
+      "url": "/logos/amadeus.png",
+      "width": 208,
+      "height": 32,
+      "format": "png",
+      "bytes": 2781,
+      "sha256": "2c9a3f3415d5fd461562702c1af0e3584a03a41003e2b65d1c12881b40aacfdc",
+      "pages": [
+        "/education"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "Amadeus",
+      "source": "Original website artwork; existing asset provenance in ASSETS.md",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "Amadeus official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/cardiff.svg",
+      "url": "/logos/cardiff.svg",
+      "width": 370,
+      "height": 109,
+      "format": "svg",
+      "bytes": 155320,
+      "sha256": "6f52706005b2475bc2537b6dc3eb7934f8dfd931c2a7c33b1745fa5942982fe9",
+      "pages": [
+        "/",
+        "/education"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "Cardiff Metropolitan University",
+      "source": "https://www.cardiffmet.ac.uk",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "Cardiff Metropolitan University official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/essec.svg",
+      "url": "/logos/essec.svg",
+      "width": 105,
+      "height": 92,
+      "format": "svg",
+      "bytes": 17717,
+      "sha256": "b9f1375e761bd3c08b4c38f3b77a28a8c3f7b6ceff81caa9ffedb7ab3f1d155d",
+      "pages": [
+        "/education"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "ESSEC Business School",
+      "source": "Original website artwork; existing asset provenance in ASSETS.md",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "ESSEC Business School official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/fia.png",
+      "url": "/logos/fia.png",
+      "width": 414,
+      "height": 117,
+      "format": "png",
+      "bytes": 7734,
+      "sha256": "ff8699f4dde4cc6cfd1dceecc879b160d1af969a15f68bc505352cc8f1fa7df1",
+      "pages": [
+        "/education"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "FIA Business School",
+      "source": "Original website artwork; existing asset provenance in ASSETS.md",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "FIA Business School official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/glasgow.svg",
+      "url": "/logos/glasgow.svg",
+      "width": 158,
+      "height": 50,
+      "format": "svg",
+      "bytes": 15848,
+      "sha256": "0f2baba1974148cbe6bf1634aa4279e00837142671fea4d28b3d4abaa0087a49",
+      "pages": [
+        "/education"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "University of Glasgow",
+      "source": "Original website artwork; existing asset provenance in ASSETS.md",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "University of Glasgow official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/iata.svg",
+      "url": "/logos/iata.svg",
+      "width": 121,
+      "height": 127,
+      "format": "svg",
+      "bytes": 3201,
+      "sha256": "3dd325f76167c69385801c439569f3d19d88fa33b992ae6e50cae0d8156be365",
+      "pages": [
+        "/",
+        "/education"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "IATA",
+      "source": "https://www.iata.org",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "IATA official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/ibcces.png",
+      "url": "/logos/ibcces.png",
+      "width": 431,
+      "height": 432,
+      "format": "png",
+      "bytes": 51425,
+      "sha256": "acef851cefa16c09a8ee7cbab89079d3778858dd6a236c7072f566bbfd3eca54",
+      "pages": [
+        "/education"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "International Board of Credentialing and Continuing Education Standards (IBCCES)",
+      "source": "Original website artwork; existing asset provenance in ASSETS.md",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "International Board of Credentialing and Continuing Education Standards (IBCCES) official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/icbt.png",
+      "url": "/logos/icbt.png",
+      "width": 280,
+      "height": 280,
+      "format": "png",
+      "bytes": 70856,
+      "sha256": "d41e6eedcfb1b74e592724add8fa3583f684fef5266caf1211efe6ef1f1c91ec",
+      "pages": [
+        "/",
+        "/education"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "ICBT Campus",
+      "source": "https://www.icbt.lk",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "ICBT Campus official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/illinois.svg",
+      "url": "/logos/illinois.svg",
+      "width": 180,
+      "height": 180,
+      "format": "svg",
+      "bytes": 856,
+      "sha256": "da4679937bf6f1fb8e2ff57728ccd8978014cd2839cd7d16a6988dc3cf47efbc",
+      "pages": [
+        "/education"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "University of Illinois Urbana-Champaign",
+      "source": "Original website artwork; existing asset provenance in ASSETS.md",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "University of Illinois Urbana-Champaign official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/london.svg",
+      "url": "/logos/london.svg",
+      "width": 283,
+      "height": 96,
+      "format": "svg",
+      "bytes": 17290,
+      "sha256": "6d52f0fd5ccc37936bc02ec0aa5f0c9fc3a65dd78a57d8d02f41d7d5134c50a5",
+      "pages": [
+        "/education"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "University of London",
+      "source": "Original website artwork; existing asset provenance in ASSETS.md",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "University of London official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/macquarie.png",
+      "url": "/logos/macquarie.png",
+      "width": 1488,
+      "height": 588,
+      "format": "png",
+      "bytes": 45773,
+      "sha256": "949a3eb6c0c74c4dce0b36034ebc1488ee5b7e92a6a6d7d3354d5485e8f1173a",
+      "pages": [
+        "/education"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "Macquarie University",
+      "source": "Original website artwork; existing asset provenance in ASSETS.md",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "Macquarie University official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/moresand.png",
+      "url": "/logos/moresand.png",
+      "width": 1000,
+      "height": 172,
+      "format": "png",
+      "bytes": 14553,
+      "sha256": "9f306415c00bfe1a508144808db0c3ef064d9e93a3ce913929545331276a97a7",
+      "pages": [
+        "/",
+        "/experience"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "Moresand Group",
+      "source": "https://www.moresand.co.uk/",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "Moresand Group official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/othm.svg",
+      "url": "/logos/othm.svg",
+      "width": 161,
+      "height": 66,
+      "format": "svg",
+      "bytes": 6671,
+      "sha256": "4c6a263fb97d9f9aac8da8f19b872cdbb52d7864a167ec7995ced05c065414af",
+      "pages": [
+        "/",
+        "/education"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "OTHM Qualifications",
+      "source": "https://othm.org.uk",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "OTHM Qualifications official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/oxford-said.svg",
+      "url": "/logos/oxford-said.svg",
+      "width": 104,
+      "height": 104,
+      "format": "svg",
+      "bytes": 6270,
+      "sha256": "d915aa3af7151efae194092376302c470f67e4aa85204c81c5f0d3a8b7ab70c8",
+      "pages": [
+        "/",
+        "/education"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "Saïd Business School, University of Oxford",
+      "source": "https://www.ox.ac.uk",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "Saïd Business School official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/oxford-university.svg",
+      "url": "/logos/oxford-university.svg",
+      "width": 104,
+      "height": 104,
+      "format": "svg",
+      "bytes": 14839,
+      "sha256": "fe88884e6aa28ed56d46e0468e8fd3963735efb46727a4bcd401f58e13f866cd",
+      "pages": [
+        "/",
+        "/education"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "Saïd Business School, University of Oxford",
+      "source": "https://www.ox.ac.uk",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "University of Oxford official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/raes.svg",
+      "url": "/logos/raes.svg",
+      "width": 401,
+      "height": 152,
+      "format": "svg",
+      "bytes": 94271,
+      "sha256": "4efe75cbe36ab97a45583ac4bb4278f06fce2b83cbf62125ffd0f8766acddd77",
+      "pages": [
+        "/",
+        "/education"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "Royal Aeronautical Society",
+      "source": "https://www.aerosociety.com",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "Royal Aeronautical Society official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/shaun-denver-signature.png",
+      "url": "/logos/shaun-denver-signature.png",
+      "width": 2172,
+      "height": 724,
+      "format": "png",
+      "bytes": 857396,
+      "sha256": "c91646b5f8c4b2e8b3d8d7e3b98235c6d35d9a11c2a15291e469d8420e4fe54a",
+      "pages": [
+        "Shared shell / all routes"
+      ],
+      "purpose": "Personal signature in the global header and footer.",
+      "attribution": "User-supplied personal signature artwork",
+      "source": "https://chatgpt.com/s/m_6aedb8140a5081919c5698b9ee30f7d5",
+      "licence": "Supplied by Shaun for this site; AI-generated artwork, not an institutional mark. No independent IP clearance asserted.",
+      "alt": "Shaun Denver Mathiasz",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/siyam-world.png",
+      "url": "/logos/siyam-world.png",
+      "width": 2084,
+      "height": 1042,
+      "format": "png",
+      "bytes": 40371,
+      "sha256": "e0fec2cbce80bd7b7edab12583bb8dd31ce2a4c53f380a9fafcf9310dda2561e",
+      "pages": [
+        "/",
+        "/experience"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "Siyam World Maldives",
+      "source": "https://www.sunsiyam.com/siyam-world/",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "Siyam World Maldives official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/social-facebook.svg",
+      "url": "/logos/social-facebook.svg",
+      "width": 24,
+      "height": 24,
+      "format": "svg",
+      "bytes": 542,
+      "sha256": "b06d18d844ed621b89faffb1a33440cc0ec4f1ffea9f36191f50db19a47c59a6",
+      "pages": [
+        "/",
+        "/contact"
+      ],
+      "purpose": "Platform-specific profile graphics, social metrics and on-demand embed controls.",
+      "attribution": "Simple Icons v12.4.0 / facebook brand mark",
+      "source": "https://github.com/simple-icons/simple-icons/blob/12.4.0/icons/facebook.svg",
+      "licence": "CC0 interface icon; brand/trademark rights remain with the owner. No endorsement.",
+      "alt": "Decorative platform icon; accessible platform name is adjacent.",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/social-instagram.svg",
+      "url": "/logos/social-instagram.svg",
+      "width": 24,
+      "height": 24,
+      "format": "svg",
+      "bytes": 2101,
+      "sha256": "f53af2d1fc5292ba1433b5c1faf50005ce6a997fa302d1816989929f379a59dc",
+      "pages": [
+        "/",
+        "/contact"
+      ],
+      "purpose": "Platform-specific profile graphics, social metrics and on-demand embed controls.",
+      "attribution": "Simple Icons v12.4.0 / instagram brand mark",
+      "source": "https://github.com/simple-icons/simple-icons/blob/12.4.0/icons/instagram.svg",
+      "licence": "CC0 interface icon; brand/trademark rights remain with the owner. No endorsement.",
+      "alt": "Decorative platform icon; accessible platform name is adjacent.",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/social-linkedin.svg",
+      "url": "/logos/social-linkedin.svg",
+      "width": 24,
+      "height": 24,
+      "format": "svg",
+      "bytes": 610,
+      "sha256": "2687ac468d96bd03e748dc8646ef6465cb4cc7f34b96e1d0bc86fcb3dd79121a",
+      "pages": [
+        "/",
+        "/contact"
+      ],
+      "purpose": "Platform-specific profile graphics, social metrics and on-demand embed controls.",
+      "attribution": "Simple Icons v12.4.0 / linkedin brand mark",
+      "source": "https://github.com/simple-icons/simple-icons/blob/12.4.0/icons/linkedin.svg",
+      "licence": "CC0 interface icon; brand/trademark rights remain with the owner. No endorsement.",
+      "alt": "Decorative platform icon; accessible platform name is adjacent.",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/social-tiktok.svg",
+      "url": "/logos/social-tiktok.svg",
+      "width": 24,
+      "height": 24,
+      "format": "svg",
+      "bytes": 707,
+      "sha256": "6f54ac8d325faacea8935bdc44cbed60206a6b408641799e5fea1cba7c1a0af7",
+      "pages": [
+        "/",
+        "/contact"
+      ],
+      "purpose": "Platform-specific profile graphics, social metrics and on-demand embed controls.",
+      "attribution": "Simple Icons v12.4.0 / tiktok brand mark",
+      "source": "https://github.com/simple-icons/simple-icons/blob/12.4.0/icons/tiktok.svg",
+      "licence": "CC0 interface icon; brand/trademark rights remain with the owner. No endorsement.",
+      "alt": "Decorative platform icon; accessible platform name is adjacent.",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/starweaver.png",
+      "url": "/logos/starweaver.png",
+      "width": 1395,
+      "height": 147,
+      "format": "png",
+      "bytes": 62960,
+      "sha256": "2007cfad2839d0afbbbd7153dd3efd87550bce313fa74ddfb4bd273f9278e621",
+      "pages": [
+        "/education"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "Starweaver",
+      "source": "Original website artwork; existing asset provenance in ASSETS.md",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "Starweaver official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/sunsiyam.svg",
+      "url": "/logos/sunsiyam.svg",
+      "width": 452,
+      "height": 360,
+      "format": "svg",
+      "bytes": 2746,
+      "sha256": "c1f19321e2f02e99a0ced78ed8995378dd924d871fa4d82a75d7c385ab40eb13",
+      "pages": [
+        "/",
+        "/experience"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "Sun Siyam Resorts",
+      "source": "https://www.sunsiyam.com",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "Sun Siyam Resorts official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    },
+    {
+      "path": "public/logos/travelcenter.svg",
+      "url": "/logos/travelcenter.svg",
+      "width": 204,
+      "height": 28,
+      "format": "svg",
+      "bytes": 6916,
+      "sha256": "793332e200b055da253c750f87205a42cef2733d1539e13291e85aa702a5b765",
+      "pages": [
+        "/",
+        "/experience"
+      ],
+      "purpose": "Identify an employer, institution, credential issuer or group affiliation.",
+      "attribution": "Travel Center UK",
+      "source": "https://www.travelcenter.uk",
+      "licence": "Trademark identification only; no general reuse licence asserted. See V3_LOGOS.md and CERTIFICATION_LOGOS.md.",
+      "alt": "Travel Center UK official logo",
+      "reuse": "Reuse only for the same identity/context; not presented as personal photography.",
+      "duplicateStatus": "unique bytes",
+      "byteDuplicateOf": []
+    }
+  ]
+}

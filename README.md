@@ -88,3 +88,7 @@ All fifteen short-course entries now have local issuer marks, including user-sup
 ### WORLDWIDE strategy game
 
 `/play` contains **WORLDWIDE — The Travel Tycoon Challenge**: five rounds, fictional travel-product decisions, event responses, financial statements, local saves/bests and share-card export. It adds no services, API keys or dependencies. Start the local app and visit `/play`. See [WORLDWIDE.md](WORLDWIDE.md) for the financial model, state format, accessibility, tests and asset provenance. This feature has not been deployed as part of its implementation task.
+
+### Curated photography and portrait policy
+
+The authentic portrait is reserved for the Home hero. Photo metadata and page-specific reuse live in `src/content/visual-assets.ts`; `src/content/asset-inventory.json` records all public image dimensions, licences and duplicate status. Regenerate from the repository root with `node scripts/visual-asset-inventory.mjs` (Node 24). See [PORTRAIT_VISUAL_AUDIT.md](PORTRAIT_VISUAL_AUDIT.md) for the visual strategy and before/after placement inventory.

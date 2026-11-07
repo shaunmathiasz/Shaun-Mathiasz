@@ -1,3 +1,4 @@
+import { photography } from "@/content/visual-assets";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,7 +7,7 @@ const chapters = [
     number: "02",
     title: "The foundation.",
     subtitle: "Maldives / Luxury hospitality",
-    image: "/images/editorial/maldives.jpg",
+    image: photography.maldives.src,
     alt: "Island and ocean landscape providing context for the Maldives hospitality chapter",
     text: "Guest operations and reservations at Siyam World Maldives. Learning to see the experience through the guest’s eyes.",
     href: "/experience",
@@ -16,7 +17,7 @@ const chapters = [
     number: "03",
     title: "The transition.",
     subtitle: "Colombo / Travel product development",
-    image: "/images/editorial/colombo.jpg",
+    image: photography.colombo.src,
     alt: "Colombo city skyline, contextual imagery of Shaun’s professional and academic base",
     text: "Bringing that attention to detail into destination research, package construction and considered itineraries.",
     href: "/portfolio",
@@ -26,7 +27,7 @@ const chapters = [
     number: "04",
     title: "The wider market.",
     subtitle: "United Kingdom / Market focus",
-    image: "/images/editorial/london.jpg",
+    image: photography.london.src,
     alt: "London skyline representing the UK outbound travel market, not a UK employment location",
     text: "Working from Colombo with Moresand Group / Travel Center UK, connecting destination appeal with the needs of the UK outbound market.",
     href: "/experience",

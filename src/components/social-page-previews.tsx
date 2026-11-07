@@ -5,7 +5,7 @@ import {
   socialPagePreviews,
   type SocialPagePreview,
 } from "@/content/social-previews";
-import { site } from "@/config/site";
+import { PlatformArtwork } from "@/components/platform-artwork";
 function PreviewCard({ page }: { page: SocialPagePreview }) {
   const [open, setOpen] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -46,16 +46,10 @@ function PreviewCard({ page }: { page: SocialPagePreview }) {
         </div>
       ) : (
         <div className="page-preview-cover">
-          <Image
-            src={site.portrait.src}
-            alt="Shaun Denver Mathiasz"
-            width={600}
-            height={450}
-            sizes="(max-width:600px) 90vw,45vw"
-          />
+          <PlatformArtwork platform={page.platform} />
           <div>
             <p className="eyebrow">SHAUN DENVER MATHIASZ</p>
-            <p>A little more of the person behind the perspective.</p>
+            <p>Explore a different side of the journey.</p>
             <button
               className="button outline-button"
               onClick={() => {

@@ -1,3 +1,4 @@
+import { photography } from "@/content/visual-assets";
 export const site = {
   name: "Shaun Denver Mathiasz",
   role: "Travel Product Specialist",
@@ -16,10 +17,10 @@ export const site = {
   ] as { label: string; url: string }[],
   cvUrl: "/documents/shaun-mathiasz-cv.pdf" as string | null,
   portrait: {
-    src: "/images/shaun-mathiasz.jpg",
-    width: 1254,
-    height: 1254,
-    alt: "Shaun Denver Mathiasz wearing a dark suit and tie against a blue travel-themed background",
+    src: photography.portrait.src,
+    width: photography.portrait.width,
+    height: photography.portrait.height,
+    alt: photography.portrait.alt,
   },
   professionalEmail: "shaun.emirates@gmail.com",
 };

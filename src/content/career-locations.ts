@@ -1,3 +1,4 @@
+import { photography } from "@/content/visual-assets";
 export type CareerLocation = {
   image: string;
   caption: string;
@@ -9,7 +10,7 @@ export type CareerLocation = {
 };
 export const careerLocations: CareerLocation[] = [
   {
-    image: "/images/editorial/colombo.jpg",
+    image: photography.colombo.src,
     caption: "Colombo skyline / Professional & academic base",
     name: "Colombo, Sri Lanka",
     lat: 6.927,
@@ -18,7 +19,7 @@ export const careerLocations: CareerLocation[] = [
     text: "Based in Colombo, connecting practical travel product work with ongoing studies in global business.",
   },
   {
-    image: "/images/editorial/maldives.jpg",
+    image: photography.maldives.src,
     caption: "Maldives landscape / Hospitality foundation",
     name: "Maldives",
     lat: 5.894,
@@ -27,7 +28,7 @@ export const careerLocations: CareerLocation[] = [
     text: "Reservations and guest operations experience at Siyam World Maldives. The marker represents the resort’s region.",
   },
   {
-    image: "/images/editorial/london.jpg",
+    image: photography.london.src,
     caption: "London skyline / Market context",
     name: "United Kingdom",
     lat: 51.507,

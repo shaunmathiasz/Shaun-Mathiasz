@@ -1,4 +1,5 @@
 "use client";
+import { photography } from "@/content/visual-assets";
 import Image from "next/image";
 import { useState } from "react";
 import {
@@ -107,10 +108,10 @@ export function TravelBuilder() {
             <Image
               src={
                 input.destination === "Maldives"
-                  ? "/images/editorial/maldives.jpg"
+                  ? photography.maldives.src
                   : input.destination === "Sri Lanka"
-                    ? "/images/editorial/colombo.jpg"
-                    : "/images/editorial/london.jpg"
+                    ? photography.colombo.src
+                    : photography.london.src
               }
               alt={`${input.destination} destination context for an illustrative travel concept`}
               fill

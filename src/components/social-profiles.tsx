@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { PlatformArtwork, type SocialPlatform } from "./platform-artwork";
 import { site } from "@/config/site";
 const handles: Record<string, string> = {
   Instagram: "@shaun.mathiasz",
@@ -30,12 +30,9 @@ export function SocialProfiles() {
               </span>
             </summary>
             <div className="social-profile-preview">
-              <Image
-                src={site.portrait.src}
-                alt="Shaun Denver Mathiasz"
-                width={400}
-                height={300}
-                sizes="(max-width:600px) 90vw,25vw"
+              <PlatformArtwork
+                platform={link.label as SocialPlatform}
+                compact
               />
               <p>Shaun Denver Mathiasz</p>
               <span>Travel · Commerce · A wider perspective</span>

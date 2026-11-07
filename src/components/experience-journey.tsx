@@ -1,4 +1,5 @@
 "use client";
+import { photography } from "@/content/visual-assets";
 import { OrganisationLogo } from "./organisation-logo";
 import { useSafeReducedMotion as useReducedMotion } from "@/lib/use-safe-reduced-motion";
 import { useRef, useState } from "react";
@@ -33,21 +34,46 @@ export function ExperienceJourney() {
             </span>
           </div>
           <div className="journey-card">
-            <Image
-              src={
-                i === 2
-                  ? "/images/editorial/london.jpg"
-                  : "/images/editorial/maldives.jpg"
-              }
-              alt={
-                i === 2
-                  ? "London city skyline representing the UK outbound travel market"
-                  : "Maldives island landscape providing destination context"
-              }
-              width={1200}
-              height={800}
-              sizes="(max-width:600px) 90vw, 60vw"
-            />
+            {i === 1 ? (
+              <div className="reservation-visual">
+                <p className="eyebrow">
+                  RESERVATIONS / THE PRE-ARRIVAL EXPERIENCE
+                </p>
+                <p className="reservation-line">
+                  Before the welcome.
+                  <br />
+                  <em>The detail.</em>
+                </p>
+                <ol>
+                  <li>
+                    <span>01</span>Clear reservation details
+                  </li>
+                  <li>
+                    <span>02</span>Thoughtful communication
+                  </li>
+                  <li>
+                    <span>03</span>Guest confidence
+                  </li>
+                </ol>
+                <p className="reservation-caption">
+                  A professional perspective, illustrated.
+                </p>
+              </div>
+            ) : (
+              <Image
+                src={
+                  i === 2 ? photography.london.src : photography.maldives.src
+                }
+                alt={
+                  i === 2
+                    ? "London city skyline representing the UK outbound travel market"
+                    : "Maldives island landscape providing destination context, not a photograph of Siyam World"
+                }
+                width={1200}
+                height={800}
+                sizes="(max-width:600px) 90vw, 60vw"
+              />
+            )}
             <div className="journey-card-copy">
               <div className="chapter-brands">
                 {(i === 2
