@@ -29,6 +29,7 @@ import { overview } from "@/lib/cv/admin";
 import { transport, type Email, type Transport } from "@/lib/cv/transport";
 const config: CvConfig = {
   databaseUrl: "postgres://localhost/test",
+  dataEnvironment: "preview",
   resendKey: "fixture",
   fromEmail: "cv@example.org",
   ownerEmail: "shaun.emirates@gmail.com",
@@ -643,4 +644,24 @@ it("freezes notification content across uncertain acceptance retries", async () 
   expect(sends.find((e) => e.owner)?.text).toBe(
     decrypt<Email>(payload, config.encryptionKey)!.text,
   );
+});
+it("Preview cannot accidentally email live recruiter addresses", async () => {
+  vi.stubEnv("VERCEL_ENV", "preview");
+  const fetcher = vi.fn();
+  vi.stubGlobal("fetch", fetcher);
+  try {
+    await expect(
+      transport(config).send({
+        to: "recruiter@example.org",
+        subject: "Test",
+        text: "Test",
+        html: "Test",
+        key: "test",
+      }),
+    ).rejects.toThrow("PREVIEW_EMAIL_RECIPIENT_RESTRICTED");
+    expect(fetcher).not.toHaveBeenCalled();
+  } finally {
+    vi.unstubAllEnvs();
+    vi.unstubAllGlobals();
+  }
 });

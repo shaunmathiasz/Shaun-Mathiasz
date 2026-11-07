@@ -9,4 +9,4 @@
 
 - CV access must remain server-authorised: no public PDFs, local-file fallback, URL bearer tokens, fake OTP delivery or client-only verification.
 - Keep database transitions atomic; never log OTPs, cookies, provider keys or requester details. Private CV staging PDFs stay ignored by Git.
-- Do not deploy the CV portal until real OTP/private-storage and owner-authentication checks pass. Local provider fixtures are not evidence of cloud delivery.
+- Do not release the CV portal to Production until real OTP/private-storage and owner-authentication checks pass. Use an isolated Preview for those checks. Local provider fixtures are not evidence of cloud delivery.

@@ -8,33 +8,59 @@ export interface Sql {
 export interface Database extends Sql {
   transaction<T>(fn: (sql: Sql) => Promise<T>): Promise<T>;
 }
-let pool: Pool | undefined;
-export function database(url: string): Database {
-  if (!pool) {
-    const u = new URL(url);
-    const local = ["localhost", "127.0.0.1", "::1", "[::1]"].includes(
-      u.hostname,
-    );
+const pools = new Map<string, { pool: Pool; verified: Promise<void> | null }>();
+export function database(
+  url: string,
+  expected: "production" | "preview",
+): Database {
+  if (!["production", "preview"].includes(expected))
+    throw new Error("CV_DATABASE_ENVIRONMENT_REQUIRED");
+  const key = expected + ":" + url;
+  let entry = pools.get(key);
+  if (!entry) {
+    const u = new URL(url),
+      local = ["localhost", "127.0.0.1", "::1", "[::1]"].includes(u.hostname);
     for (const k of ["sslmode", "sslcert", "sslkey", "sslrootcert"])
       u.searchParams.delete(k);
-    pool = new Pool({
+    const pool = new Pool({
       connectionString: u.toString(),
       max: 4,
       statement_timeout: 10000,
       connectionTimeoutMillis: 8000,
       idleTimeoutMillis: 10000,
       ssl: local ? false : { rejectUnauthorized: true },
-      application_name: "shaun-cv-portal",
+      application_name: "shaun-cv-" + expected,
     });
-    pool.on("error", () => {
-      /* Never log database URLs, query parameters or requester details. */
-    });
+    pool.on("error", () => {});
+    entry = { pool, verified: null };
+    pools.set(key, entry);
   }
-  const query: Sql["query"] = (text, values) => pool!.query(text, values);
+  const state = entry;
+  async function guard() {
+    if (!state.verified) {
+      state.verified = state.pool
+        .query<{ environment: string }>(
+          "SELECT environment FROM cv_portal_environment WHERE singleton=true",
+        )
+        .then((r) => {
+          if (r.rows.length !== 1 || r.rows[0].environment !== expected)
+            throw new Error("CV_DATABASE_ENVIRONMENT_MISMATCH");
+        })
+        .catch((e) => {
+          state.verified = null;
+          throw e;
+        });
+    }
+    await state.verified;
+  }
   return {
-    query,
+    async query(text, values) {
+      await guard();
+      return state.pool.query(text, values);
+    },
     async transaction(fn) {
-      const c = await pool!.connect();
+      await guard();
+      const c = await state.pool.connect();
       try {
         await c.query("BEGIN");
         await c.query("SET LOCAL statement_timeout='10s'");

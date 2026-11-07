@@ -18,7 +18,11 @@ export const json = (body: unknown, status = 200) =>
   NextResponse.json(body, { status, headers: privateHeaders });
 export function service() {
   const config = getConfig();
-  return new CvService(database(config.databaseUrl), config, transport(config));
+  return new CvService(
+    database(config.databaseUrl, config.dataEnvironment),
+    config,
+    transport(config),
+  );
 }
 export function requireOrigin(req: NextRequest) {
   const config = getConfig();

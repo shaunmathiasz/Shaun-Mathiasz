@@ -83,6 +83,7 @@ beforeAll(async () => {
   } as unknown as Database;
   const env = {
     DATABASE_URL: "postgres://localhost/test",
+    CV_DATA_ENVIRONMENT: "preview",
     RESEND_API_KEY: "fixture",
     CV_FROM_EMAIL: "cv@example.org",
     CV_APP_ORIGIN: origin,

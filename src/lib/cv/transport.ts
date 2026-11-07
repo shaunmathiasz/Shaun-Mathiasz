@@ -17,6 +17,11 @@ export interface Transport {
 export function transport(config: CvConfig): Transport {
   return {
     async send(email) {
+      if (
+        process.env.VERCEL_ENV === "preview" &&
+        email.to.toLowerCase() !== config.ownerEmail.toLowerCase()
+      )
+        throw new Error("PREVIEW_EMAIL_RECIPIENT_RESTRICTED");
       const r = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
@@ -91,5 +96,5 @@ export function transport(config: CvConfig): Transport {
   };
 }
 export function emailLayout(title: string, body: string) {
-  return `<!doctype html><html lang="en"><meta name="viewport" content="width=device-width"><body style="margin:0;background:#060b16;color:#f5f2ea;font-family:Arial,sans-serif"><main style="max-width:560px;margin:auto;padding:40px 24px"><p style="color:#d2b88a;font-size:12px;letter-spacing:2px">SHAUN DENVER MATHIASZ</p><h1 style="font-size:26px;font-weight:400">${escapeHtml(title)}</h1>${body}<p style="color:#b8c2d1;font-size:13px">Kind regards,<br>Shaun Denver Mathiasz<br><a style="color:#d2b88a" href="https://shaun-mathiasz.vercel.app/">shaun-mathiasz.vercel.app</a></p></main></body></html>`;
+  return `<!doctype html><html lang="en"><meta name="viewport" content="width=device-width"><body style="margin:0;background:#060b16;color:#f5f2ea;font-family:Arial,sans-serif"><main style="max-width:560px;margin:auto;padding:40px 24px"><p style="color:#d2b88a;font-size:12px;letter-spacing:2px">SHAUN DENVER MATHIASZ</p><h1 style="font-size:26px;font-weight:400">${escapeHtml(title)}</h1>${body}<p style="color:#b8c2d1;font-size:13px">Kind regards,<br>Shaun Denver Mathiasz<br><a style="color:#d2b88a" href="https://www.shaunmathiasz.com/">www.shaunmathiasz.com</a></p></main></body></html>`;
 }

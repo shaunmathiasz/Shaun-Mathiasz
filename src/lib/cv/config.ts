@@ -1,5 +1,6 @@
 export type CvConfig = {
   databaseUrl: string;
+  dataEnvironment: "production" | "preview";
   resendKey: string;
   fromEmail: string;
   ownerEmail: string;
@@ -30,6 +31,21 @@ const required = [
   "CV_BLOB_PATHNAME",
   "CRON_SECRET",
 ] as const;
+export function dataEnvironment(
+  env: NodeJS.ProcessEnv = process.env,
+): "production" | "preview" | undefined {
+  if (env.VERCEL === "1")
+    return env.VERCEL_ENV === "production"
+      ? "production"
+      : env.VERCEL_ENV === "preview"
+        ? "preview"
+        : undefined;
+  return env.CV_DATA_ENVIRONMENT === "production"
+    ? "production"
+    : env.CV_DATA_ENVIRONMENT === "preview"
+      ? "preview"
+      : undefined;
+}
 export function appOrigin(env: NodeJS.ProcessEnv = process.env) {
   if (env.CV_APP_ORIGIN) return env.CV_APP_ORIGIN;
   if (
@@ -46,6 +62,10 @@ export function configProblems(env: NodeJS.ProcessEnv = process.env) {
   const missing: string[] = required.filter((k) =>
     k === "CV_APP_ORIGIN" ? !origin : !env[k],
   );
+  if (!dataEnvironment(env))
+    missing.push(
+      "CV_DATA_ENVIRONMENT (production or preview, inferred on Vercel)",
+    );
   if (!env.BLOB_STORE_ID && !env.BLOB_READ_WRITE_TOKEN)
     missing.push("BLOB_STORE_ID or BLOB_READ_WRITE_TOKEN");
   if (env.CV_OTP_HMAC_SECRET && env.CV_OTP_HMAC_SECRET.length < 32)
@@ -111,6 +131,7 @@ export function getConfig(): CvConfig {
   };
   return {
     databaseUrl: process.env.DATABASE_URL!,
+    dataEnvironment: dataEnvironment()!,
     resendKey: process.env.RESEND_API_KEY!,
     fromEmail: process.env.CV_FROM_EMAIL!,
     ownerEmail: process.env.CV_OWNER_EMAIL || "shaun.emirates@gmail.com",

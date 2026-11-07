@@ -19,3 +19,7 @@ Precise location assessment: a browser permission prompt does not establish nece
 Prepared infrastructure: private store store_cTNtGcIL6KkRF2Jw in bom1; authenticated upload/read byte comparison passed (112390 bytes). Separate Preview/Production CV_OTP_HMAC_SECRET, CV_DATA_ENCRYPTION_KEY, CRON_SECRET configured; CV_OWNER_EMAIL and CV_BLOB_PATHNAME configured for both; CV_APP_ORIGIN configured for Production. No service secrets were exposed or existing values overwritten. No deployment performed.
 
 Real private-Blob access test: unauthenticated fetch rejected with HTTP 403. Local final results: production build, lint, typecheck, 98 unit/SQL/API fixture tests and 92 desktop/mobile browser cases passed. New form Axe checks: zero reported violations at 360/768/1440px, not a complete compliance audit.
+
+## Infrastructure verification continuation — 8 Nov 2026
+
+New owner-confirmed Production domain: https://www.shaunmathiasz.com. Neon and real Turnstile keys are now connected. Both CV database schemas have been migrated in the existing Neon service, with separate Preview/Production databases and non-admin runtime roles. Cross-environment CONNECT and marker mutation are denied (42501). Trusted environment guards and Preview mail-recipient restrictions are implemented. Latest local tests: 102 pass; lint/typecheck pass. Preview deployment and genuine provider/browser workflow testing are next. See docs/CV_RUNTIME_PROGRESS.md for current evidence and exact remaining actions.

@@ -121,7 +121,7 @@ export class CvService {
   private async sendCode(r: Row, code: string, generation: number) {
     const first = r.full_name.split(/\s+/)[0];
     const title = r.kind === "admin" ? "Owner sign-in" : "Verify your email";
-    const text = `Hello ${first},\n\n${r.kind === "admin" ? "Use this code to sign in to the private CV request dashboard." : "Thank you for your interest in Shaun Denver Mathiasz’s professional profile."}\n\nYour verification code is: ${code}\n\nThis code expires in five minutes. Enter it on the ${r.kind === "admin" ? "owner sign-in" : "CV Request"} page to continue.\n\nIf you did not request this code, you can safely ignore this email.\n\nKind regards,\nShaun Denver Mathiasz\nhttps://shaun-mathiasz.vercel.app/`;
+    const text = `Hello ${first},\n\n${r.kind === "admin" ? "Use this code to sign in to the private CV request dashboard." : "Thank you for your interest in Shaun Denver Mathiasz’s professional profile."}\n\nYour verification code is: ${code}\n\nThis code expires in five minutes. Enter it on the ${r.kind === "admin" ? "owner sign-in" : "CV Request"} page to continue.\n\nIf you did not request this code, you can safely ignore this email.\n\nKind regards,\nShaun Denver Mathiasz\nhttps://www.shaunmathiasz.com/`;
     try {
       await this.io.send({
         to: r.email,
