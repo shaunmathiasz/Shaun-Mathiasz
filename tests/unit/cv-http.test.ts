@@ -313,3 +313,25 @@ it("owner retry and deletion require authentication and remove associated record
     ).rows,
   ).toHaveLength(0);
 });
+it("keeps unexpected-error details private and exposes only a fixed Preview reference", async () => {
+  const { endpoint } = await import("@/lib/cv/http");
+  const log = vi.spyOn(console, "error").mockImplementation(() => {});
+  const handler = endpoint(async () => {
+    throw Object.assign(new Error("postgres://private-credential@private-host/db"), { code: "42501" });
+  }, false);
+  try {
+    vi.stubEnv("VERCEL_ENV", "preview");
+    const preview = await handler(req("/api/cv-verify"));
+    const data = await preview.json();
+    expect(preview.status).toBe(503);
+    expect(data.reference).toBe("42501");
+    expect(JSON.stringify(data)).not.toContain("private-credential");
+    expect(log).toHaveBeenCalledWith("CV_ENDPOINT_FAILURE", { code: "42501" });
+    vi.stubEnv("VERCEL_ENV", "production");
+    const production = await handler(req("/api/cv-verify"));
+    expect(await production.json()).not.toHaveProperty("reference");
+  } finally {
+    vi.stubEnv("VERCEL_ENV", "");
+    log.mockRestore();
+  }
+});

@@ -60,7 +60,11 @@ export function appOrigin(env: NodeJS.ProcessEnv = process.env) {
 export function configProblems(env: NodeJS.ProcessEnv = process.env) {
   const origin = appOrigin(env);
   const missing: string[] = required.filter((k) =>
-    k === "CV_APP_ORIGIN" ? !origin : !env[k],
+    k === "CV_APP_ORIGIN"
+      ? !origin
+      : k === "DATABASE_URL"
+        ? !(env.CV_DATABASE_URL || env.DATABASE_URL)
+        : !env[k],
   );
   if (!dataEnvironment(env))
     missing.push(
@@ -144,7 +148,7 @@ export function getConfig(): CvConfig {
     return Number.isFinite(v) && v > 0 && v <= 365 ? v : n;
   };
   return {
-    databaseUrl: process.env.DATABASE_URL!,
+    databaseUrl: (process.env.CV_DATABASE_URL || process.env.DATABASE_URL)!,
     dataEnvironment: dataEnvironment()!,
     resendKey: process.env.RESEND_API_KEY!,
     fromEmail: process.env.CV_FROM_EMAIL!,

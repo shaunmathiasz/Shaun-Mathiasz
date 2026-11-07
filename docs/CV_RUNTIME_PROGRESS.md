@@ -28,3 +28,15 @@ The first Preview deployment (dpl_55byRTRiQDEZQzN1xsLHakW3uovb) was rejected by 
 Automatic approval review initially rejected autoExposeSystemEnvs. The owner explicitly approved the setting in chat; the subsequent update succeeded. It is needed for trusted platform environment checks and native Workflow OIDC. Values remain server/build-only; no secret uses a NEXT_PUBLIC prefix.
 
 Workflow dependency audit found outdated transitive Zod/Undici/Minimatch packages. Targeted patched overrides now produce zero production advisories; unit tests (102), typecheck, lint and the Workflow-aware production build pass. Genuine Vercel runtime tests are still pending.
+
+## Preview runtime investigation
+
+The owner reported the security widget failed. The owner added `cv-preview.shaunmathiasz.com` to the existing Turnstile hostname list; no replacement widget or keys were created. Added accessible widget retry and a numeric provider reference on failure.
+
+Actual deployed negative API probes initially returned HTTP 503 with PostgreSQL 42P01 (undefined relation), despite successful isolated Neon HTTP queries. Added a deployed database/role identity assertion and explicit public-schema marker lookup, and re-applied the known limited Preview connection. Fixed-code diagnostics are Preview-only; logs never include SQL, connection strings, OTPs or requester details. Investigation and positive inbox tests remain pending; this is not a successful end-to-end result.
+
+Local diagnostics regression suite: 104 tests pass. Production remains unchanged.
+
+The follow-up deployed identity guard confirmed the generic DATABASE_URL reached the wrong target. Configured dedicated environment-scoped CV_DATABASE_URL Secrets using the previously verified limited roles and databases; no extra services. Deployment dpl_F1B4mE8AyiLQu39SuwtHjJx5VzJ6 is READY. Real deployed API security probes now pass: expired OTP, unverified/expired/unauthenticated private access, resend cooldown, five-attempt lock, persisted attempts, cross-origin denial, admin protection, POST-only download, old PDF retirement, invalid Turnstile tokens and per-email rate limiting. Only explicitly labelled synthetic Preview fixtures were inserted, then removed. Genuine successful widget/inbox/owner flow is awaiting the owner’s browser retest.
+
+Browser regression of the themed widget failure/retry interaction passed at 360, 768 and 1440 px with no horizontal overflow. This test used a stub widget through a certificate-validating GET relay; it does not prove genuine Turnstile acceptance. Reports: reports/v9-widget-retry.json and reports/v9-widget-*.png. The owner has been asked to repeat the real browser/inbox/download/admin workflow on the repaired Preview.

@@ -20,6 +20,12 @@ export function database(
   if (!entry) {
     const u = new URL(url),
       local = ["localhost", "127.0.0.1", "::1", "[::1]"].includes(u.hostname);
+    if (
+      process.env.VERCEL === "1" &&
+      (decodeURIComponent(u.pathname.slice(1)) !== `shaun_cv_${expected}` ||
+        decodeURIComponent(u.username) !== `shaun_cv_${expected}_app`)
+    )
+      throw new Error("CV_DATABASE_CONFIG_MISMATCH");
     for (const k of ["sslmode", "sslcert", "sslkey", "sslrootcert"])
       u.searchParams.delete(k);
     const pool = new Pool({
@@ -38,18 +44,29 @@ export function database(
   const state = entry;
   async function guard() {
     if (!state.verified) {
-      state.verified = state.pool
-        .query<{ environment: string }>(
-          "SELECT environment FROM cv_portal_environment WHERE singleton=true",
-        )
-        .then((r) => {
-          if (r.rows.length !== 1 || r.rows[0].environment !== expected)
-            throw new Error("CV_DATABASE_ENVIRONMENT_MISMATCH");
-        })
-        .catch((e) => {
-          state.verified = null;
-          throw e;
-        });
+      state.verified = (async () => {
+        if (process.env.VERCEL === "1") {
+          const identity = await state.pool.query<{
+            database: string;
+            role: string;
+          }>(
+            "SELECT current_database() AS database,current_user AS role",
+          );
+          if (
+            identity.rows[0]?.database !== `shaun_cv_${expected}` ||
+            identity.rows[0]?.role !== `shaun_cv_${expected}_app`
+          )
+            throw new Error("CV_DATABASE_TARGET_MISMATCH");
+        }
+        const r = await state.pool.query<{ environment: string }>(
+          "SELECT environment FROM public.cv_portal_environment WHERE singleton=true",
+        );
+        if (r.rows.length !== 1 || r.rows[0].environment !== expected)
+          throw new Error("CV_DATABASE_ENVIRONMENT_MISMATCH");
+      })().catch((e) => {
+        state.verified = null;
+        throw e;
+      });
     }
     await state.verified;
   }

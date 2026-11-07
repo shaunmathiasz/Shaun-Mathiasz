@@ -19,7 +19,9 @@ export function CvTurnstile({
   resetKey?: number;
 }) {
   const el = useRef<HTMLDivElement>(null),
-    [failed, setFailed] = useState(false);
+    [failed, setFailed] = useState(false),
+    [errorCode, setErrorCode] = useState(""),
+    [attempt, setAttempt] = useState(0);
   useEffect(() => {
     let widget: string | undefined,
       stopped = false;
@@ -35,7 +37,8 @@ export function CvTurnstile({
             onToken(token);
           },
           "expired-callback": () => onToken(""),
-          "error-callback": () => {
+          "error-callback": (code: string) => {
+            setErrorCode(/^\d{6}$/.test(String(code)) ? String(code) : "");
             setFailed(true);
             onToken("");
           },
@@ -63,15 +66,25 @@ export function CvTurnstile({
       script?.removeEventListener("error", error);
       if (widget) window.turnstile?.remove(widget);
     };
-  }, [siteKey, onToken, resetKey]);
+  }, [siteKey, onToken, resetKey, attempt]);
   return (
     <div className="cv-security">
       <div ref={el} aria-label="Security verification" />
       {failed && (
-        <p role="alert">
-          The security check is unavailable. Please refresh or contact Shaun by
-          email.
-        </p>
+        <div role="alert">
+          <p>
+            The security check couldn’t load. Please try again or contact Shaun
+            by email.{errorCode && ` Reference: ${errorCode}.`}
+          </p>
+          <button type="button" className="button button-secondary" onClick={() => {
+            setFailed(false);
+            setErrorCode("");
+            if (!window.turnstile)
+              document.getElementById("cv-turnstile-script")?.remove();
+            onToken("");
+            setAttempt((value) => value + 1);
+          }}>Retry security check</button>
+        </div>
       )}
     </div>
   );

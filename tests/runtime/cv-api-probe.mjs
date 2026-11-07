@@ -49,6 +49,7 @@ async function api(path, body = {}, session, origin = base.origin) {
     signal: AbortSignal.timeout(25000),
   });
   const data = await r.json().catch(() => ({}));
+  results.push({operation:path,status:r.status,reference:data.reference,category:data.category,error:typeof data.error==='string'?data.error:undefined});
   return { status: r.status, data };
 }
 async function fixture(label, { expired = false, verified = false } = {}) {

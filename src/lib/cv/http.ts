@@ -94,10 +94,21 @@ export function endpoint(
           400,
         );
       if (e instanceof PortalError) return json({ error: e.message }, e.status);
+      // Fixed classifications only: never log SQL, provider responses or request data.
+      const code = typeof e === "object" && e !== null && "code" in e
+        ? String(e.code) : "";
+      const message = e instanceof Error ? e.message : "";
+      const safeCode = /^[0-9A-Z_]{2,48}$/.test(code) ? code
+        : /^CV_[A-Z_]+$/.test(message) ? message : "UNCLASSIFIED";
+      console.error("CV_ENDPOINT_FAILURE", { code: safeCode });
       return json(
         {
           error:
             "CV access is temporarily unavailable. Please contact shaun.emirates@gmail.com.",
+          ...(process.env.VERCEL_ENV === "preview" ? {
+            reference: safeCode,
+            category: e instanceof TypeError ? "TYPE" : e instanceof RangeError ? "RANGE" : "SERVICE",
+          } : {}),
         },
         503,
       );
