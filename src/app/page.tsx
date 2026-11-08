@@ -50,15 +50,12 @@ export default function Home() {
               Shaun Denver Mathiasz
               <span>Travel Product Specialist · UK outbound travel</span>
             </p>
-            <h1 className="cinematic-headline">
-              Beyond
-              <br />
-              Destinations.
-              <br />
+            <h1 className="hero-heading" aria-label="Beyond Destinations. Towards Possibilities.">
+              <span className="headline-mask"><span>Beyond</span></span>
+              <span className="headline-mask"><span>Destinations.</span></span>
               <em>
-                Towards
-                <br />
-                Possibilities.
+                <span className="headline-mask"><span>Towards</span></span>
+                <span className="headline-mask"><span>Possibilities.</span></span>
               </em>
             </h1>
             <p>
@@ -82,6 +79,11 @@ export default function Home() {
                 My story <ArrowUpRight size={18} />
               </Link>
             </div>
+            <nav className="recruiter-shortcuts" aria-label="Recruiter shortcuts">
+              <Link href="/experience" prefetch={false}>Career history</Link>
+              <span aria-hidden="true">/</span>
+              <Link href={site.cvRequestUrl} prefetch={false}>Request my CV</Link>
+            </nav>
           </div>
           <div className="hero-visual">
             <Link

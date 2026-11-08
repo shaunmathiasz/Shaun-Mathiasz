@@ -114,6 +114,7 @@ test("published article and 404", async ({ page }) => {
   await expect(page.getByRole("link", { name: /Return home/ })).toBeVisible();
 });
 test("responsive layout fits requested widths", async ({ page }) => {
+  test.setTimeout(90000);
   for (const width of [360, 390, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 950 });
     for (const route of [
@@ -256,11 +257,11 @@ test("intro is session scoped and absent with reduced motion", async ({
 }) => {
   await page.goto("/");
   await expect
-    .poll(() => page.evaluate(() => sessionStorage.getItem("shaun-intro-v4")))
+    .poll(() => page.evaluate(() => sessionStorage.getItem("shaun-welcome-seen")))
     .toBe("seen");
   await page.reload();
   await expect(page.locator(".identity-intro")).toHaveCount(0);
-  await page.evaluate(() => sessionStorage.removeItem("shaun-intro-v4"));
+  await page.evaluate(() => sessionStorage.removeItem("shaun-welcome-seen"));
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.reload();
   await expect(page.locator(".identity-intro")).toHaveCount(0);

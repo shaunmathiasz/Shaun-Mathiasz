@@ -119,6 +119,20 @@ export default function About() {
           caption="COLOMBO / MY PROFESSIONAL & ACADEMIC BASE · CONTEXTUAL PHOTOGRAPHY"
         />
       </section>
+      <section className="section professional-perspectives">
+        <SectionTitle eyebrow="THREE CONNECTED CHAPTERS" title="One perspective. Still developing." />
+        <div className="perspective-grid">
+          {[
+            { number: "01", title: "A hospitality foundation.", text: "Guest operations and reservations in the Maldives taught me to consider the detail that sits behind an experience.", href: "/experience", label: "Explore the foundation" },
+            { number: "02", title: "A commercial practice.", text: "Today, I connect destination research, supplier evaluation and package construction for the UK outbound travel market, from Colombo.", href: "/portfolio", label: "Explore the practice" },
+            { number: "03", title: "A continuing education.", text: "Ongoing global business studies and professional development give me more ways to question, connect and improve the work.", href: "/education", label: "Explore the learning" },
+          ].map((chapter) => <Reveal key={chapter.number}><article>
+            <span className="eyebrow">{chapter.number} / IN PERSPECTIVE</span>
+            <h3>{chapter.title}</h3><p>{chapter.text}</p>
+            <Link href={chapter.href} prefetch={false} className="text-link">{chapter.label}<LinkArrow /></Link>
+          </article></Reveal>)}
+        </div>
+      </section>
       <section className="section">
         <SectionTitle
           eyebrow="PROFESSIONAL FOCUS"

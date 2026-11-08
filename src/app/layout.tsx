@@ -1,4 +1,5 @@
 import { LinkArrow } from "@/components/link-arrow";
+import { motionTokens } from "@/lib/motion";
 import { PersonalLogo } from "@/components/personal-logo";
 import { CinematicSystem, MotionToggle } from "@/components/cinematic-system";
 import { ScrollProgress } from "@/components/editorial-tools";
@@ -10,6 +11,7 @@ import { Navigation } from "@/components/navigation";
 import { site } from "@/config/site";
 import "./globals.css";
 import "./motion.css";
+import "./experience.css";
 const editorial = localFont({
   src: [
     {
@@ -96,7 +98,12 @@ export default function RootLayout({
   };
   return (
     <html lang="en" className={`${editorial.variable} ${body.variable}`}>
-      <body>
+      <body style={{
+        "--motion-micro": `${motionTokens.duration.micro * 1000}ms`,
+        "--motion-reveal": `${motionTokens.duration.reveal * 1000}ms`,
+        "--motion-section": `${motionTokens.duration.section * 1000}ms`,
+        "--ease-editorial": motionTokens.easing,
+      } as React.CSSProperties}>
         <a className="skip-link" href="#main">
           Skip to content
         </a>

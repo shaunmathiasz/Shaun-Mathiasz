@@ -72,7 +72,7 @@ export default async function Article({
         <p className="micro-copy">
           {readingMinutes(a.body)} minute estimated read
         </p>
-        <article className="prose">
+        <article className="prose" id="article-body">
           <MDXRemote source={a.body} />
         </article>
         <div className="related">

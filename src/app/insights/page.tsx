@@ -19,6 +19,7 @@ export default function Insights() {
         description="Personal essays on the questions that connect travel, hospitality and business."
       />
       <section className="section article-list">
+        <div className="journal-issue"><span>FIELD NOTES / THE JOURNAL</span><span>TRAVEL · HOSPITALITY · COMMERCIAL THINKING</span></div>
         {articles.map((a, i) => (
           <Link
             href={"/insights/" + a.slug}

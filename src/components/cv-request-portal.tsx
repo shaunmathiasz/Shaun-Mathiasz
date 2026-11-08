@@ -341,13 +341,13 @@ export function CVRequestPortal({
           Luxury hospitality. Travel product development. Commercial thinking.
         </p>
         <ol className="cv-steps">
-          <li data-active={state.stage === "form"}>
+          <li data-active={state.stage === "form"} aria-current={state.stage === "form" ? "step" : undefined}>
             <span>01</span>Introduce yourself
           </li>
-          <li data-active={state.stage === "verify"}>
+          <li data-active={state.stage === "verify"} aria-current={state.stage === "verify" ? "step" : undefined}>
             <span>02</span>Verify your email
           </li>
-          <li data-active={state.stage === "verified"}>
+          <li data-active={state.stage === "verified"} aria-current={state.stage === "verified" ? "step" : undefined}>
             <span>03</span>Access my CV
           </li>
         </ol>

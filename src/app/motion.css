@@ -1,79 +1,9 @@
 /* Midnight Executive V4. Motion timings and fallbacks: V4_REVIEW.md. */
 :root {
   --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
-  --motion-micro: 220ms;
-  --motion-reveal: 620ms;
-}
-.identity-intro {
-  position: fixed;
-  z-index: 50;
-  bottom: 28px;
-  right: 28px;
-  width: min(380px, calc(100vw - 40px));
-  padding: 24px 28px;
-  background: #0b1426f5;
-  border: 1px solid #d2b88a45;
-  box-shadow: 0 12px 60px #0005;
-  animation: identity-arrival 1050ms var(--ease-editorial) both;
-  pointer-events: none;
-}
-.intro-name {
-  display: block;
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  color: var(--text);
-}
-.intro-name strong {
-  font-family: var(--font-editorial), Georgia, serif;
-  font-size: 36px;
-  letter-spacing: 0.07em;
-  font-weight: 400;
-}
-.intro-disciplines {
-  display: block;
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  color: var(--gold);
-  margin: 6px 0 18px;
-}
-.intro-horizon {
-  display: block;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  transform-origin: left;
-  animation: intro-line 850ms var(--ease-editorial) both;
-}
-.identity-intro button {
-  pointer-events: auto;
-  background: none;
-  border: 0;
-  color: var(--text);
-  font-size: 10px;
-  padding: 10px 0;
-  min-height: 44px;
-}
-@keyframes identity-arrival {
-  0% {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  15%,
-  75% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-}
-@keyframes intro-line {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
+  --motion-micro: 200ms;
+  --motion-reveal: 580ms;
+  --motion-section: 800ms;
 }
 .cursor-companion {
   position: fixed;

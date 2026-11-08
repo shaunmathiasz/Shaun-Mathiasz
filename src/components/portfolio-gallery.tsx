@@ -5,18 +5,28 @@ import { useSafeReducedMotion as useReducedMotion } from "@/lib/use-safe-reduced
 import Image from "next/image";
 import { motion } from "motion/react";
 import { projectMedia } from "@/content/media";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { projects, categories } from "@/content/projects";
 export function PortfolioGallery({ limit }: { limit?: number }) {
   const reduced = useReducedMotion();
   const [filter, setFilter] = useState("All");
+  const [search, setSearch] = useState("");
+  const searchInput = useRef<HTMLInputElement>(null);
+  const query = search.trim().toLowerCase();
   const list = projects
-    .filter((p) => filter === "All" || p.category === filter)
+    .filter((p) => (filter === "All" || p.category === filter) &&
+      (!query || [p.title, p.category, p.summary, p.approach, ...p.skills, ...p.deliverables].join(" ").toLowerCase().includes(query)))
     .slice(0, limit);
   return (
     <>
+      {!limit && <div className="portfolio-discovery">
+        <label className="portfolio-search">Find an area of practice
+          <input ref={searchInput} type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Try pricing, reservations or research" aria-controls="practice-results" />
+        </label>
+        <p className="filter-summary" role="status">{list.length} {list.length === 1 ? "practice overview" : "practice overviews"}</p>
+      </div>}
       {!limit && (
         <div className="filters" aria-label="Filter portfolio">
           {categories.map((c) => (
@@ -25,12 +35,12 @@ export function PortfolioGallery({ limit }: { limit?: number }) {
               aria-pressed={filter === c}
               onClick={() => setFilter(c)}
             >
-              {c}
+              {c}<span aria-hidden="true">{c === "All" ? projects.length : projects.filter((project) => project.category === c).length}</span>
             </button>
           ))}
         </div>
       )}
-      <div className="project-grid" aria-live="polite">
+      <div className="project-grid" id={limit ? undefined : "practice-results"}>
         {list.map((p) => (
           <motion.div
             layout={!reduced}
@@ -67,11 +77,17 @@ export function PortfolioGallery({ limit }: { limit?: number }) {
                 <p className="eyebrow">PRACTICE OVERVIEW</p>
                 <h3>{p.title}</h3>
                 <p>{p.summary}</p>
+                <div className="practice-skills" aria-label="Relevant skills">{p.skills.slice(0, 3).map((skill) => <span key={skill}>{skill}</span>)}</div>
               </div>
             </Link>
           </motion.div>
         ))}
       </div>
+      {!limit && list.length === 0 && <div className="portfolio-empty">
+        <h3>A different starting point?</h3>
+        <p>Try another skill or explore all four areas of practice.</p>
+        <button className="button outline-button" onClick={() => { setSearch(""); setFilter("All"); searchInput.current?.focus(); }}>Show all practice overviews</button>
+      </div>}
     </>
   );
 }

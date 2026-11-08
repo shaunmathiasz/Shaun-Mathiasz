@@ -77,7 +77,8 @@ export function EducationCredentials() {
           </button>
         ))}
       </div>
-      <div className="credentials-list" aria-live="polite">
+      <p className="filter-summary" role="status">{filter === "Certifications" ? visibleCertifications.length : main.length} {filter === "Certifications" ? "short-course credentials" : "education and development entries"}</p>
+      <div className="credentials-list">
         {main.map((e) => (
           <Reveal key={e.id}>
             <CredentialCard item={e} />

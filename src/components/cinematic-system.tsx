@@ -2,6 +2,7 @@
 import { LinkArrow } from "@/components/link-arrow";
 
 
+import { motionTokens } from "@/lib/motion";
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { useSafeReducedMotion } from "@/lib/use-safe-reduced-motion";
@@ -19,13 +20,17 @@ export function CinematicSystem() {
       (entries) => {
         for (const entry of entries) {
           if (!entry.isIntersecting) continue;
+          if (entry.target.parentElement?.closest("[data-cinematic]")) {
+            observer.unobserve(entry.target);
+            continue;
+          }
           animations.push(
             entry.target.animate(
               [
-                { opacity: 0.6, transform: "translateY(20px)" },
+                { opacity: 0.6, transform: `translateY(${motionTokens.distance.reveal}px)` },
                 { opacity: 1, transform: "translateY(0)" },
               ],
-              { duration: 620, easing: "cubic-bezier(.22,1,.36,1)" },
+              { duration: motionTokens.duration.reveal * 1000, easing: motionTokens.easing },
             ),
           );
           observer.unobserve(entry.target);

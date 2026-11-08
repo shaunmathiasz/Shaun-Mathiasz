@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { animate } from "motion/react";
 import { careerLocations as places } from "@/content/career-locations";
+import { useFinePointer } from "@/lib/use-fine-pointer";
 import land from "@/content/land.json";
 export function projectPoint(lon: number, lat: number, rotation: number) {
   const a = ((lon - rotation) * Math.PI) / 180,
@@ -45,6 +46,7 @@ export function CareerGlobe() {
   const drag = useRef<number | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+  const fine = useFinePointer();
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -55,12 +57,12 @@ export function CareerGlobe() {
     return () => observer.disconnect();
   }, []);
   useEffect(() => {
-    if (paused || !visible || reduced || dragging) return;
+    if (paused || !visible || reduced || dragging || !fine) return;
     const timer = setInterval(() => {
       if (!document.hidden) setRotation((v) => (v + 0.16) % 360);
     }, 100);
     return () => clearInterval(timer);
-  }, [paused, visible, reduced, dragging]);
+  }, [paused, visible, reduced, dragging, fine]);
   const flight = useRef<{ stop: () => void } | null>(null);
   useEffect(() => {
     if (reduced) flight.current?.stop();
@@ -228,13 +230,15 @@ export function CareerGlobe() {
               ←
             </button>
             <button
-              aria-pressed={paused || Boolean(reduced)}
+              aria-pressed={paused || Boolean(reduced) || !fine}
               onClick={() => setPaused((v) => !v)}
-              disabled={Boolean(reduced)}
+              disabled={Boolean(reduced) || !fine}
             >
               {reduced
                 ? "Reduced motion"
-                : paused
+                : !fine
+                  ? "Touch controls"
+                  : paused
                   ? "Resume rotation"
                   : "Pause rotation"}
             </button>
