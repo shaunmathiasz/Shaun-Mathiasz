@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { z } from "zod";
 import { ownerPage } from "@/lib/cv/owner-page";
 import { decrypt } from "@/lib/cv/crypto";
+import { browserLocationMap } from "@/lib/cv/location";
 import { AdminActions } from "@/components/cv-admin";
 import { PageIntro } from "@/components/ui";
 import "../../../request-cv/portal.css";
@@ -46,6 +47,7 @@ export default async function Page({
     m?.gps_ciphertext ?? null,
     s.config.encryptionKey,
   );
+  const location = browserLocationMap(gps, m?.gps_permission_status);
   const date = (t: Date | null) =>
     t
       ? new Date(t).toLocaleString("en-GB", {
@@ -83,10 +85,10 @@ export default async function Page({
     "Referrer origin": m?.referrer,
     "Browser location permission": m?.gps_permission_status,
     "Location recorded (Sri Lanka)": date(m?.gps_recorded_at),
-    "Browser-reported latitude": gps?.latitude,
-    "Browser-reported longitude": gps?.longitude,
-    "Reported accuracy (metres)": gps?.accuracy,
-    "Browser position timestamp": gps?.timestamp
+    "Browser-reported latitude": location?.latitude,
+    "Browser-reported longitude": location?.longitude,
+    "Reported accuracy (metres)": location?.accuracy,
+    "Browser position timestamp": location && gps?.timestamp
       ? new Date(gps.timestamp).toISOString()
       : null,
     Notification: outbox?.status ?? "Not queued",
@@ -104,6 +106,40 @@ export default async function Page({
         <Link className="text-link" prefetch={false} href="/admin/cv-requests">
           ← All requests
         </Link>
+        <section className="cv-location-panel" aria-labelledby="location-heading">
+          <p className="eyebrow">CONSENTED BROWSER LOCATION</p>
+          <h2 id="location-heading">Location on the map</h2>
+          {location ? (
+            <>
+              <p>
+                {location.latitude}, {location.longitude}
+                {location.accuracy !== null && (
+                  <> · Reported accuracy: {Math.round(location.accuracy)} metres</>
+                )}
+              </p>
+              <a
+                className="button outline-button"
+                href={location.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                referrerPolicy="no-referrer"
+              >
+                Open in Google Maps ↗
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+              <p>
+                Browser-reported position, not independently verified. Opening
+                the map shares these coordinates with Google.
+              </p>
+            </>
+          ) : (
+            <p>
+              {m?.gps_permission_status === "denied"
+                ? "Location permission was declined. No coordinates were stored."
+                : "Browser coordinates are unavailable or no longer retained."}
+            </p>
+          )}
+        </section>
         <dl>
           {Object.entries(fields).map(([k, v]) => (
             <div key={k}>

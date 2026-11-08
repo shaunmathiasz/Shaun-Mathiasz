@@ -510,3 +510,13 @@
     min-height: 145px;
   }
 }
+
+.cv-location-panel {
+  margin: 2rem 0;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid rgb(210 184 138 / 25%);
+  background: linear-gradient(135deg, rgb(18 35 59 / 70%), rgb(6 11 22 / 80%));
+}
+.cv-location-panel h2 { margin: .75rem 0 1rem; }
+.cv-location-panel p { overflow-wrap: anywhere; }
+.cv-location-panel .button { margin: 1rem 0; }
