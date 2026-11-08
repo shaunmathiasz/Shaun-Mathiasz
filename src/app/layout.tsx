@@ -1,3 +1,4 @@
+import { LinkArrow } from "@/components/link-arrow";
 import { PersonalLogo } from "@/components/personal-logo";
 import { CinematicSystem, MotionToggle } from "@/components/cinematic-system";
 import { ScrollProgress } from "@/components/editorial-tools";
@@ -113,17 +114,17 @@ export default function RootLayout({
           <div>
             <span>Colombo, Sri Lanka</span>
             <Link prefetch={false} href="/portfolio#travel-detour">
-              Play a little ↗
+              Play a little <LinkArrow />
             </Link>
             <Link prefetch={false} href="/contact">
-              Contact ↗
+              Contact <LinkArrow />
             </Link>
-            <a href={`mailto:${site.professionalEmail}`}>Email Me ↗</a>
+            <a href={`mailto:${site.professionalEmail}`}>Email Me <LinkArrow /></a>
             <Link prefetch={false} href={site.cvRequestUrl}>
-              REQUEST MY CV ↗
+              REQUEST MY CV <LinkArrow />
             </Link>
             <Link prefetch={false} href="/request-cv/privacy">
-              CV request privacy ↗
+              CV request privacy <LinkArrow />
             </Link>
           </div>
           <MotionToggle />

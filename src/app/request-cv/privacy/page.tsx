@@ -1,3 +1,4 @@
+import { LinkArrow } from "@/components/link-arrow";
 import Link from "next/link";
 import { PageIntro } from "@/components/ui";
 import { pageMetadata } from "@/lib/metadata";
@@ -139,7 +140,7 @@ export default function Page() {
           href="/request-cv"
           prefetch={false}
         >
-          Back to CV request ↗
+          Back to CV request <LinkArrow />
         </Link>
       </article>
     </>

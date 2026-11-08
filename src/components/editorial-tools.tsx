@@ -1,4 +1,6 @@
 "use client";
+import { LinkArrow } from "@/components/link-arrow";
+
 import { useSafeReducedMotion as useReducedMotion } from "@/lib/use-safe-reduced-motion";
 import { useState } from "react";
 import { motion, useScroll, useSpring } from "motion/react";
@@ -30,7 +32,7 @@ export function CopyEmail() {
   return (
     <div className="copy-email">
       <button className="button outline-button" onClick={copy}>
-        Copy Email Address ↗
+        Copy Email Address <LinkArrow />
       </button>
       <p role="status">{status}</p>
     </div>
@@ -57,7 +59,7 @@ export function ArticleTools() {
   return (
     <aside className="reading-tools">
       <span>FIELD NOTES / READING COMPANION</span>
-      <button onClick={share}>Share / copy link ↗</button>
+      <button onClick={share}>Share / copy link <LinkArrow /></button>
       <span role="status">{status}</span>
       <motion.span
         className="reading-rule"

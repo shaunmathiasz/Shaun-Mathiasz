@@ -1,3 +1,4 @@
+import { LinkArrow } from "@/components/link-arrow";
 import Image from "next/image";
 import Link from "next/link";
 import { articles } from "@/content/articles";
@@ -25,7 +26,7 @@ export function BrandPerspective() {
             keep my perspective moving.
           </p>
           <Link href="/about" prefetch={false} className="text-link">
-            Meet the person behind the perspective ↗
+            Meet the person behind the perspective <LinkArrow />
           </Link>
         </div>
       </section>
@@ -36,7 +37,7 @@ export function BrandPerspective() {
             <h2>A few things worth thinking about.</h2>
           </div>
           <Link href="/insights" prefetch={false} className="text-link">
-            Read the journal ↗
+            Read the journal <LinkArrow />
           </Link>
         </div>
         <div className="brand-journal-grid">
@@ -61,7 +62,7 @@ export function BrandPerspective() {
                 <p className="eyebrow">{a.category}</p>
                 <h3>{a.title}</h3>
                 <p>{a.summary}</p>
-                <span className="text-link">Read the perspective ↗</span>
+                <span className="text-link">Read the perspective <LinkArrow /></span>
               </Link>
             ))}
         </div>

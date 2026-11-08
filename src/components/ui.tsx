@@ -1,5 +1,6 @@
+import { LinkArrow } from "./link-arrow";
 import Link from "next/link";
-import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 export function SectionTitle({
   eyebrow,
   title,
@@ -46,7 +47,7 @@ export function TextLink({
   return (
     <Link prefetch={false} className="text-link" href={href}>
       {children}
-      <ArrowUpRight size={17} />
+      <LinkArrow />
     </Link>
   );
 }

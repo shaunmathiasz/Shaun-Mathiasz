@@ -2375,3 +2375,7 @@ html[data-motion="reduced"] .curated-photo-motion {
     display: none;
   }
 }
+
+.cursor-companion > .link-arrow { display: none; }
+.cursor-companion[data-icon="true"] > .link-arrow { display: block; }
+.cursor-companion[data-icon="true"] > [data-cursor-label] { display: none; }

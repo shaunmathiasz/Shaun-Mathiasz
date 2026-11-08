@@ -1,3 +1,4 @@
+import { LinkArrow } from "@/components/link-arrow";
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { EditorialImage } from "@/components/editorial-image";
@@ -87,9 +88,9 @@ export default function About() {
             hospitality.
           </p>
           <div className="about-paths">
-            <Link href="/experience">Explore my experience ↗</Link>
-            <Link href="/portfolio">View professional work ↗</Link>
-            <Link href="/education">Education & development ↗</Link>
+            <Link href="/experience">Explore my experience <LinkArrow /></Link>
+            <Link href="/portfolio">View professional work <LinkArrow /></Link>
+            <Link href="/education">Education & development <LinkArrow /></Link>
           </div>
           <h3>A global perspective</h3>
           <p>

@@ -1,4 +1,6 @@
 "use client";
+import { LinkArrow } from "@/components/link-arrow";
+
 import { useState } from "react";
 import { contactSchema } from "@/lib/contact";
 export function ContactForm({ configured }: { configured: boolean }) {
@@ -124,8 +126,9 @@ export function ContactForm({ configured }: { configured: boolean }) {
         {busy
           ? "Sending…"
           : configured
-            ? "Send message ↗"
+            ? "Send message"
             : "Check message · delivery unavailable"}
+        {!busy && configured && <LinkArrow />}
       </button>
       <p role="status" className="form-status">
         {status}

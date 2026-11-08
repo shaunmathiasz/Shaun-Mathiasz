@@ -3101,3 +3101,10 @@ details p {
   aspect-ratio: 1;
   object-fit: contain;
 }
+
+.link-arrow {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: -0.18em;
+}
+.provider-route-mark .link-arrow { width: 1em; height: 1em; }

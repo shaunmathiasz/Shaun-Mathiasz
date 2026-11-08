@@ -1,4 +1,6 @@
 "use client";
+import { LinkArrow } from "@/components/link-arrow";
+
 import { useEffect, useRef, useState } from "react";
 const destinations = ["Colombo", "Malé", "London", "Tokyo", "Rome", "Paris"];
 type Card = { id: number; city: string };
@@ -83,7 +85,7 @@ export function TravelGame() {
           className="button outline-button"
           onClick={start}
         >
-          {cards.length ? "New journey ↻" : "Play destination pairs ↗"}
+          {cards.length ? "New journey ↻" : <>Play destination pairs <LinkArrow /></>}
         </button>
         {cards.length > 0 && (
           <>

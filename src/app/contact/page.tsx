@@ -1,3 +1,4 @@
+import { LinkArrow } from "@/components/link-arrow";
 import Link from "next/link";
 import { SocialPagePreviews } from "@/components/social-page-previews";
 import { SocialProfiles } from "@/components/social-profiles";
@@ -34,7 +35,7 @@ export default function Contact() {
           className="contact-intro-email text-link"
           href={`mailto:${site.professionalEmail}`}
         >
-          {site.professionalEmail} ↗
+          {site.professionalEmail} <LinkArrow />
         </a>
       </section>
       <section className="section contact-grid">
@@ -65,7 +66,7 @@ export default function Contact() {
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  {l.label} ↗
+                  {l.label} <LinkArrow />
                 </a>
               ))
             ) : (
@@ -75,7 +76,7 @@ export default function Contact() {
           <div className="contact-detail">
             <span>Curriculum vitae</span>
             <Link href={site.cvRequestUrl} prefetch={false}>
-              REQUEST MY CV ↗
+              REQUEST MY CV <LinkArrow />
             </Link>
           </div>
         </aside>
@@ -97,7 +98,7 @@ export default function Contact() {
               className="button gold-button"
               href={`mailto:${site.professionalEmail}`}
             >
-              Email Me ↗
+              Email Me <LinkArrow />
             </a>
             <CopyEmail />
             <p className="micro-copy">

@@ -1,3 +1,4 @@
+import { LinkArrow } from "@/components/link-arrow";
 import { photography } from "@/content/visual-assets";
 import Image from "next/image";
 import Link from "next/link";
@@ -63,14 +64,14 @@ export function JourneyEditorial() {
               />
               <span className="chapter-number">{c.number}</span>
               <span className="chapter-photo-link" aria-hidden="true">
-                ↗
+                <LinkArrow />
               </span>
             </Link>
             <p className="eyebrow">{c.subtitle}</p>
             <h2>{c.title}</h2>
             <p>{c.text}</p>
             <Link prefetch={false} className="text-link" href={c.href}>
-              {c.link} ↗
+              {c.link} <LinkArrow />
             </Link>
           </article>
         ))}

@@ -1,4 +1,6 @@
 "use client";
+import { LinkArrow } from "@/components/link-arrow";
+
 import { useSafeReducedMotion as useReducedMotion } from "@/lib/use-safe-reduced-motion";
 import { useEffect, useRef, useState } from "react";
 
@@ -262,7 +264,7 @@ export function CareerGlobe() {
               >
                 <span>0{i + 1}</span>
                 {p.name}
-                <span>↗</span>
+                <span><LinkArrow /></span>
               </button>
             ))}
           </div>

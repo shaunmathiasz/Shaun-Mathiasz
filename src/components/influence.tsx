@@ -1,4 +1,6 @@
 "use client";
+import { LinkArrow } from "@/components/link-arrow";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useLayoutEffect, useRef, type CSSProperties } from "react";
@@ -126,7 +128,7 @@ export function Influence() {
                   rel="noopener noreferrer"
                 >
                   {platform.handle}
-                  <span aria-hidden="true"> ↗</span>
+                  <span aria-hidden="true"> <LinkArrow /></span>
                 </a>
               </div>
             </header>
@@ -156,7 +158,7 @@ export function Influence() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Visit {platform.name} ↗
+              Visit {platform.name} <LinkArrow />
             </a>
           </article>
         ))}
@@ -169,7 +171,7 @@ export function Influence() {
         <h3>{combinedAudience.label}</h3>
         <p>{combinedAudience.caption}</p>
         <Link prefetch={false} href="/contact#social" className="text-link">
-          Explore the profiles ↗
+          Explore the profiles <LinkArrow />
         </Link>
       </div>
     </section>

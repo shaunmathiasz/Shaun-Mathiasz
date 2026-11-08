@@ -1,3 +1,4 @@
+import { LinkArrow } from "@/components/link-arrow";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { z } from "zod";
@@ -124,7 +125,7 @@ export default async function Page({
                 rel="noopener noreferrer"
                 referrerPolicy="no-referrer"
               >
-                Open in Google Maps ↗
+                Open in Google Maps <LinkArrow />
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
               <p>

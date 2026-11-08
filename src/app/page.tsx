@@ -1,3 +1,4 @@
+import { LinkArrow } from "@/components/link-arrow";
 import { SocialPagePreviews } from "@/components/social-page-previews";
 import { BrandPerspective } from "@/components/brand-perspective";
 import { DigitalPresence } from "@/components/digital-presence";
@@ -40,7 +41,7 @@ export default function Home() {
             TRAVEL · COMMERCE · STRATEGY
           </p>
           <span className="hero-location">
-            COLOMBO, SRI LANKA <span className="gold">↗</span>
+            COLOMBO, SRI LANKA <span className="gold"><LinkArrow /></span>
           </span>
         </div>
         <div className="hero-content">

@@ -1,4 +1,6 @@
 "use client";
+import { LinkArrow } from "@/components/link-arrow";
+
 import { useEffect, useState } from "react";
 import { useSafeReducedMotion } from "@/lib/use-safe-reduced-motion";
 
@@ -37,7 +39,7 @@ export function HomeIntroduction() {
       </span>
       <span className="intro-disciplines">TRAVEL / COMMERCE / STRATEGY</span>
       <span className="intro-horizon" aria-hidden="true" />
-      <button onClick={() => setVisible(false)}>Skip introduction ↗</button>
+      <button onClick={() => setVisible(false)}>Skip introduction <LinkArrow /></button>
     </aside>
   );
 }

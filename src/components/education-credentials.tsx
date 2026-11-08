@@ -1,4 +1,6 @@
 "use client";
+import { LinkArrow } from "@/components/link-arrow";
+
 import { useState } from "react";
 import {
   education,
@@ -38,7 +40,7 @@ export function CredentialCard({ item }: { item: Credential }) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Verify credential ↗
+              Verify credential <LinkArrow />
             </a>
           )}
         </details>

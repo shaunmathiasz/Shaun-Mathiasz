@@ -1,4 +1,6 @@
 "use client";
+import { LinkArrow } from "@/components/link-arrow";
+
 import Link from "next/link";
 import {
   useCallback,
@@ -356,7 +358,7 @@ export function CVRequestPortal({
           </p>
         </div>
         <Link href="/contact" className="text-link" prefetch={false}>
-          Prefer a conversation? Get in touch ↗
+          Prefer a conversation? Get in touch <LinkArrow />
         </Link>
       </aside>
       <div className="cv-panel" aria-busy={busy}>
@@ -380,7 +382,7 @@ export function CVRequestPortal({
               className="button gold-button"
               href="mailto:shaun.emirates@gmail.com?subject=Professional%20CV%20request"
             >
-              Email Shaun ↗
+              Email Shaun <LinkArrow />
             </a>
           </div>
         ) : (
@@ -468,7 +470,7 @@ export function CVRequestPortal({
                   current location for request security and auditing. Location
                   access is not required to receive the CV.{" "}
                   <Link href="/request-cv/privacy" prefetch={false}>
-                    CV Request Privacy Notice ↗
+                    CV Request Privacy Notice <LinkArrow />
                   </Link>
                 </p>
                 <button
@@ -602,7 +604,7 @@ export function CVRequestPortal({
                   session.
                 </p>
                 <Link className="text-link" href="/contact" prefetch={false}>
-                  Continue the conversation ↗
+                  Continue the conversation <LinkArrow />
                 </Link>
               </div>
             )}

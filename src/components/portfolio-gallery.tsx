@@ -1,4 +1,6 @@
 "use client";
+import { LinkArrow } from "@/components/link-arrow";
+
 import { useSafeReducedMotion as useReducedMotion } from "@/lib/use-safe-reduced-motion";
 import Image from "next/image";
 import { motion } from "motion/react";
@@ -54,7 +56,7 @@ export function PortfolioGallery({ limit }: { limit?: number }) {
                   sizes="(max-width:600px) 90vw, 45vw"
                 />
                 <span className="project-preview">
-                  Explore the thinking <span>↗</span>
+                  Explore the thinking <span><LinkArrow /></span>
                 </span>
                 <span className="project-arrow">
                   <ArrowUpRight size={22} />
