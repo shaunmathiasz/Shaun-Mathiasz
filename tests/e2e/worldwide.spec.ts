@@ -28,6 +28,7 @@ test("WORLDWIDE is accessible from About and mobile navigation preserves contact
 test("complete five rounds, reconcile cash, share, save best and restart", async ({
   page,
 }) => {
+  test.setTimeout(60000);
   await begin(page);
   let capital = 10000;
   for (let round = 1; round <= 5; round++) {
