@@ -110,7 +110,7 @@ export default function RootLayout({
         <ScrollProgress />
         <CinematicSystem />
         <Navigation />
-        <main id="main">{children}</main>
+        <main id="main" tabIndex={-1}>{children}</main>
         <footer className="footer">
           <Link prefetch={false} href="/" className="footer-name">
             <PersonalLogo />

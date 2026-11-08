@@ -17,6 +17,10 @@ function publish(phase: IntroPhase) {
 export function finishIntroduction() {
   clearTimeout(timer);
   document.removeEventListener("visibilitychange", tick);
+  // Do not leave keyboard focus on a disappearing Skip button.
+  const panel = document.querySelector(".identity-intro");
+  if (panel?.contains(document.activeElement))
+    document.getElementById("main")?.focus({ preventScroll: true });
   try { sessionStorage.setItem(INTRO_SESSION_KEY, "seen"); } catch { /* In-memory session remains valid. */ }
   publish("done");
 }

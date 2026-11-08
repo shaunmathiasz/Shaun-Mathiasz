@@ -30,6 +30,7 @@ test("Skip and Escape are immediate, and page navigation never replays it", asyn
   await page.goto("/");
   await page.getByRole("button", { name: "Skip intro" }).click();
   await expect(page.locator(intro)).toHaveCount(0);
+  await expect(page.getByRole("main")).toBeFocused();
   await page.getByRole("link", { name: "My story", exact: true }).click();
   await expect(page).toHaveURL(/about/);
   await page.locator(".wordmark").click();
