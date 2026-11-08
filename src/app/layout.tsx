@@ -9,6 +9,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 import { site } from "@/config/site";
+import { homepageSocial, socialImage } from "@/config/social";
 import "./globals.css";
 import "./motion.css";
 import "./experience.css";
@@ -52,13 +53,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: site.name,
-    title: "Shaun Denver Mathiasz — Travel, Commerce & Strategy",
-    description: site.description,
-    ...(site.url
-      ? { images: [{ url: "/opengraph-image", width: 1200, height: 630 }] }
-      : {}),
+    title: homepageSocial.title,
+    description: homepageSocial.description,
+    images: [socialImage],
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    title: homepageSocial.title,
+    description: homepageSocial.description,
+    images: [socialImage.url],
+  },
 };
 export default function RootLayout({
   children,

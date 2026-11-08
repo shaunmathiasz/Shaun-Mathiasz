@@ -1,4 +1,6 @@
 import { LinkArrow } from "@/components/link-arrow";
+import type { Metadata } from "next";
+import { homepageSocial, socialImage } from "@/config/social";
 import { SocialPagePreviews } from "@/components/social-page-previews";
 import { BrandPerspective } from "@/components/brand-perspective";
 import { DigitalPresence } from "@/components/digital-presence";
@@ -23,11 +25,29 @@ import { PortfolioGallery } from "@/components/portfolio-gallery";
 import { Reveal } from "@/components/reveal";
 import { skills, education } from "@/content/profile";
 import { site } from "@/config/site";
-export const metadata = pageMetadata(
+const homepageMetadata = pageMetadata(
   "Travel, Commerce & Strategy",
   site.description,
   "/",
 );
+export const metadata: Metadata = {
+  ...homepageMetadata,
+  alternates: { canonical: homepageSocial.url },
+  openGraph: {
+    type: "website",
+    siteName: site.name,
+    title: homepageSocial.title,
+    description: homepageSocial.description,
+    url: homepageSocial.url,
+    images: [socialImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: homepageSocial.title,
+    description: homepageSocial.description,
+    images: [socialImage.url],
+  },
+};
 export default function Home() {
   const icons = [Globe2, ChartNoAxesCombined, Compass, Handshake];
   return (
