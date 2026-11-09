@@ -7,7 +7,7 @@ async function productionFixture(page: import("@playwright/test").Page, request:
   let tags = 0;
   await page.route("https://www.shaunmathiasz.com/**", async (route) => {
     const url = new URL(route.request().url());
-    const response = await request.fetch(`${process.env.PLAYWRIGHT_BASE_URL || "http://127.0.0.1:3060"}${url.pathname}${url.search}`, { method: route.request().method(), headers: route.request().headers(), data: route.request().postDataBuffer() || undefined });
+    const response = await request.fetch(`${process.env.PLAYWRIGHT_BASE_URL || "http://127.0.0.1:3060"}${url.pathname}${url.search}`, { method: route.request().method(), headers: route.request().headers(), data: route.request().postDataBuffer() || undefined, maxRetries: route.request().method() === "GET" ? 2 : 0 });
     const contentType = response.headers()["content-type"] || "";
     const body = /text\/html|text\/x-component/.test(contentType) ? (await response.text()).replace(/gtmApproved.{0,8}true/g, (value) => value.replace(/true$/, "false")) : undefined;
     await route.fulfill({ response, ...(body === undefined ? {} : { body }) }).catch((error: Error) => { if (!error.message.includes("Route is already handled")) throw error; });

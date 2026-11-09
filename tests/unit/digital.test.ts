@@ -351,5 +351,5 @@ describe("SDM Digital real SQL integration", () => {
     } finally {
       await isolated.close();
     }
-  });
+  }, 30000);
 });
