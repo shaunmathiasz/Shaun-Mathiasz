@@ -9,7 +9,9 @@ export function isAnalyticsPublicPath(path: string) {
   return publicPaths.has(path.replace(/\/$/, "") || "/");
 }
 export function analyticsUrlAllowed(url: URL) {
-  return url.origin === "https://www.shaunmathiasz.com" && !url.search && isAnalyticsPublicPath(url.pathname);
+  const debug = url.searchParams.get("gtm_debug");
+  const safeDebugQuery = url.searchParams.size === 1 && debug !== null && /^[A-Za-z0-9_-]{1,64}$/.test(debug);
+  return url.origin === "https://www.shaunmathiasz.com" && (!url.search || safeDebugQuery) && isAnalyticsPublicPath(url.pathname);
 }
 export function analyticsReferrerAllowed(referrer: string) {
   if (!referrer) return true;

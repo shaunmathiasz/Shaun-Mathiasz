@@ -1,3 +1,4 @@
+import { REVIEWED_GTM_CONTAINER_ID } from "@/config/analytics";
 import { ClarityAnalytics, AnalyticsPreferences } from "@/components/clarity-analytics";
 import { LinkArrow } from "@/components/link-arrow";
 import { motionTokens } from "@/lib/motion";
@@ -92,7 +93,7 @@ export default function RootLayout({
         "--motion-section": `${motionTokens.duration.section * 1000}ms`,
         "--ease-editorial": motionTokens.easing,
       } as React.CSSProperties}>
-        <ClarityAnalytics production={process.env.VERCEL_ENV === "production"} projectId={process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || ""}>
+        <ClarityAnalytics production={process.env.VERCEL_ENV === "production"} projectId={process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || ""} gtmId={process.env.NEXT_PUBLIC_GTM_ID || ""} gtmApproved={Boolean(REVIEWED_GTM_CONTAINER_ID && REVIEWED_GTM_CONTAINER_ID === process.env.NEXT_PUBLIC_GTM_ID)}>
         <a className="skip-link" href="#main">
           Skip to content
         </a>

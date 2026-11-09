@@ -4,18 +4,19 @@ import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState
 import { usePathname } from "next/navigation";
 import { ANALYTICS_CONSENT_KEY, analyticsReferrerAllowed, analyticsUrlAllowed, isAnalyticsPublicPath, readAnalyticsConsent, type AnalyticsConsent } from "@/lib/analytics-policy";
 import "./clarity-analytics.css";
+import { GoogleTagManager, updateGoogleConsent } from "@/components/google-tag-manager";
 
 type Clarity = ((...args: unknown[]) => void) & { q?: unknown[][] };
 declare global {
-  interface Window { clarity?: Clarity; __sdmClarityStarted?: boolean; __sdmAnalyticsConsent?: string; }
+  interface Window { clarity?: Clarity; __sdmClarityStarted?: boolean; __sdmAnalyticsConsent?: Record<string, string>; }
 }
 const subscribeHydration = () => () => {};
 const clientReady = () => true;
 const serverReady = () => false;
 const serverConsent = () => null;
-function consentSnapshot() {
-  if (window.__sdmAnalyticsConsent !== undefined) return window.__sdmAnalyticsConsent;
-  try { return localStorage.getItem(ANALYTICS_CONSENT_KEY); } catch { return null; }
+function consentSnapshot(key: string) {
+  if (window.__sdmAnalyticsConsent?.[key] !== undefined) return window.__sdmAnalyticsConsent[key];
+  try { return localStorage.getItem(key); } catch { return null; }
 }
 function subscribeConsent(callback: () => void) {
   window.addEventListener("storage", callback);
@@ -28,9 +29,10 @@ function privacySignal() {
 }
 function stopRecording() {
   if (window.__sdmClarityStarted) window.clarity?.("stop");
+  updateGoogleConsent(false);
 }
 function eraseClarityCookies() {
-  for (const name of ["_clck", "_clsk"]) {
+  for (const name of ["_clck", "_clsk", "_ga", "_ga_BGFVMTBRVP", "_gid"]) {
     for (const domain of ["", "; domain=www.shaunmathiasz.com", "; domain=shaunmathiasz.com"]) {
       document.cookie = `${name}=; Max-Age=0; path=/; Secure; SameSite=Lax${domain}`;
     }
@@ -38,23 +40,26 @@ function eraseClarityCookies() {
 }
 
 /** A fresh document prevents public recording from following visitors into private workflows. */
-export function ClarityAnalytics({ children, production, projectId }: {
-  children: React.ReactNode; production: boolean; projectId: string;
+export function ClarityAnalytics({ children, production, projectId, gtmId = "", gtmApproved = false }: {
+  children: React.ReactNode; production: boolean; projectId: string; gtmId?: string; gtmApproved?: boolean;
 }) {
   const pathname = usePathname();
   const ready = useSyncExternalStore(subscribeHydration, clientReady, serverReady);
-  const rawConsent = useSyncExternalStore(subscribeConsent, consentSnapshot, serverConsent);
+  const googleEnabled = gtmApproved && /^GTM-[A-Z0-9]+$/.test(gtmId);
+  const consentKey = googleEnabled ? "sdm-analytics-consent-v2" : ANALYTICS_CONSENT_KEY;
+  const rawConsent = useSyncExternalStore(subscribeConsent, () => consentSnapshot(consentKey), serverConsent);
   const choice = readAnalyticsConsent(rawConsent);
   const [open, setOpen] = useState(false);
   const region = useRef<HTMLElement>(null);
   const previousFocus = useRef<HTMLElement | null>(null);
-  const configured = production && /^[a-z0-9]{6,20}$/.test(projectId);
+  const clarityEnabled = /^[a-z0-9]{6,20}$/.test(projectId);
+  const configured = production && (clarityEnabled || googleEnabled);
   const publicPath = isAnalyticsPublicPath(pathname);
-  const mustReload = typeof window !== "undefined" && !!window.__sdmClarityStarted && !publicPath;
+  const mustReload = typeof window !== "undefined" && !!(window.__sdmClarityStarted || window.__sdmGtmStarted) && !publicPath;
   const eligible = ready && configured && publicPath && analyticsUrlAllowed(new URL(window.location.href)) && analyticsReferrerAllowed(document.referrer);
 
   useEffect(() => {
-    if (ready && choice !== "accepted" && window.__sdmClarityStarted) {
+    if (ready && choice !== "accepted" && (window.__sdmClarityStarted || window.__sdmGtmStarted)) {
       stopRecording(); eraseClarityCookies(); location.reload();
     }
   }, [ready, choice]);
@@ -71,7 +76,11 @@ export function ClarityAnalytics({ children, production, projectId }: {
       const url = new URL(link.href, location.href);
       if (url.origin !== location.origin) return;
       const crossing = isAnalyticsPublicPath(location.pathname) !== isAnalyticsPublicPath(url.pathname);
-      if (crossing || (window.__sdmClarityStarted && url.search)) {
+      if (window.__sdmGtmStarted && isAnalyticsPublicPath(location.pathname) && isAnalyticsPublicPath(url.pathname) && !url.search) {
+        const action = url.pathname === "/about" ? "about" : url.pathname === "/play" ? "play" : url.pathname.startsWith("/portfolio") ? "portfolio" : url.pathname.startsWith("/insights") ? "insights" : null;
+        if (action) window.dataLayer?.push({ event: "portfolio_engagement", action, page_path: location.pathname });
+      }
+      if (crossing || ((window.__sdmClarityStarted || window.__sdmGtmStarted) && url.search)) {
         event.preventDefault(); event.stopImmediatePropagation(); stopRecording();
         location.assign(url.href);
       }
@@ -81,7 +90,7 @@ export function ClarityAnalytics({ children, production, projectId }: {
   }, [configured]);
 
   useEffect(() => {
-    if (!eligible || choice !== "accepted" || privacySignal() || window.__sdmClarityStarted) return;
+    if (!clarityEnabled || !eligible || choice !== "accepted" || privacySignal() || window.__sdmClarityStarted) return;
     const start = () => {
       if (!analyticsUrlAllowed(new URL(location.href)) || window.__sdmClarityStarted) return;
       if (document.querySelector('script[src^="https://www.clarity.ms/tag/"]') || window.clarity) return;
@@ -100,16 +109,16 @@ export function ClarityAnalytics({ children, production, projectId }: {
       return () => window.cancelIdleCallback(id);
     }
     const id = setTimeout(start, 0); return () => clearTimeout(id);
-  }, [eligible, choice, projectId]);
+  }, [eligible, choice, projectId, clarityEnabled]);
 
   const show = () => { previousFocus.current = document.activeElement as HTMLElement; setOpen(true); };
   const decide = (next: AnalyticsConsent) => {
     const value = JSON.stringify({ version: 1, choice: next, at: Date.now() });
-    try { localStorage.setItem(ANALYTICS_CONSENT_KEY, value); } catch { window.__sdmAnalyticsConsent = value; }
+    try { localStorage.setItem(consentKey, value); } catch { (window.__sdmAnalyticsConsent ||= {})[consentKey] = value; }
     window.dispatchEvent(new Event("sdm:analytics-consent"));
     setOpen(false); previousFocus.current?.focus();
     if (next === "declined") {
-      if (window.__sdmClarityStarted) {
+      if (window.__sdmClarityStarted || window.__sdmGtmStarted) {
         window.clarity?.("consentv2", { ad_Storage: "denied", analytics_Storage: "denied" });
         stopRecording(); eraseClarityCookies(); location.reload();
       } else eraseClarityCookies();
@@ -119,10 +128,11 @@ export function ClarityAnalytics({ children, production, projectId }: {
 
   return <Preferences.Provider value={eligible ? show : null}>
     {mustReload ? null : children}
+    {eligible && choice === "accepted" && !privacySignal() && googleEnabled && <GoogleTagManager id={gtmId} />}
     {eligible && (choice === null || open) && <section ref={region} tabIndex={-1} className="analytics-choice" aria-labelledby="analytics-title" data-clarity-mask="true">
       <div><p className="eyebrow">YOUR PRIVACY / YOUR CHOICE</p><h2 id="analytics-title">Optional analytics.</h2>
-        <p>May I use Microsoft Clarity to understand how this public website is used? It records masked page interactions and uses analytics cookies. It stays off the CV portal, admin area and contact page.</p>
-        <details><summary>How analytics works</summary><p>Clarity receives public page visits, device information and masked interaction recordings, and may infer an approximate region from network information. Analytics never requests GPS access. No recruiter details, form values, verification codes or precise location are passed to it. Advertising storage stays denied. Your choice is remembered for 180 days and can be withdrawn through Analytics preferences in the footer. Declining does not affect access to the website or CV.</p><a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener noreferrer">Microsoft privacy statement</a></details>
+        <p>May I use {googleEnabled ? "Microsoft Clarity and Google Analytics via Google Tag Manager" : "Microsoft Clarity"} to understand how this public website is used? {googleEnabled ? "These services measure public page views and interactions; Clarity records masked page interactions." : "Clarity records masked page interactions."} They use analytics cookies. Analytics stays off the CV portal, admin area and contact page.</p>
+        <details><summary>How analytics works</summary><p>{googleEnabled ? "Microsoft and Google receive public page and device information; Clarity receives masked interaction recordings" : "Clarity receives public page visits, device information and masked interaction recordings"}, and may infer an approximate region from network information. Analytics never requests GPS access. No recruiter details, form values, verification codes or precise location are passed to it. Advertising storage stays denied. Your choice is remembered for 180 days and can be withdrawn through Analytics preferences in the footer. Declining does not affect access to the website or CV.</p><a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener noreferrer">Microsoft privacy statement</a>{googleEnabled && <> · <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google privacy policy</a></>}</details>
         {privacySignal() && <p>Your browser privacy signal is enabled. Analytics will stay off.</p>}
       </div>
       <div className="analytics-actions"><button type="button" onClick={() => decide("declined")}>Decline analytics</button><button type="button" disabled={privacySignal()} onClick={() => decide("accepted")}>Allow analytics</button>

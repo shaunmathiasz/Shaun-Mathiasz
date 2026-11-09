@@ -10,6 +10,8 @@ describe("Clarity privacy policy", () => {
   });
   it("rejects Preview hosts, alternative origins, query strings and sensitive referrers", () => {
     expect(analyticsUrlAllowed(new URL("https://www.shaunmathiasz.com/"))).toBe(true);
+    expect(analyticsUrlAllowed(new URL("https://www.shaunmathiasz.com/?gtm_debug=1794230000000"))).toBe(true);
+    expect(analyticsUrlAllowed(new URL("https://www.shaunmathiasz.com/?gtm_debug=1&email=private@example.org"))).toBe(false);
     for (const url of ["https://cv-preview.shaunmathiasz.com/", "https://test.vercel.app/", "http://www.shaunmathiasz.com/", "https://www.shaunmathiasz.com/?email=private@example.org"]) expect(analyticsUrlAllowed(new URL(url))).toBe(false);
     expect(analyticsReferrerAllowed("https://www.shaunmathiasz.com/admin/login")).toBe(false);
     expect(analyticsReferrerAllowed("https://example.org/?email=private@example.org")).toBe(false);

@@ -8,7 +8,7 @@ async function productionFixture(page: import("@playwright/test").Page, request:
   await page.route("https://www.shaunmathiasz.com/**", async (route) => {
     const url = new URL(route.request().url());
     const response = await request.fetch(`${process.env.PLAYWRIGHT_BASE_URL || "http://127.0.0.1:3060"}${url.pathname}${url.search}`, { method: route.request().method(), headers: route.request().headers(), data: route.request().postDataBuffer() || undefined });
-    await route.fulfill({ response });
+    await route.fulfill({ response }).catch((error: Error) => { if (!error.message.includes("Route is already handled")) throw error; });
   });
   await page.route("https://www.clarity.ms/tag/**", async (route) => {
     tags++;
@@ -16,7 +16,7 @@ async function productionFixture(page: import("@playwright/test").Page, request:
   });
   return () => tags;
 }
-test.afterEach(async ({ page }) => { await page.unrouteAll({ behavior: "wait" }); });
+test.afterEach(async ({ page }) => { await page.unrouteAll({ behavior: "ignoreErrors" }); });
 
 async function accepted(page: import("@playwright/test").Page) {
   await page.addInitScript(({ key }) => localStorage.setItem(key, JSON.stringify({ version: 1, choice: "accepted", at: Date.now() })), { key: ANALYTICS_CONSENT_KEY });
