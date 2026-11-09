@@ -44,6 +44,9 @@ try {
     ).rows[0];
     if (marker?.environment !== environment)
       throw Error("Environment mismatch.");
+    const installed = (await c.query("SELECT to_regclass('sdm_digital.migrations') AS table_name")).rows[0]?.table_name;
+    const applied = installed && (await c.query("SELECT version FROM sdm_digital.migrations WHERE version='004_sdm_digital'")).rowCount === 1;
+    if (!applied) {
     await c.query(
       await readFile(
         new URL("../migrations/004_sdm_digital.sql", import.meta.url),
@@ -59,6 +62,7 @@ try {
       await c.query(
         `GRANT USAGE,SELECT ON ALL SEQUENCES IN SCHEMA sdm_digital TO ${role}`,
       );
+    }
     }
     await c.query("COMMIT");
     console.log(
