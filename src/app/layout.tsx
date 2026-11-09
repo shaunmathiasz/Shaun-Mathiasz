@@ -1,3 +1,4 @@
+import { ClarityAnalytics, AnalyticsPreferences } from "@/components/clarity-analytics";
 import { LinkArrow } from "@/components/link-arrow";
 import { motionTokens } from "@/lib/motion";
 import { PersonalLogo } from "@/components/personal-logo";
@@ -85,12 +86,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${editorial.variable} ${body.variable}`}>
-      <body style={{
+      <body data-clarity-mask="true" style={{
         "--motion-micro": `${motionTokens.duration.micro * 1000}ms`,
         "--motion-reveal": `${motionTokens.duration.reveal * 1000}ms`,
         "--motion-section": `${motionTokens.duration.section * 1000}ms`,
         "--ease-editorial": motionTokens.easing,
       } as React.CSSProperties}>
+        <ClarityAnalytics production={process.env.VERCEL_ENV === "production"} projectId={process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || ""}>
         <a className="skip-link" href="#main">
           Skip to content
         </a>
@@ -121,6 +123,7 @@ export default function RootLayout({
               CV request privacy <LinkArrow />
             </Link>
           </div>
+          <AnalyticsPreferences />
           <MotionToggle />
           <small>© {new Date().getFullYear()} Shaun Denver Mathiasz</small>
         </footer>
@@ -130,6 +133,7 @@ export default function RootLayout({
             __html: JSON.stringify(identitySchema).replace(/</g, "\u003c"),
           }}
         />
+        </ClarityAnalytics>
       </body>
     </html>
   );

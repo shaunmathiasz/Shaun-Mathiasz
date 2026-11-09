@@ -102,3 +102,11 @@ Routes: `/request-cv`, `/request-cv/privacy`, `/admin/login`, `/admin/cv-request
 The portal uses mandatory six-digit email OTP, atomic verification and file-serving claims, five-minute expiry/five attempts, three controlled resends, database rate limits, Turnstile, separate owner sessions, no-store downloads, one-time optional browser geolocation, encrypted private metadata, durable owner-notification retries, safe CSV export and scheduled retention. There is no automatic claim of real delivery: provider acceptance and signed delivered events are separate states.
 
 `npm run cv:migrate`, `npm run cv:upload` and `npm run cv:check` require real service configuration. The local-only fixture helper and PGlite/browser mocks verify application behaviour without contacting recipients; they are not production credentials or end-to-end cloud verification.
+
+### Optional Microsoft Clarity analytics
+
+Set `NEXT_PUBLIC_CLARITY_PROJECT_ID` on Vercel Production (currently `zaylxflzbc`). Clarity runs only on `https://www.shaunmathiasz.com`, after an explicit analytics opt-in. Preview/localhost, Contact, CV/admin/API routes, unknown paths and query-string URLs are excluded. No third-party analytics request occurs before opt-in. Browser DNT/GPC signals keep recording disabled. Consent is remembered for 180 days; the footer's Analytics preferences control supports withdrawal.
+
+All page text is masked. No identify API, form values, visitor GPS, recruiter data or custom user tags are sent by this integration. Private/public navigation uses a new document so a recorder cannot follow into the CV workflow. Public-to-public navigation remains client-side. In Microsoft Clarity, enable Require cookie consent and Strict masking, and avoid unmask overrides; these dashboard settings cannot be managed from this repository. Microsoft may infer coarse geography from network information, but the integration never requests precise location.
+
+See `tests/unit/analytics-policy.test.ts` and `tests/e2e/clarity.spec.ts`. The browser privacy tests use a production-origin fixture and a stub Microsoft script, so they do not prove Microsoft dashboard ingestion. For those tests, build locally with `VERCEL_ENV=production`, the public project ID and the existing local-only CV fixture helper; never use fixture credentials on Vercel.
