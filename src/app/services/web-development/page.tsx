@@ -139,7 +139,6 @@ export default function DigitalServices() {
               src="/images/editorial/maldives.jpg"
               alt="Overwater villas and ocean, contextual hospitality photography"
               fill
-              priority
               sizes="(max-width:768px) 100vw, 45vw"
             />
             <div>

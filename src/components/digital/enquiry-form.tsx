@@ -1,9 +1,8 @@
 "use client";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { CvTurnstile } from "@/components/cv-turnstile";
 import { digital, money, packageName, type PackageId } from "@/config/digital";
-import { enquirySchema } from "@/lib/digital/schema";
 import { safeAttribution } from "@/lib/digital/events";
 import { digitalEvent } from "./telemetry";
 export function EnquiryForm({
@@ -23,12 +22,18 @@ export function EnquiryForm({
     key = useRef(""),
     busy = useRef(false),
     form = useRef<HTMLFormElement>(null);
+  const success = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (reference) success.current?.focus();
+  }, [reference]);
   const onToken = useCallback((v: string) => setToken(v), []);
   const price = digital.packages.find((p) => p.id === selected)?.price;
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (busy.current) return;
     digitalEvent("enquiry_form_submit_attempt", { packageId: selected });
+    busy.current = true;
+    setPending(true);
     const data = Object.fromEntries(new FormData(e.currentTarget));
     key.current ||= crypto.randomUUID();
     const raw = {
@@ -41,8 +46,19 @@ export function EnquiryForm({
         Object.fromEntries(new URLSearchParams(location.search)),
       ),
     };
-    const parsed = enquirySchema.safeParse(raw);
+    const validation = await import("@/lib/digital/schema").catch(() => null);
+    if (!validation) {
+      busy.current = false;
+      setPending(false);
+      setErrors({
+        form: "The secure form could not load. Please retry or email Shaun.",
+      });
+      return;
+    }
+    const parsed = validation.enquirySchema.safeParse(raw);
     if (!parsed.success) {
+      busy.current = false;
+      setPending(false);
       const fields = parsed.error.flatten().fieldErrors;
       setErrors(
         Object.fromEntries(
@@ -103,7 +119,12 @@ export function EnquiryForm({
   }
   if (reference)
     return (
-      <div className="digital-success" role="status" tabIndex={-1}>
+      <div
+        ref={success}
+        className="digital-success"
+        role="status"
+        tabIndex={-1}
+      >
         <span className="digital-success-mark">✓</span>
         <p className="eyebrow">ENQUIRY RECEIVED</p>
         <h3>A good place to begin.</h3>

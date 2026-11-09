@@ -1273,4 +1273,31 @@
   }
 }
 
-.digital-consent a { text-decoration: underline; text-underline-offset: 3px; }
+.digital-consent a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.digital-hero-content {
+  animation: none;
+}
+.digital-hero-content > .digital-logo {
+  animation: digital-entry 0.65s ease-out both;
+}
+.digital-hero h1 {
+  animation: digital-title-in 0.5s ease-out both;
+}
+@keyframes digital-title-in {
+  from {
+    transform: translateY(6px);
+  }
+  to {
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .digital-hero-content > .digital-logo,
+  .digital-hero h1 {
+    animation: none !important;
+  }
+}

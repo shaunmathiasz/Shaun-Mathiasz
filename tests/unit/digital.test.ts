@@ -6,7 +6,8 @@ import type { Database, Sql } from "@/lib/cv/db";
 import { DigitalService, csvCell } from "@/lib/digital/service";
 import { leadDetail, leadOverview, updateLead } from "@/lib/digital/admin";
 import { enquirySchema } from "@/lib/digital/schema";
-import { eventSchema, safeAttribution } from "@/lib/digital/events";
+import { safeAttribution } from "@/lib/digital/events";
+import { eventSchema } from "@/lib/digital/event-schema";
 import { digital } from "@/config/digital";
 let pg: PGlite,
   db: Database,
@@ -328,5 +329,27 @@ describe("SDM Digital real SQL integration", () => {
       "UPDATE sdm_digital.rate_limits SET expires_at=now()-interval '1 second'",
     );
     await expect(s.rate("test", 1, 60)).resolves.toBeUndefined();
+  });
+  it("Preview owner setup aborts before mutation on a different database", async () => {
+    const isolated = new PGlite();
+    try {
+      await isolated.exec(
+        "CREATE TABLE public.cv_portal_environment(singleton boolean,environment text); INSERT INTO public.cv_portal_environment VALUES(true,'preview')",
+      );
+      const source = await readFile(
+        "migrations/004_sdm_digital_preview_owner.sql",
+        "utf8",
+      );
+      await expect(isolated.exec(source)).rejects.toThrow(
+        "Preview database identity required",
+      );
+      await isolated.exec("ROLLBACK");
+      expect(
+        (await isolated.query("SELECT to_regnamespace('sdm_digital') AS name"))
+          .rows,
+      ).toEqual([{ name: null }]);
+    } finally {
+      await isolated.close();
+    }
   });
 });

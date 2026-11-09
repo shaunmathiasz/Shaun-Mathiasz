@@ -1,4 +1,3 @@
-import { z } from "zod";
 export const eventNames = [
   "digital_services_page_view",
   "package_card_view",
@@ -19,25 +18,6 @@ export const eventNames = [
   "demo_interaction",
   "generate_lead",
 ] as const;
-export const eventSchema = z
-  .object({
-    eventId: z.uuid(),
-    name: z.enum(eventNames),
-    packageId: z.enum(["starter", "growth", "premium", "custom"]).optional(),
-    category: z
-      .enum([
-        "Villas",
-        "Boutique Hotels",
-        "Guesthouses",
-        "Travel Agencies",
-        "Tour Operators",
-        "Restaurants",
-        "Other Businesses",
-      ])
-      .optional(),
-    consent: z.literal(true),
-  })
-  .strict();
 export type DigitalEvent = (typeof eventNames)[number];
 /** Only configured campaign codes survive. Never accept arbitrary UTM text as analytics. */
 const allowed: Record<string, readonly string[]> = {
