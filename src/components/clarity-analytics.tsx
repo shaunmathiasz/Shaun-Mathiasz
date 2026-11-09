@@ -56,7 +56,25 @@ export function ClarityAnalytics({ children, production, projectId, gtmId = "", 
   const configured = production && (clarityEnabled || googleEnabled);
   const publicPath = isAnalyticsPublicPath(pathname);
   const mustReload = typeof window !== "undefined" && !!(window.__sdmClarityStarted || window.__sdmGtmStarted || window.__sdmGtmScheduled) && !publicPath;
-  const eligible = ready && configured && publicPath && analyticsUrlAllowed(new URL(window.location.href)) && analyticsReferrerAllowed(document.referrer);
+  const publicEligible = ready && configured && publicPath && analyticsUrlAllowed(new URL(window.location.href));
+  const eligible = publicEligible && analyticsReferrerAllowed(document.referrer);
+
+  useEffect(() => {
+    if (!publicEligible || choice !== "accepted" || privacySignal()) return;
+    // Never give a vendor an unsafe document.referrer. Start a clean document
+    // instead; consent survives, while private paths/query strings do not.
+    const key = "sdm-analytics-referrer-reset";
+    try {
+      if (analyticsReferrerAllowed(document.referrer)) { sessionStorage.removeItem(key); return; }
+      if (sessionStorage.getItem(key) === location.pathname) return; // Fail closed on unsupported browsers.
+      sessionStorage.setItem(key, location.pathname);
+    } catch { return; } // No persistent loop guard: keep tracking off.
+    const link = document.createElement("a");
+    link.href = location.href;
+    link.referrerPolicy = "no-referrer";
+    link.rel = "noreferrer";
+    link.click();
+  }, [publicEligible, choice]);
 
   useEffect(() => {
     if (ready && choice !== "accepted" && (window.__sdmClarityStarted || window.__sdmGtmStarted || window.__sdmGtmScheduled)) {
@@ -126,10 +144,10 @@ export function ClarityAnalytics({ children, production, projectId, gtmId = "", 
   };
   useEffect(() => { if (open) region.current?.focus(); }, [open]);
 
-  return <Preferences.Provider value={eligible ? show : null}>
+  return <Preferences.Provider value={publicEligible ? show : null}>
     {mustReload ? null : children}
     {eligible && choice === "accepted" && !privacySignal() && googleEnabled && <GoogleTagManager id={gtmId} canStart={() => googleEnabled && analyticsUrlAllowed(new URL(location.href)) && analyticsReferrerAllowed(document.referrer) && readAnalyticsConsent(consentSnapshot(consentKey)) === "accepted" && !privacySignal()} />}
-    {eligible && (choice === null || open) && <section ref={region} tabIndex={-1} className="analytics-choice" aria-labelledby="analytics-title" data-clarity-mask="true">
+    {publicEligible && (choice === null || open) && <section ref={region} tabIndex={-1} className="analytics-choice" aria-labelledby="analytics-title" data-clarity-mask="true">
       <div><p className="eyebrow">YOUR PRIVACY / YOUR CHOICE</p><h2 id="analytics-title">Optional analytics.</h2>
         <p>May I use {googleEnabled ? "Microsoft Clarity and Google Analytics via Google Tag Manager" : "Microsoft Clarity"} to understand how this public website is used? {googleEnabled ? "These services measure public page views and interactions; Clarity records masked page interactions." : "Clarity records masked page interactions."} They use analytics cookies. Analytics stays off the CV portal, admin area and contact page.</p>
         <details><summary>How analytics works</summary><p>{googleEnabled ? "Microsoft and Google receive public page and device information; Clarity receives masked interaction recordings" : "Clarity receives public page visits, device information and masked interaction recordings"}, and may infer an approximate region from network information. Analytics never requests GPS access. No recruiter details, form values, verification codes or precise location are passed to it. Advertising storage stays denied. Your choice is remembered for 180 days and can be withdrawn through Analytics preferences in the footer. Declining does not affect access to the website or CV.</p><a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener noreferrer">Microsoft privacy statement</a>{googleEnabled && <> · <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google privacy policy</a></>}</details>

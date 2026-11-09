@@ -63,7 +63,7 @@ test("an unreviewed container flag prevents GTM bootstrap after consent", async 
   expect(await page.evaluate(() => !!window.dataLayer)).toBe(false);
 });
 
-test("a pending idle bootstrap cannot follow an imperative transition into private content", async ({ page, request }) => {
+test("an active bootstrap cannot follow an imperative transition into private content", async ({ page, request }) => {
   const counts = await fixture(page, request, true);
   await page.addInitScript(() => {
     window.requestIdleCallback = () => 1;
@@ -72,14 +72,14 @@ test("a pending idle bootstrap cannot follow an imperative transition into priva
   await page.goto("https://www.shaunmathiasz.com/");
   await page.getByRole("button", { name: "Allow analytics", exact: true }).click();
   await page.waitForFunction(() => window.__sdmGtmScheduled === true);
-  expect(counts).toEqual({ google: 0, clarity: 0 });
+  await expect.poll(() => counts.google).toBe(1);
   await page.evaluate(() => {
     (window as Window & { safetyMarker?: boolean }).safetyMarker = true;
     history.pushState({}, "", "/request-cv");
   });
   await expect(page.getByRole("heading", { name: "REQUEST MY CV", exact: true })).toBeVisible();
   expect(await page.evaluate(() => (window as Window & { safetyMarker?: boolean }).safetyMarker)).toBeUndefined();
-  expect(counts).toEqual({ google: 0, clarity: 0 });
+  expect(counts).toEqual({ google: 1, clarity: 0 });
 });
 
 test("a saved shared grant still excludes sensitive URLs and browser privacy signals", async ({ page, request }) => {
@@ -93,4 +93,32 @@ test("a saved shared grant still excludes sensitive URLs and browser privacy sig
   await page.goto("https://www.shaunmathiasz.com/");
   await expect(page.getByRole("button", { name: "Analytics preferences", exact: true })).toBeVisible();
   expect(counts).toEqual({ google: 0, clarity: 0 });
+});
+
+for (const referrer of ["https://www.shaunmathiasz.com/contact", "https://www.shaunmathiasz.com/?gtm_debug=1"]) {
+  test(`saved consent on About safely removes an unsafe referrer: ${referrer}`, async ({ page, request }) => {
+    const counts = await fixture(page, request, true);
+    await page.addInitScript(() => localStorage.setItem("sdm-analytics-consent-v2", JSON.stringify({ version: 1, choice: "accepted", at: Date.now() })));
+    await page.goto("https://www.shaunmathiasz.com/about", { referer: referrer, waitUntil: "domcontentloaded" });
+    await expect.poll(() => counts.google).toBe(1);
+    expect(await page.evaluate(() => document.referrer)).toBe("");
+    await expect.poll(() => counts.clarity).toBe(1);
+    expect(await page.evaluate(() => window.dataLayer?.filter((entry) => (entry as { event?: string }).event === "portfolio_page_view").length)).toBe(1);
+    await page.reload();
+    await expect.poll(() => counts.google).toBe(2);
+  });
+}
+
+test("GTM starts after consent without waiting for window load", async ({ page, request }) => {
+  const counts = await fixture(page, request, true);
+  await page.addInitScript(() => {
+    localStorage.setItem("sdm-analytics-consent-v2", JSON.stringify({ version: 1, choice: "accepted", at: Date.now() }));
+    const image = document.createElement("img");
+    image.src = "https://slow.example.test/held.png";
+    document.documentElement.append(image);
+  });
+  await page.route("https://slow.example.test/**", () => {});
+  await page.goto("https://www.shaunmathiasz.com/about", { waitUntil: "domcontentloaded" });
+  await expect.poll(() => counts.google).toBe(1);
+  expect(await page.evaluate(() => document.readyState)).not.toBe("complete");
 });

@@ -29,5 +29,5 @@ export function GoogleTagManager({ id, canStart }: { id: string; canStart: () =>
     return () => { delete window.__sdmCanStartGtm; };
   }, [canStart]);
   useEffect(() => { trackPublicPage(); }, [pathname]);
-  return <Script id="google-tag-manager-init" strategy="lazyOnload" onReady={trackPublicPage}>{gtmBootstrap(id)}</Script>;
+  return <Script id="google-tag-manager-init" strategy="afterInteractive" onReady={trackPublicPage}>{gtmBootstrap(id)}</Script>;
 }

@@ -29,6 +29,10 @@ const config: NextConfig = {
           },
         ],
       },
+      ...["/contact", "/request-cv/:path*", "/api/:path*"].map((source) => ({
+        source,
+        headers: [{ key: "Referrer-Policy", value: "no-referrer" }],
+      })),
       {
         source: "/request-cv",
         headers: [
