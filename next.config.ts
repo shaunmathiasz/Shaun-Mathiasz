@@ -29,7 +29,7 @@ const config: NextConfig = {
           },
         ],
       },
-      ...["/contact", "/request-cv/:path*", "/api/:path*"].map((source) => ({
+      ...["/contact", "/services/web-development", "/services/web-development/privacy", "/request-cv/:path*", "/api/:path*"].map((source) => ({
         source,
         headers: [{ key: "Referrer-Policy", value: "no-referrer" }],
       })),

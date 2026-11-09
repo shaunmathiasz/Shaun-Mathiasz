@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev --hostname 0.0.0.0",
-    "build": "next build --webpack",
+    "build": "node scripts/digital-build.mjs",
     "start": "next start --hostname 0.0.0.0",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
@@ -14,7 +14,8 @@
     "cv:migrate": "node --env-file-if-exists=.env.local scripts/cv-migrate.mjs",
     "cv:upload": "node --env-file-if-exists=.env.local scripts/cv-upload.mjs",
     "test:cv": "vitest run tests/unit/cv-portal.test.ts",
-    "cv:check": "node --env-file-if-exists=.env.local scripts/cv-check.mjs"
+    "cv:check": "node --env-file-if-exists=.env.local scripts/cv-check.mjs",
+    "digital:migrate": "node --env-file-if-exists=.env.local scripts/digital-migrate.mjs"
   },
   "keywords": [],
   "author": "",
@@ -34,7 +35,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@electric-sql/pglite": "^0.5.15",
+    "@electric-sql/pglite": "^0.5.16",
     "@neondatabase/serverless": "^1.2.0",
     "@playwright/test": "^1.64.1",
     "@tailwindcss/postcss": "^4.3.4",

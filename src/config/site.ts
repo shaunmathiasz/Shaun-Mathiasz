@@ -31,4 +31,5 @@ export const navigation = [
   { href: "/portfolio", label: "Portfolio" },
   { href: "/education", label: "Education" },
   { href: "/insights", label: "Insights" },
+  { href: "/services/web-development", label: "Digital Solutions" },
 ];

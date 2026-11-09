@@ -1,5 +1,6 @@
 export const ANALYTICS_CONSENT_KEY = "sdm-analytics-consent-v1";
 const publicPaths = new Set([
+  "/services/web-development",
   "/", "/about", "/experience", "/portfolio", "/education", "/insights", "/play",
   "/portfolio/uk-outbound-product", "/portfolio/luxury-hospitality",
   "/portfolio/commercial-package-design", "/portfolio/destination-positioning",
@@ -28,3 +29,7 @@ export function readAnalyticsConsent(raw: string | null, now = Date.now()): Anal
       Number.isFinite(value.at) && value.at <= now && now - value.at < 180 * 86400000 ? value.choice : null;
   } catch { return null; }
 }
+
+/** Commercial consent is separate because the approved provider settings can detect contact details. */
+export const isCommercialAnalyticsPath = (path: string) => path.replace(/\/$/, "") === "/services/web-development";
+export const commercialConsentKey = "sdm-digital-analytics-consent-v1";

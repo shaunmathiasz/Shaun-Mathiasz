@@ -1,11 +1,11 @@
 import { expect, test } from "@playwright/test";
 
-test("all 14 public sitemap pages expose unique, indexable mobile-readable content", async ({ page, request }) => {
+test("all 15 public sitemap pages expose unique, indexable mobile-readable content", async ({ page, request }) => {
   test.setTimeout(150_000);
   const sitemap = await request.get("/sitemap.xml");
   expect(sitemap.status()).toBe(200);
   const urls = [...(await sitemap.text()).matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
-  expect(urls).toHaveLength(14);
+  expect(urls).toHaveLength(15);
   const titles = new Set<string>();
   const descriptions = new Set<string>();
   for (const url of urls) {
@@ -23,7 +23,7 @@ test("all 14 public sitemap pages expose unique, indexable mobile-readable conte
     expect(descriptions.has(description!), path).toBe(false); descriptions.add(description!);
     expect(await page.locator('meta[name="robots"][content*="noindex"]').count(), path).toBe(0);
     const schemas = await page.locator('script[type="application/ld+json"]').allTextContents();
-    const data = schemas.map((text) => JSON.parse(text)).find((schema) => schema["@graph"]);
+    const data = schemas.map((text) => JSON.parse(text)).find((schema) => schema["@graph"]?.some((entity: { "@type": string }) => entity["@type"] === "Person"));
     expect(data["@graph"][0]).toMatchObject({ "@type": "Person", "@id": "https://www.shaunmathiasz.com/#person", alternateName: ["Shaun Mathiasz", "Shaun Denver"] });
     expect(data["@graph"][1]["@type"]).toBe("WebSite");
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), path).toBe(true);

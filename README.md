@@ -122,3 +122,11 @@ Google requires fresh consent under `sdm-analytics-consent-v2`; previous Clarity
 The data layer offers `portfolio_page_view` (canonical public path/location) and `portfolio_engagement` (fixed public-navigation action/path). It contains no form values, link text, private URLs, user identifiers or query data. Custom event forwarding needs separately reviewed GTM tags; avoid duplicating GA4's automatic page_view or adding another Google Tag.
 
 The reviewed container is empty: installing it does not activate GA4. Measurement ID `G-BGFVMTBRVP` still advertised automatic user-provided-data capability in its separate published Google-tag configuration. Before adding/publishing a Google Tag, ensure user-provided-data capabilities and form collection are disabled, test the draft in GTM Preview/Tag Assistant, and verify the published container again. Future container publications need the same privacy/duplication review.
+
+## SDM Digital extension
+
+The feature branch `feature/sdm-digital` adds `/services/web-development` and the protected `/admin/digital-solutions` workspace. Exact launch prices live in `src/config/digital.ts`; proposed reference-price claims remain disabled. Global personal branding and favicon remain unchanged.
+
+Read [SDM Digital operations](docs/SDM-DIGITAL-OPERATIONS.md) before deployment. Preview builds attempt only the additive service migration against the guarded Preview database; Production builds never migrate. Use `npm run digital:migrate` with an authorised migration connection for controlled setup. Production migration and deployment both require explicit owner approval.
+
+`npm test` includes actual PostgreSQL-compatible SQL integration tests using the development-only PGlite engine. `npm run test:e2e -- tests/e2e/digital.spec.ts` covers pricing, responsive layouts, enquiry states, privacy and unauthorised access with clearly identified provider fixtures. Fixture success is not evidence of real Resend delivery or Neon setup.

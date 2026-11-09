@@ -255,6 +255,7 @@ export default function Home() {
       </section>
       <DigitalPresence />
       <SocialPagePreviews />
+      <section className="section"><p className="eyebrow">SDM DIGITAL / A NEW CHAPTER</p><h2>Thoughtful websites.<br/><em>For growing businesses.</em></h2><p>Website development for Sri Lankan hospitality, small businesses and professionals.</p><Link href="/services/web-development" className="button button-secondary">Explore Digital Solutions <LinkArrow /></Link></section>
       <ContactCTA />
     </>
   );

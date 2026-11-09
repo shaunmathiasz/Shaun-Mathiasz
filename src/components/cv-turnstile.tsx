@@ -13,10 +13,12 @@ export function CvTurnstile({
   siteKey,
   onToken,
   resetKey = 0,
+  action = "cv-request",
 }: {
   siteKey: string;
   onToken: (token: string) => void;
   resetKey?: number;
+  action?: "cv-request" | "digital-enquiry";
 }) {
   const el = useRef<HTMLDivElement>(null),
     [failed, setFailed] = useState(false),
@@ -31,7 +33,7 @@ export function CvTurnstile({
           sitekey: siteKey,
           theme: "dark",
           size: el.current.clientWidth < 300 ? "compact" : "flexible",
-          action: "cv-request",
+          action,
           callback: (token: string) => {
             setFailed(false);
             onToken(token);
@@ -66,7 +68,7 @@ export function CvTurnstile({
       script?.removeEventListener("error", error);
       if (widget) window.turnstile?.remove(widget);
     };
-  }, [siteKey, onToken, resetKey, attempt]);
+  }, [siteKey, onToken, resetKey, attempt, action]);
   return (
     <div className="cv-security">
       <div ref={el} aria-label="Security verification" />

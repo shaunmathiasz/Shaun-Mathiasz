@@ -16,6 +16,7 @@ export function gtmBootstrap(id: string) {
  w.__sdmGtmLastPath=w.location.pathname;
  w[l].push({event:'portfolio_page_view',page_path:w.location.pathname,page_location:w.location.origin+w.location.pathname});
  var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.referrerPolicy='no-referrer';j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);
+ if(w.dispatchEvent) w.dispatchEvent(new Event("sdm:gtm-ready"));
 })(window,document,'script','dataLayer',${JSON.stringify(id)});
 `;
 }
