@@ -5,11 +5,14 @@ import { pageMetadata } from "@/lib/metadata";
 import { getConfig } from "@/lib/cv/config";
 import "../portal.css";
 export const dynamic = "force-dynamic";
-export const metadata = pageMetadata(
+export const metadata = {
+  ...pageMetadata(
   "CV Request Privacy Notice",
   "How professional CV requests, email verification and optional location information are handled.",
   "/request-cv/privacy",
-);
+  ),
+  robots: { index: false, follow: false },
+};
 export default function Page() {
   let retention = {
     pendingHours: 24,

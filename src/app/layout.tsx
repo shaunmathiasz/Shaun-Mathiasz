@@ -3,7 +3,7 @@ import { motionTokens } from "@/lib/motion";
 import { PersonalLogo } from "@/components/personal-logo";
 import { CinematicSystem, MotionToggle } from "@/components/cinematic-system";
 import { ScrollProgress } from "@/components/editorial-tools";
-import { education } from "@/content/credentials";
+import { identitySchema } from "@/lib/structured-data";
 import localFont from "next/font/local";
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
@@ -83,37 +83,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const person = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: site.name,
-    jobTitle: site.role,
-    ...(site.url ? { url: site.url } : {}),
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Colombo",
-      addressCountry: "LK",
-    },
-    sameAs: site.socialLinks.map((link) => link.url),
-    hasCredential: education
-      .filter((e) => e.status === "Completed")
-      .map((e) => ({
-        "@type": "EducationalOccupationalCredential",
-        name: e.title,
-        credentialCategory:
-          e.category === "Executive Education" ? "Short course" : "Diploma",
-        recognizedBy: { "@type": "Organization", name: e.institution },
-      })),
-    memberOf: {
-      "@type": "Organization",
-      name: "Royal Aeronautical Society",
-      description: "Student Affiliate",
-    },
-    worksFor: {
-      "@type": "Organization",
-      name: "Moresand Group / Travel Center UK",
-    },
-  };
   return (
     <html lang="en" className={`${editorial.variable} ${body.variable}`}>
       <body style={{
@@ -158,7 +127,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(person).replace(/</g, "\u003c"),
+            __html: JSON.stringify(identitySchema).replace(/</g, "\u003c"),
           }}
         />
       </body>

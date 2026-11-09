@@ -5,6 +5,18 @@ const config: NextConfig = {
   images: { qualities: [50, 75] },
   async headers() {
     return [
+      ...(process.env.VERCEL_ENV === "preview" ? [{
+        source: "/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      }] : []),
+      {
+        source: "/request-cv/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+      {
+        source: "/api/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
       {
         source: "/:path*",
         headers: [

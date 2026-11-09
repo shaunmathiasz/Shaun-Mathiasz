@@ -32,6 +32,8 @@ const homepageMetadata = pageMetadata(
 );
 export const metadata: Metadata = {
   ...homepageMetadata,
+  title: { absolute: "Shaun Denver Mathiasz | Travel Product Specialist" },
+  description: "Official website of Shaun Denver Mathiasz (Shaun Mathiasz), a travel product specialist based in Sri Lanka. Explore his professional experience, portfolio, education and projects.",
   alternates: { canonical: homepageSocial.url },
   openGraph: {
     type: "website",

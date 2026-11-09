@@ -1,3 +1,4 @@
+import { profileSchema } from "@/lib/structured-data";
 import { LinkArrow } from "@/components/link-arrow";
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
@@ -13,10 +14,11 @@ export const metadata = pageMetadata(
 export default function About() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(profileSchema).replace(/</g, "\u003c") }} />
       <PageIntro
         eyebrow="THE PERSON BEHIND THE PERSPECTIVE"
         title="Hospitality at heart. A wider horizon in mind."
-        description="I’m Shaun Denver Mathiasz, a Colombo-based travel product professional interested in the intersection of international hospitality, global business and commercial growth."
+        description="I’m Shaun Denver Mathiasz, also known as Shaun Mathiasz, a Colombo-based travel product professional interested in the intersection of international hospitality, global business and commercial growth."
       />
       <section className="section story-grid">
         <aside

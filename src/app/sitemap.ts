@@ -3,7 +3,7 @@ import { site, navigation } from "@/config/site";
 import { articles } from "@/content/articles";
 import { projects } from "@/content/projects";
 export default function sitemap(): MetadataRoute.Sitemap {
-  if (!site.url) return [];
+  if (!site.url || process.env.VERCEL_ENV === "preview") return [];
   return [
     ...navigation.map((n) => n.href),
     "/contact",
