@@ -55,11 +55,11 @@ export function ClarityAnalytics({ children, production, projectId, gtmId = "", 
   const clarityEnabled = /^[a-z0-9]{6,20}$/.test(projectId);
   const configured = production && (clarityEnabled || googleEnabled);
   const publicPath = isAnalyticsPublicPath(pathname);
-  const mustReload = typeof window !== "undefined" && !!(window.__sdmClarityStarted || window.__sdmGtmStarted) && !publicPath;
+  const mustReload = typeof window !== "undefined" && !!(window.__sdmClarityStarted || window.__sdmGtmStarted || window.__sdmGtmScheduled) && !publicPath;
   const eligible = ready && configured && publicPath && analyticsUrlAllowed(new URL(window.location.href)) && analyticsReferrerAllowed(document.referrer);
 
   useEffect(() => {
-    if (ready && choice !== "accepted" && (window.__sdmClarityStarted || window.__sdmGtmStarted)) {
+    if (ready && choice !== "accepted" && (window.__sdmClarityStarted || window.__sdmGtmStarted || window.__sdmGtmScheduled)) {
       stopRecording(); eraseClarityCookies(); location.reload();
     }
   }, [ready, choice]);
@@ -80,7 +80,7 @@ export function ClarityAnalytics({ children, production, projectId, gtmId = "", 
         const action = url.pathname === "/about" ? "about" : url.pathname === "/play" ? "play" : url.pathname.startsWith("/portfolio") ? "portfolio" : url.pathname.startsWith("/insights") ? "insights" : null;
         if (action) window.dataLayer?.push({ event: "portfolio_engagement", action, page_path: location.pathname });
       }
-      if (crossing || ((window.__sdmClarityStarted || window.__sdmGtmStarted) && url.search)) {
+      if (crossing || ((window.__sdmClarityStarted || window.__sdmGtmStarted || window.__sdmGtmScheduled) && url.search)) {
         event.preventDefault(); event.stopImmediatePropagation(); stopRecording();
         location.assign(url.href);
       }
@@ -118,7 +118,7 @@ export function ClarityAnalytics({ children, production, projectId, gtmId = "", 
     window.dispatchEvent(new Event("sdm:analytics-consent"));
     setOpen(false); previousFocus.current?.focus();
     if (next === "declined") {
-      if (window.__sdmClarityStarted || window.__sdmGtmStarted) {
+      if (window.__sdmClarityStarted || window.__sdmGtmStarted || window.__sdmGtmScheduled) {
         window.clarity?.("consentv2", { ad_Storage: "denied", analytics_Storage: "denied" });
         stopRecording(); eraseClarityCookies(); location.reload();
       } else eraseClarityCookies();
@@ -128,7 +128,7 @@ export function ClarityAnalytics({ children, production, projectId, gtmId = "", 
 
   return <Preferences.Provider value={eligible ? show : null}>
     {mustReload ? null : children}
-    {eligible && choice === "accepted" && !privacySignal() && googleEnabled && <GoogleTagManager id={gtmId} />}
+    {eligible && choice === "accepted" && !privacySignal() && googleEnabled && <GoogleTagManager id={gtmId} canStart={() => googleEnabled && analyticsUrlAllowed(new URL(location.href)) && analyticsReferrerAllowed(document.referrer) && readAnalyticsConsent(consentSnapshot(consentKey)) === "accepted" && !privacySignal()} />}
     {eligible && (choice === null || open) && <section ref={region} tabIndex={-1} className="analytics-choice" aria-labelledby="analytics-title" data-clarity-mask="true">
       <div><p className="eyebrow">YOUR PRIVACY / YOUR CHOICE</p><h2 id="analytics-title">Optional analytics.</h2>
         <p>May I use {googleEnabled ? "Microsoft Clarity and Google Analytics via Google Tag Manager" : "Microsoft Clarity"} to understand how this public website is used? {googleEnabled ? "These services measure public page views and interactions; Clarity records masked page interactions." : "Clarity records masked page interactions."} They use analytics cookies. Analytics stays off the CV portal, admin area and contact page.</p>

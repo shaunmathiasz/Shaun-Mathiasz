@@ -61,3 +61,22 @@ test("actual unreviewed configuration cannot bootstrap GTM after consent", async
   expect(counts.google).toBe(0);
   expect(await page.evaluate(() => !!window.dataLayer)).toBe(false);
 });
+
+test("a pending idle bootstrap cannot follow an imperative transition into private content", async ({ page, request }) => {
+  const counts = await fixture(page, request, true);
+  await page.addInitScript(() => {
+    window.requestIdleCallback = () => 1;
+    window.cancelIdleCallback = () => {};
+  });
+  await page.goto("https://www.shaunmathiasz.com/");
+  await page.getByRole("button", { name: "Allow analytics", exact: true }).click();
+  await page.waitForFunction(() => window.__sdmGtmScheduled === true);
+  expect(counts).toEqual({ google: 0, clarity: 0 });
+  await page.evaluate(() => {
+    (window as Window & { safetyMarker?: boolean }).safetyMarker = true;
+    history.pushState({}, "", "/request-cv");
+  });
+  await expect(page.getByRole("heading", { name: "REQUEST MY CV", exact: true })).toBeVisible();
+  expect(await page.evaluate(() => (window as Window & { safetyMarker?: boolean }).safetyMarker)).toBeUndefined();
+  expect(counts).toEqual({ google: 0, clarity: 0 });
+});

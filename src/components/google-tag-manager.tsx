@@ -1,12 +1,12 @@
 "use client";
 import Script from "next/script";
 import { gtmBootstrap } from "@/lib/gtm-bootstrap";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { usePathname } from "next/navigation";
 import { analyticsUrlAllowed } from "@/lib/analytics-policy";
 
 declare global {
-  interface Window { dataLayer?: unknown[]; __sdmGtmStarted?: boolean; __sdmGtmLastPath?: string; }
+  interface Window { dataLayer?: unknown[]; __sdmGtmStarted?: boolean; __sdmGtmScheduled?: boolean; __sdmGtmLastPath?: string; __sdmCanStartGtm?: () => boolean; }
 }
 export function updateGoogleConsent(accepted: boolean) {
   if (!window.__sdmGtmStarted) return;
@@ -21,8 +21,13 @@ export function trackPublicPage() {
   window.__sdmGtmLastPath = location.pathname;
   window.dataLayer?.push({ event: "portfolio_page_view", page_path: location.pathname, page_location: location.origin + location.pathname });
 }
-export function GoogleTagManager({ id }: { id: string }) {
+export function GoogleTagManager({ id, canStart }: { id: string; canStart: () => boolean }) {
   const pathname = usePathname();
+  useLayoutEffect(() => {
+    window.__sdmGtmScheduled = true;
+    window.__sdmCanStartGtm = canStart;
+    return () => { delete window.__sdmCanStartGtm; };
+  }, [canStart]);
   useEffect(() => { trackPublicPage(); }, [pathname]);
-  return <Script id="google-tag-manager-init" strategy="afterInteractive" onReady={trackPublicPage}>{gtmBootstrap(id)}</Script>;
+  return <Script id="google-tag-manager-init" strategy="lazyOnload" onReady={trackPublicPage}>{gtmBootstrap(id)}</Script>;
 }

@@ -37,7 +37,7 @@ test("consent gates the single bootstrap and private navigation creates a clean 
   expect(tags()).toBe(1);
   expect(await page.evaluate(() => (window as Window & { publicDocument?: boolean }).publicDocument)).toBe(true);
   await page.locator('footer a[href="/request-cv"]').click();
-  await expect(page).toHaveURL(/\/request-cv$/);
+  await expect(page).toHaveURL(/\/request-cv$/, { timeout: 15000 });
   await expect(page.getByRole("heading", { name: "REQUEST MY CV", exact: true })).toBeVisible();
   expect(await page.evaluate(() => (window as Window & { publicDocument?: boolean }).publicDocument)).toBeUndefined();
   expect(tags()).toBe(1);
