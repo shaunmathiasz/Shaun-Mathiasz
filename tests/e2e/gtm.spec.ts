@@ -1,14 +1,15 @@
 import { expect, test, type Page, type APIRequestContext } from "@playwright/test";
 
-// This controlled fixture exercises the adapter after hypothetical approval.
-// The production review guard stays OFF and the real published container is NEVER loaded.
+// Controlled production-origin fixture for reviewed and unreviewed container modes.
+// Microsoft and Google scripts are stubbed; these tests do not prove ingestion.
 async function fixture(page: Page, request: APIRequestContext, simulateReviewed: boolean) {
   const counts = { google: 0, clarity: 0 };
   await page.route("https://www.shaunmathiasz.com/**", async (route) => {
     const url = new URL(route.request().url());
     const response = await request.fetch(`${process.env.PLAYWRIGHT_BASE_URL || "http://127.0.0.1:3060"}${url.pathname}${url.search}`, { method: route.request().method(), headers: route.request().headers(), data: route.request().postDataBuffer() || undefined });
-    if (simulateReviewed && /text\/html|text\/x-component/.test(response.headers()["content-type"] || "")) {
-      const body = (await response.text()).replace(/gtmApproved.{0,8}false/g, (value) => value.replace(/false$/, "true"));
+    if (/text\/html|text\/x-component/.test(response.headers()["content-type"] || "")) {
+      const raw = await response.text();
+      const body = simulateReviewed ? raw.replace(/gtmApproved.{0,8}false/g, (value) => value.replace(/false$/, "true")) : raw.replace(/gtmApproved.{0,8}true/g, (value) => value.replace(/true$/, "false"));
       await route.fulfill({ response, body }).catch((error: Error) => { if (!error.message.includes("Route is already handled")) throw error; });
     } else await route.fulfill({ response }).catch((error: Error) => { if (!error.message.includes("Route is already handled")) throw error; });
   });
@@ -53,7 +54,7 @@ test("old Clarity-only consent does not grant Google consent; withdrawal reloads
   expect(counts.google).toBe(1);
 });
 
-test("actual unreviewed configuration cannot bootstrap GTM after consent", async ({ page, request }) => {
+test("an unreviewed container flag prevents GTM bootstrap after consent", async ({ page, request }) => {
   const counts = await fixture(page, request, false);
   await page.goto("https://www.shaunmathiasz.com/");
   await page.getByRole("button", { name: "Allow analytics", exact: true }).click();
@@ -78,5 +79,18 @@ test("a pending idle bootstrap cannot follow an imperative transition into priva
   });
   await expect(page.getByRole("heading", { name: "REQUEST MY CV", exact: true })).toBeVisible();
   expect(await page.evaluate(() => (window as Window & { safetyMarker?: boolean }).safetyMarker)).toBeUndefined();
+  expect(counts).toEqual({ google: 0, clarity: 0 });
+});
+
+test("a saved shared grant still excludes sensitive URLs and browser privacy signals", async ({ page, request }) => {
+  const counts = await fixture(page, request, true);
+  await page.addInitScript(() => localStorage.setItem("sdm-analytics-consent-v2", JSON.stringify({ version: 1, choice: "accepted", at: Date.now() })));
+  for (const path of ["/request-cv", "/admin/login", "/contact", "/?email=never-collect@example.test"]) {
+    await page.goto(`https://www.shaunmathiasz.com${path}`);
+    expect(await page.evaluate(() => !!window.__sdmGtmStarted || !!window.clarity)).toBe(false);
+  }
+  await page.addInitScript(() => Object.defineProperty(navigator, "globalPrivacyControl", { value: true }));
+  await page.goto("https://www.shaunmathiasz.com/");
+  await expect(page.getByRole("button", { name: "Analytics preferences", exact: true })).toBeVisible();
   expect(counts).toEqual({ google: 0, clarity: 0 });
 });

@@ -1,4 +1,4 @@
-// Fail closed until the published container has passed a privacy review.
-// The tag-level privacy correction is saved in a GTM workspace but not yet live.
-// Set this to the reviewed ID only after the published resource passes review.
-export const REVIEWED_GTM_CONTAINER_ID: string = "";
+// Owner-confirmed container: published Version 1 inspected as empty (0 tags/triggers).
+// Google Analytics must not be published until its user-provided-data settings pass review.
+// Clarity stays directly managed by the website, outside GTM.
+export const REVIEWED_GTM_CONTAINER_ID: string = "GTM-M6TWZV24";
