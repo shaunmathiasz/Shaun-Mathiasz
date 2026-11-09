@@ -26,6 +26,10 @@ export function EnquiryForm({
   useEffect(() => {
     if (reference) success.current?.focus();
   }, [reference]);
+  useEffect(() => {
+    if (!Object.keys(errors).length || errors.form) return;
+    form.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+  }, [errors]);
   const onToken = useCallback((v: string) => setToken(v), []);
   const price = digital.packages.find((p) => p.id === selected)?.price;
   async function submit(e: React.FormEvent<HTMLFormElement>) {
@@ -69,11 +73,6 @@ export function EnquiryForm({
         ),
       );
       digitalEvent("enquiry_form_validation_error", { packageId: selected });
-      requestAnimationFrame(() =>
-        form.current
-          ?.querySelector<HTMLElement>('[aria-invalid="true"]')
-          ?.focus(),
-      );
       return;
     }
     busy.current = true;

@@ -127,6 +127,6 @@ The reviewed container is empty: installing it does not activate GA4. Measuremen
 
 The feature branch `feature/sdm-digital` adds `/services/web-development` and the protected `/admin/digital-solutions` workspace. Exact launch prices live in `src/config/digital.ts`; proposed reference-price claims remain disabled. Global personal branding and favicon remain unchanged.
 
-Read [SDM Digital operations](docs/SDM-DIGITAL-OPERATIONS.md) before deployment. Preview builds attempt only the additive service migration against the guarded Preview database; Production builds never migrate. Use `npm run digital:migrate` with an authorised migration connection for controlled setup. Production migration and deployment both require explicit owner approval.
+Read [SDM Digital operations](docs/SDM-DIGITAL-OPERATIONS.md) before deployment. Builds never mutate a database. The isolated SDM Preview schema is migrated explicitly using the verified Neon owner connection; see docs/SDM-DIGITAL-MIGRATION.md. Use `npm run digital:migrate` with an authorised migration connection for controlled setup. Production migration and deployment both require explicit owner approval.
 
 `npm test` includes actual PostgreSQL-compatible SQL integration tests using the development-only PGlite engine. `npm run test:e2e -- tests/e2e/digital.spec.ts` covers pricing, responsive layouts, enquiry states, privacy and unauthorised access with clearly identified provider fixtures. Fixture success is not evidence of real Resend delivery or Neon setup.

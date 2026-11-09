@@ -6,6 +6,10 @@ import { DigitalExperience } from "@/components/digital/experience";
 import { digital } from "@/config/digital";
 import "./services.css";
 const origin = "https://www.shaunmathiasz.com";
+const assetOrigin =
+  process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : origin;
 export const metadata: Metadata = {
   title: { absolute: "SDM Digital | Affordable Website Development Sri Lanka" },
   description:
@@ -19,7 +23,7 @@ export const metadata: Metadata = {
     url: origin + digital.path,
     images: [
       {
-        url: origin + "/social/sdm-digital-services.jpg",
+        url: assetOrigin + "/social/sdm-digital-services.jpg",
         width: 1200,
         height: 630,
         type: "image/jpeg",
@@ -29,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    images: [origin + "/social/sdm-digital-services.jpg"],
+    images: [assetOrigin + "/social/sdm-digital-services.jpg"],
   },
 };
 const schema = {

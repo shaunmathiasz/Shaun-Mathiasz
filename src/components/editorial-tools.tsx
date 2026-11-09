@@ -3,20 +3,49 @@ import { LinkArrow } from "@/components/link-arrow";
 
 import { useSafeReducedMotion as useReducedMotion } from "@/lib/use-safe-reduced-motion";
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useSpring } from "motion/react";
 import { site } from "@/config/site";
+/** The same decorative bar, without loading an animation engine on every route. */
 export function ScrollProgress() {
-  const { scrollYProgress } = useScroll();
-  const spring = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  const bar = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const total = Math.max(
+          1,
+          document.documentElement.scrollHeight - innerHeight,
+        );
+        const progress = Math.max(0, Math.min(1, scrollY / total));
+        if (bar.current) bar.current.style.transform = `scaleX(${progress})`;
+      });
+    };
+    addEventListener("scroll", update, { passive: true });
+    addEventListener("resize", update);
+    const observer = new ResizeObserver(update);
+    observer.observe(document.body);
+    update();
+    return () => {
+      cancelAnimationFrame(frame);
+      removeEventListener("scroll", update);
+      removeEventListener("resize", update);
+      observer.disconnect();
+    };
+  }, []);
   return (
-    <motion.div
+    <div
+      ref={bar}
       aria-hidden="true"
       className="scroll-progress"
-      style={{ scaleX: reduced ? scrollYProgress : spring }}
+      style={{
+        transform: "scaleX(0)",
+        transition: reduced ? "none" : "transform 120ms ease-out",
+      }}
     />
   );
 }
+
 export function CopyEmail() {
   const [status, setStatus] = useState("");
   async function copy() {
@@ -49,9 +78,19 @@ export function ArticleTools() {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
         const rect = article.getBoundingClientRect();
-        const end = rect.height - Math.min(window.innerHeight * 0.6, rect.height);
-        const value = end > 0 ? Math.min(1, Math.max(0, (window.innerHeight * 0.3 - rect.top) / end)) : (rect.top <= window.innerHeight * 0.3 ? 1 : 0);
-        if (progress.current) progress.current.style.transform = `scaleX(${value})`;
+        const end =
+          rect.height - Math.min(window.innerHeight * 0.6, rect.height);
+        const value =
+          end > 0
+            ? Math.min(
+                1,
+                Math.max(0, (window.innerHeight * 0.3 - rect.top) / end),
+              )
+            : rect.top <= window.innerHeight * 0.3
+              ? 1
+              : 0;
+        if (progress.current)
+          progress.current.style.transform = `scaleX(${value})`;
       });
     };
     const resize = new ResizeObserver(update);
@@ -59,7 +98,12 @@ export function ArticleTools() {
     update();
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
-    return () => { cancelAnimationFrame(frame); resize.disconnect(); window.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
+    return () => {
+      cancelAnimationFrame(frame);
+      resize.disconnect();
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
   }, []);
   async function share() {
     try {
@@ -79,9 +123,16 @@ export function ArticleTools() {
   return (
     <aside className="reading-tools">
       <span>FIELD NOTES / READING COMPANION</span>
-      <button onClick={share}>Share / copy link <LinkArrow /></button>
+      <button onClick={share}>
+        Share / copy link <LinkArrow />
+      </button>
       <span role="status">{status}</span>
-      <span ref={progress} className="reading-rule" aria-hidden="true" style={{ transform: "scaleX(0)" }} />
+      <span
+        ref={progress}
+        className="reading-rule"
+        aria-hidden="true"
+        style={{ transform: "scaleX(0)" }}
+      />
     </aside>
   );
 }

@@ -9,7 +9,16 @@ import { DigitalService } from "./service";
 export { body, json, privateHeaders } from "@/lib/cv/http";
 export function digitalService() {
   const c = getConfig();
-  return new DigitalService(database(c.databaseUrl, c.dataEnvironment), {
+  if (
+    process.env.VERCEL === "1" &&
+    c.dataEnvironment === "preview" &&
+    (process.env.VERCEL_GIT_COMMIT_REF !== "feature/sdm-digital" ||
+      !process.env.DIGITAL_DATABASE_URL)
+  ) {
+    throw new Error("DIGITAL_PREVIEW_CONNECTION_REQUIRED");
+  }
+  const url = process.env.DIGITAL_DATABASE_URL || c.databaseUrl;
+  return new DigitalService(database(url, c.dataEnvironment), {
     ownerEmail: c.ownerEmail,
     origin: c.origin,
     secret: c.hmacSecret,
@@ -98,4 +107,5 @@ export async function digitalOwner(req: NextRequest) {
   return digitalService();
 }
 
-export const digitalRequestIp = (req: NextRequest) => requestMetadata(req.headers).ip || "unknown";
+export const digitalRequestIp = (req: NextRequest) =>
+  requestMetadata(req.headers).ip || "unknown";
