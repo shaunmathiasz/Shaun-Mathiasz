@@ -59,7 +59,7 @@ export default function DigitalPrivacy() {
         This is an enquiry, not a contract, booking or payment service. Scope,
         pricing, ownership and handover are set out in an agreed proposal.
       </p>
-      <Link href="/services/web-development#enquiry">
+      <Link prefetch={false} href="/services/web-development#enquiry">
         Return to your enquiry
       </Link>
     </article>

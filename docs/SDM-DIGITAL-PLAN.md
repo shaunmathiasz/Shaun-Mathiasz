@@ -11,7 +11,7 @@ Existing Next.js App Router, React, strict TypeScript, Motion, Lucide, Zod, pg, 
 - src/components/digital: scoped visual system, official logos, accessible interactive showcases, pricing, enquiry and owner CRM.
 - src/lib/digital: shared validation/events, parameterised repository, form/notification service, consented aggregate telemetry, owner queries.
 - migrations/004_sdm_digital.sql: additive isolated tables, outbox, rate limits, activity, tasks and events.
-- API routes reuse origin/body/auth/private response helpers. No form contents or identifiers reach third-party analytics. Owner explicitly approved automatic contact detection and requested both scripts on services. The services page uses a separate consent key and explicit disclosure; existing public-page consent is not treated as permission for the expanded commercial collection. Custom event payloads remain restricted to fixed enums. Private/CV/admin routes remain excluded. No SDK added.
+- API routes reuse origin/body/auth/private response helpers. No form contents or identifiers are included in custom analytics events. Owner explicitly approved automatic contact detection and requested both scripts on services. The services page uses a separate consent key and explicit disclosure; existing public-page consent is not treated as permission for the expanded commercial collection. Custom event payloads remain restricted to fixed enums. Private/CV/admin routes remain excluded. No SDK added.
 - Transactional outbox plus existing daily cron retries; Resend idempotency keys, private owner retry controls, Preview recipient restriction.
 - Owner-only CRM at /admin/digital-solutions, CSV formula protection, audit, truthful reporting and deletion controls.
 

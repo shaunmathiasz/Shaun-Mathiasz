@@ -126,7 +126,12 @@ export function DigitalCRM() {
     }
   }
   const aggregate = (
-    key: "selected_package" | "business_category" | "channel" | "campaign" | "status",
+    key:
+      | "selected_package"
+      | "business_category"
+      | "channel"
+      | "campaign"
+      | "status",
   ) => {
     const counts: Record<string, number> = {};
     for (const g of data?.groups || [])
@@ -171,7 +176,9 @@ export function DigitalCRM() {
             Asia/Colombo.
           </p>
         </div>
-        <Link href="/admin/cv-requests">CV dashboard</Link>
+        <Link prefetch={false} href="/admin/cv-requests">
+          CV dashboard
+        </Link>
       </header>
       <div className="digital-crm-filters">
         <label>
@@ -356,7 +363,7 @@ export function DigitalCRM() {
             {chart("Business categories", aggregate("business_category"))}
             {chart("Current status distribution", aggregate("status"))}
             {chart("Attributed enquiry sources", aggregate("channel"))}
-          {chart("Approved campaigns", aggregate("campaign"))}
+            {chart("Approved campaigns", aggregate("campaign"))}
             {chart(
               "Monthly enquiry trend",
               data.trend.map((t) => [t.month, t.count]),

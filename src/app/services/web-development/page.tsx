@@ -85,7 +85,9 @@ export default function DigitalServices() {
         <div className="digital-hero-orbit" aria-hidden="true" />
         <div className="digital-hero-content">
           <nav aria-label="Breadcrumb" className="digital-breadcrumb">
-            <Link href="/">Shaun Denver Mathiasz</Link>
+            <Link prefetch={false} href="/">
+              Shaun Denver Mathiasz
+            </Link>
             <span>/</span>
             <span>Digital Solutions</span>
           </nav>
@@ -210,10 +212,10 @@ export default function DigitalServices() {
             conversation to an agreed handover. Scope, revisions and third-party
             costs are discussed openly.
           </p>
-          <Link href="/about" className="digital-text-button">
+          <Link prefetch={false} href="/about" className="digital-text-button">
             Meet the person behind the work <ArrowUpRight size={17} />
           </Link>
-          <Link href="/" className="digital-work-link">
+          <Link prefetch={false} href="/" className="digital-work-link">
             <span>EXISTING WORK</span>
             <strong>This personal website</strong>
             <p>

@@ -53,16 +53,17 @@ export function LeadActions({
     return () => previous.current?.focus();
   }, [id]);
   async function update(input: unknown) {
-    if (busy) return;
+    if (busy) return false;
     setBusy(true);
     setError("");
     try {
       await crmRequest("/api/admin/digital-solutions/" + id, input);
       if ((input as { action: string }).action === "delete") {
         onClose();
-        return;
+        return true;
       }
       await load();
+      return true;
     } catch (e) {
       setError(e instanceof Error ? e.message : "Change could not be saved.");
     } finally {
@@ -190,7 +191,9 @@ export function LeadActions({
               e.preventDefault();
               const f = e.currentTarget,
                 note = new FormData(f).get("note");
-              void update({ action: "note", note }).then(() => f.reset());
+              void update({ action: "note", note }).then((saved) => {
+                if (saved) f.reset();
+              });
             }}
           >
             <label>
@@ -210,7 +213,9 @@ export function LeadActions({
                 dueAt: new Date(
                   String(values.get("due")) + ":00+05:30",
                 ).toISOString(),
-              }).then(() => f.reset());
+              }).then((saved) => {
+                if (saved) f.reset();
+              });
             }}
           >
             <h3>Follow-up</h3>

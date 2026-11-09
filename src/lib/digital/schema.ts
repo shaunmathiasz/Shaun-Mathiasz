@@ -1,6 +1,11 @@
 import { z } from "zod";
 import { digital } from "@/config/digital";
-const text = (min: number, max: number) => z.string().trim().min(min).max(max);
+const text = (min: number, max: number) =>
+  z
+    .string()
+    .trim()
+    .min(min, `Please enter at least ${min} characters.`)
+    .max(max, `Please use ${max} characters or fewer.`);
 export const enquirySchema = z
   .object({
     fullName: text(2, 100),

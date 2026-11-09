@@ -9,6 +9,11 @@ async function captcha(page: Page) {
   await page.addInitScript(() => {
     window.turnstile = {
       render: (_el, options) => {
+        const response = document.createElement("input");
+        response.type = "hidden";
+        response.name = "cf-turnstile-response";
+        response.value = "controlled-browser-test";
+        _el.appendChild(response);
         setTimeout(() => {
           (options.callback as (v: string) => void)("controlled-browser-test");
         }, 0);
@@ -68,7 +73,7 @@ test("services prices, supplied logos, metadata and responsive concepts", async 
   page,
   request,
 }) => {
-  const r = await request.get(path);
+  const r = await request.get(path, { maxRetries: 2 });
   const html = await r.text();
   expect(html).toContain("LKR 24,900");
   expect(html).toContain("LKR 59,900");
@@ -114,7 +119,9 @@ test("services prices, supplied logos, metadata and responsive concepts", async 
   await expect(page.locator(".digital-process-detail")).toContainText(
     "brand-tailored direction",
   );
-  const image = await request.get("/social/sdm-digital-services.jpg");
+  const image = await request.get("/social/sdm-digital-services.jpg", {
+    maxRetries: 2,
+  });
   expect(image.status()).toBe(200);
   expect(image.headers()["content-type"]).toContain("image/jpeg");
 });
@@ -307,10 +314,32 @@ test("reduced motion retains the offer and keyboard controls", async ({
   ).toBe("none");
 });
 
-test("shared native progress bar follows scrolling without changing navigation", async ({page}) => {
+test("shared native progress bar follows scrolling without changing navigation", async ({
+  page,
+}) => {
   await page.goto(path);
-  await page.evaluate(()=>scrollTo(0,document.documentElement.scrollHeight));
-  await expect.poll(()=>page.locator('.scroll-progress').evaluate(el=>Number(getComputedStyle(el).transform.match(/matrix\(([^,]+)/)?.[1]||0))).toBeGreaterThan(.95);
-  await page.evaluate(()=>scrollTo(0,0));
-  await expect.poll(()=>page.locator('.scroll-progress').evaluate(el=>Number(getComputedStyle(el).transform.match(/matrix\(([^,]+)/)?.[1]||0))).toBeLessThan(.05);
+  await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight));
+  await expect
+    .poll(() =>
+      page
+        .locator(".scroll-progress")
+        .evaluate((el) =>
+          Number(
+            getComputedStyle(el).transform.match(/matrix\(([^,]+)/)?.[1] || 0,
+          ),
+        ),
+    )
+    .toBeGreaterThan(0.95);
+  await page.evaluate(() => scrollTo(0, 0));
+  await expect
+    .poll(() =>
+      page
+        .locator(".scroll-progress")
+        .evaluate((el) =>
+          Number(
+            getComputedStyle(el).transform.match(/matrix\(([^,]+)/)?.[1] || 0,
+          ),
+        ),
+    )
+    .toBeLessThan(0.05);
 });

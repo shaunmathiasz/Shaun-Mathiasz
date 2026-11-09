@@ -38,7 +38,24 @@ export function EnquiryForm({
     digitalEvent("enquiry_form_submit_attempt", { packageId: selected });
     busy.current = true;
     setPending(true);
-    const data = Object.fromEntries(new FormData(e.currentTarget));
+    const values = new FormData(e.currentTarget);
+    // Read only our fields: Turnstile may also insert cf-turnstile-response.
+    const data = Object.fromEntries(
+      [
+        "fullName",
+        "businessName",
+        "businessCategory",
+        "email",
+        "phone",
+        "existingWebsite",
+        "businessLocation",
+        "projectDescription",
+        "preferredTimeline",
+        "estimatedBudget",
+        "consent",
+        "website",
+      ].map((name) => [name, values.get(name) || ""]),
+    );
     key.current ||= crypto.randomUUID();
     const raw = {
       ...data,
@@ -295,7 +312,7 @@ export function EnquiryForm({
         />{" "}
         <span>
           I have read the{" "}
-          <Link href="/services/web-development/privacy">
+          <Link prefetch={false} href="/services/web-development/privacy">
             enquiry privacy notice
           </Link>{" "}
           and agree to be contacted about this project. *
