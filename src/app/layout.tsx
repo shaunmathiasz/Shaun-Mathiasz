@@ -5,7 +5,7 @@ import { CinematicSystem, MotionToggle } from "@/components/cinematic-system";
 import { ScrollProgress } from "@/components/editorial-tools";
 import { education } from "@/content/credentials";
 import localFont from "next/font/local";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 import { site } from "@/config/site";
@@ -50,6 +50,18 @@ export const metadata: Metadata = {
     template: "%s | Shaun Denver Mathiasz",
   },
   description: site.description,
+  manifest: "/icons/sdm-v1/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/icons/sdm-v1/favicon.ico", type: "image/x-icon", sizes: "16x16 32x32 48x48" },
+      ...[16, 32, 48].map((size) => ({
+        url: `/icons/sdm-v1/favicon-${size}x${size}.png`,
+        type: "image/png",
+        sizes: `${size}x${size}`,
+      })),
+    ],
+    apple: [{ url: "/icons/sdm-v1/apple-touch-icon.png", type: "image/png", sizes: "180x180" }],
+  },
   openGraph: {
     type: "website",
     siteName: site.name,
@@ -64,6 +76,8 @@ export const metadata: Metadata = {
     images: [socialImage.url],
   },
 };
+export const viewport: Viewport = { themeColor: "#080F1D" };
+
 export default function RootLayout({
   children,
 }: {

@@ -1,0 +1,25 @@
+{
+  "id": "/",
+  "name": "Shaun Denver Mathiasz",
+  "short_name": "Shaun Mathiasz",
+  "description": "Travel, Commerce & Strategy",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#080F1D",
+  "theme_color": "#080F1D",
+  "icons": [
+    {
+      "src": "/icons/sdm-v1/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/sdm-v1/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
