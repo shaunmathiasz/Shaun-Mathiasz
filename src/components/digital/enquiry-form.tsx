@@ -31,7 +31,7 @@ export function EnquiryForm({
     form.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
   }, [errors]);
   const onToken = useCallback((v: string) => setToken(v), []);
-  const price = digital.packages.find((p) => p.id === selected)?.price;
+  const price = digital.packages.find((p) => p.id === selected)?.launchPrice;
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (busy.current) return;

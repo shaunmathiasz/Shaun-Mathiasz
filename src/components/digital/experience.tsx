@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   Check,
@@ -26,7 +26,8 @@ const industries = [
       "Location and useful guest information",
     ],
     package: "growth",
-    image: "/images/editorial/maldives.jpg",
+    image: "/images/editorial/sri-lanka-villa.jpg",
+    alt: "Pool and tropical garden beside a villa in Ahangama, Sri Lanka — illustrative website concept",
   },
   {
     name: "Boutique Hotels",
@@ -48,7 +49,8 @@ const industries = [
       "Simple photo gallery",
     ],
     package: "starter",
-    image: "/images/editorial/maldives.jpg",
+    image: "/images/editorial/sri-lanka-guesthouse.jpg",
+    alt: "Arched wooden entrance and tropical plants in Sri Lanka — illustrative guesthouse website concept",
   },
   {
     name: "Travel Agencies",
@@ -168,6 +170,18 @@ export function DigitalExperience({ siteKey }: { siteKey: string }) {
     [demo, setDemo] = useState("Overview");
   const enquiry = useRef<HTMLElement>(null),
     item = industries[industry];
+  const pricing = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!pricing.current || !window.IntersectionObserver) return;
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) if (entry.isIntersecting) {
+        entry.target.classList.add("offer-entered");
+        observer.unobserve(entry.target);
+      }
+    }, { threshold: 0.12 });
+    pricing.current.querySelectorAll(".digital-price-card").forEach((card) => observer.observe(card));
+    return () => observer.disconnect();
+  }, []);
   function choose(id: PackageId) {
     setSelected(id);
     digitalEvent("package_selected", { packageId: id });
@@ -192,22 +206,20 @@ export function DigitalExperience({ siteKey }: { siteKey: string }) {
       <DigitalTelemetry />
       <section id="packages" className="digital-section">
         <div className="digital-section-heading">
-          <p className="eyebrow">01 / A CLEAR STARTING POINT</p>
-          <h2>
-            Good foundations.
-            <br />
-            <em>Honest prices.</em>
-          </h2>
-          <p>
-            Three considered packages. One-time development fees, with your
-            scope agreed before we begin.
-          </p>
+          <p className="eyebrow">01 / BUILT FOR YOUR NEXT CHAPTER</p>
+          <div className="digital-launch-banner"><span aria-hidden="true">🇱🇰</span> SRI LANKA BUSINESS LAUNCH SPECIAL</div>
+          <h2>Big savings.<br /><em>Bigger digital possibilities.</em></h2>
+          <p>Exclusive Website Development Launch Offers for Sri Lankan Villas, Hotels, Travel Businesses &amp; SMEs.</p>
+          <p className="digital-welcome">All Sri Lankan Businesses Welcome.</p>
+          {digital.packages.every((p) => p.discountDisplayApproved) && (
+            <p className="digital-approved-saving">SAVE UP TO {Math.max(...digital.packages.map((p) => p.discountPercentage))}% ON WEBSITE DEVELOPMENT</p>
+          )}
         </div>
-        <div className="digital-pricing">
+        <div className="digital-pricing" ref={pricing}>
           {digital.packages.map((p) => (
             <article
               key={p.id}
-              className={`digital-price-card ${selected === p.id ? "is-selected" : ""}`}
+              className={`digital-price-card ${selected === p.id ? "is-selected" : ""} ${p.popular ? "is-popular" : ""}`}
               data-digital-view="package_card_view"
               data-package={p.id}
               onPointerMove={(e) => {
@@ -235,16 +247,22 @@ export function DigitalExperience({ siteKey }: { siteKey: string }) {
               </div>
               <h3>{p.name}</h3>
               <p>{p.audience}</p>
-              <span className="digital-offer">{digital.offer}</span>
-              <div className="digital-price">
-                <small>From</small>
-                <strong>{money(p.price)}</strong>
+              <div className="digital-offer-heading">
+                <span className="digital-offer">{digital.offer}</span>
+                <span className="digital-discount-badge">{p.discountDisplayApproved ? `${p.discountPercentage}% OFF` : "LAUNCH OFFER"}</span>
               </div>
-              {digital.publishReferencePrices && (
-                <p>
-                  <s>{money(p.referencePrice)}</s> · Save {money(p.saving)}{" "}
-                  (approximately {p.discount}%)
-                </p>
+              {p.discountDisplayApproved ? (
+                <div className="digital-reference-price">Reference value <s>{money(p.regularPrice)}</s></div>
+              ) : digital.showProposedReferencePrices ? (
+                <div className="digital-reference-price digital-proposed-reference">Reference value <span>{money(p.regularPrice)}</span></div>
+              ) : null}
+              <div className="digital-price">
+                <small>{p.discountDisplayApproved ? "Now from" : "Launch price · from"}</small>
+                <strong>{money(p.launchPrice)}</strong>
+                <span className="digital-price-note">One-time development fee</span>
+              </div>
+              {p.discountDisplayApproved && (
+                <div className="digital-saving">You save {money(p.savingAmount)}</div>
               )}
               <p className="digital-package-pages">{p.pages}</p>
               <ul>
@@ -268,7 +286,7 @@ export function DigitalExperience({ siteKey }: { siteKey: string }) {
                 className={`button ${p.popular ? "button-primary" : "button-secondary"}`}
                 onClick={() => choose(p.id)}
               >
-                Choose {p.name} <ArrowUpRight size={17} aria-hidden="true" />
+                {p.ctaLabel} <ArrowUpRight size={17} aria-hidden="true" />
               </button>
             </article>
           ))}
@@ -404,7 +422,7 @@ export function DigitalExperience({ siteKey }: { siteKey: string }) {
           <div className="digital-industry-image">
             <Image
               src={item.image}
-              alt={`${item.name} — contextual photography for an illustrative website concept`}
+              alt={"alt" in item ? item.alt : `${item.name} — contextual photography for an illustrative website concept`}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
             />

@@ -1,20 +1,40 @@
-/** One source of truth. Proposed reference prices stay unpublished unless substantiated. */
+/** Label proposed references honestly; sale/discount claims require separate approval. */
+export const calculateOffer = (regularPrice: number, launchPrice: number) => ({
+  savingAmount: regularPrice - launchPrice,
+  discountPercentage: Math.round(((regularPrice - launchPrice) / regularPrice) * 100),
+});
+function packageOffer<const T extends {
+  packageId: string;
+  regularPrice: number;
+  launchPrice: number;
+  discountDisplayApproved: boolean;
+  packageFeatures: readonly string[];
+  ctaLabel: string;
+}>(offer: T) {
+  return {
+    ...offer,
+    ...calculateOffer(offer.regularPrice, offer.launchPrice),
+    // Stable aliases preserve existing selection and comparison consumers.
+    id: offer.packageId as T["packageId"],
+    features: offer.packageFeatures,
+  };
+}
 export const digital = {
   name: "SDM Digital",
   path: "/services/web-development",
   email: "shaun.emirates@gmail.com",
-  publishReferencePrices: false,
-  offer: "Special Introductory Launch Price",
+  offer: "SPECIAL INTRODUCTORY PRICE",
+  showProposedReferencePrices: true,
   currency: "LKR",
   retentionDays: 365,
   packages: [
-    {
-      id: "starter",
+    packageOffer({
+      packageId: "starter",
       name: "Starter Presence",
-      price: 24900,
-      referencePrice: 39900,
-      saving: 15000,
-      discount: 38,
+      launchPrice: 24900,
+      regularPrice: 39900,
+      discountDisplayApproved: true,
+      ctaLabel: "Claim Starter Offer",
       popular: false,
       pages: "1 page · up to 6 sections",
       revisions: 1,
@@ -22,21 +42,21 @@ export const digital = {
       delivery: "5–7 working days",
       audience:
         "New businesses, homestays, small villas, freelancers and startups.",
-      features: [
+      packageFeatures: [
         "Responsive mobile and desktop design",
         "WhatsApp enquiry and click-to-call integration",
         "Basic photo gallery, Google Maps and social links",
         "Basic on-page SEO",
         "SSL and deployment configuration",
       ],
-    },
-    {
-      id: "growth",
+    }),
+    packageOffer({
+      packageId: "growth",
       name: "Business Growth",
-      price: 59900,
-      referencePrice: 99900,
-      saving: 40000,
-      discount: 40,
+      launchPrice: 59900,
+      regularPrice: 99900,
+      discountDisplayApproved: true,
+      ctaLabel: "Claim Business Offer",
       popular: true,
       pages: "Up to 5 pages",
       revisions: 2,
@@ -44,7 +64,7 @@ export const digital = {
       delivery: "10–15 working days",
       audience:
         "Boutique hotels, villas, travel agencies, tour operators and growing businesses.",
-      features: [
+      packageFeatures: [
         "Brand-tailored responsive design",
         "Room, accommodation, service or tour showcase",
         "Photo galleries, Google Maps and WhatsApp/contact integration",
@@ -52,14 +72,14 @@ export const digital = {
         "Search Console configuration and basic web analytics",
         "On-page SEO",
       ],
-    },
-    {
-      id: "premium",
+    }),
+    packageOffer({
+      packageId: "premium",
       name: "Premium Hospitality",
-      price: 119900,
-      referencePrice: 199900,
-      saving: 80000,
-      discount: 40,
+      launchPrice: 119900,
+      regularPrice: 199900,
+      discountDisplayApproved: true,
+      ctaLabel: "Claim Premium Offer",
       popular: false,
       pages: "Up to 10 pages",
       revisions: 3,
@@ -67,7 +87,7 @@ export const digital = {
       delivery: "15–25 working days",
       audience:
         "Luxury villas, boutique resorts, established travel brands and growing SMEs.",
-      features: [
+      packageFeatures: [
         "Premium responsive design and subtle animations",
         "Accommodation or package listings",
         "Advanced enquiry forms",
@@ -76,7 +96,7 @@ export const digital = {
         "Enhanced SEO and appropriate structured data",
         "Analytics and conversion tracking",
       ],
-    },
+    }),
   ],
   categories: [
     "Hospitality",

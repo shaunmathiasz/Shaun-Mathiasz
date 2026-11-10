@@ -73,11 +73,23 @@ beforeEach(async () => {
   });
 });
 describe("SDM Digital real SQL integration", () => {
-  it("keeps the approved commercial prices and proposed claims private", () => {
-    expect(digital.packages.map((p) => p.price)).toEqual([
+  it("keeps launch fees fixed and calculates owner-approved reference comparisons", () => {
+    expect(digital.packages.map((p) => p.launchPrice)).toEqual([
       24900, 59900, 119900,
     ]);
-    expect(digital.publishReferencePrices).toBe(false);
+    expect(digital.packages.every((p) => p.discountDisplayApproved)).toBe(true);
+    expect(digital.showProposedReferencePrices).toBe(true);
+    expect(digital.packages.map((p) => p.savingAmount)).toEqual([15000, 40000, 80000]);
+    expect(digital.packages.map((p) => p.discountPercentage)).toEqual([38, 40, 40]);
+
+  });
+  it.each(["starter", "growth", "premium"] as const)("stores the actual launch price for %s", async (id) => {
+    await s.submit({ ...input(), selectedPackage: id }, "price-snapshot-test");
+    const row = (await db.query("SELECT selected_package,quoted_package_price FROM sdm_digital.enquiries")).rows[0];
+    const offer = digital.packages.find((p) => p.packageId === id)!;
+    expect(row.selected_package).toBe(id);
+    expect(row.quoted_package_price).toBe(offer.launchPrice);
+    expect(row.quoted_package_price).not.toBe(offer.regularPrice);
   });
   it("migration can run twice without touching existing unrelated records", async () => {
     await pg.exec(

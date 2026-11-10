@@ -50,7 +50,7 @@ const schema = {
       offers: digital.packages.map((p) => ({
         "@type": "Offer",
         name: p.name + " — starting development fee",
-        price: p.price,
+        price: p.launchPrice,
         priceCurrency: "LKR",
         url: origin + digital.path + "#packages",
         description:

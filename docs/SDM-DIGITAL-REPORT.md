@@ -1,6 +1,6 @@
 # SDM Digital Preview report
 
-Date: 10 November 2026 (Asia/Colombo).
+Date: 10 November 2026 (Asia/Colombo). Initial implementation report; the subsequent owner-approved pricing presentation and Sri Lankan imagery changes are documented in SDM-DIGITAL-OFFERS.md.
 
 ## Review deployment
 
@@ -58,7 +58,7 @@ Custom events contain fixed non-personal enums only. Approved campaign codes are
 - Live Preview: services/privacy and preserved about/play/CV pages return 200; unauthorised CRM/export return 401; protected dashboard redirects to owner login; wrong-Origin enquiry returns 403; invalid fields/security challenge return 400 rather than the former database 503.
 - Preview is noindex, robots disallow all and its public sitemap is empty. Production's existing 14 URLs are preserved; the services page would become the fifteenth only after an approved release.
 - The new services social JPEG returns 200 and is 1200 × 630.
-- Automated real Cloudflare testing did not obtain a challenge token. It did not submit an enquiry, bypass Turnstile, or prove real email delivery. Human Preview verification has been requested. SQL/provider fixtures validate business rules but are not proof of inbox delivery or authenticated live CRM operation.
+- Automated real Cloudflare testing did not obtain a challenge token. It did not submit an enquiry, bypass Turnstile, or prove real email delivery. The owner subsequently confirmed that the requested real Preview enquiry/email/CRM flow works. This is owner-reported confirmation; SQL/provider fixtures alone do not prove inbox delivery.
 
 Reports and screenshots are in reports/sdm-digital-*.json and reports/sdm-digital-{desktop,tablet,mobile}.png.
 

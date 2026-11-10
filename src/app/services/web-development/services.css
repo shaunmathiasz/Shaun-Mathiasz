@@ -1301,3 +1301,52 @@
     animation: none !important;
   }
 }
+
+/* Introductory offers: comparisons render only after explicit approval. */
+#packages .digital-section-heading { max-width: 900px; }
+#packages .digital-section-heading h2 { font-size: clamp(2.65rem, 4.6vw, 4.6rem); }
+.digital-launch-banner {
+  display: inline-flex; align-items: center; gap: 10px;
+  border: 1px solid #d2b88a59; background: linear-gradient(110deg, #d2b88a0d, #68b89d0c);
+  padding: 12px 15px; color: #e9d4ad; font-size: .62rem; letter-spacing: .12em;
+}
+.digital-launch-banner span { font-size: 1rem; }
+#packages .digital-welcome { color: #c5dfd3; font-weight: 600; margin-top: 16px; }
+.digital-approved-saving { color: #b4e2cf; font-weight: 600; letter-spacing: .05em; }
+.digital-price-card.is-popular {
+  border-color: #d2b88a99;
+  background: radial-gradient(ellipse at 50% 0, #d2b88a12, transparent 65%), #101c29;
+  box-shadow: inset 0 3px #d2b88a;
+}
+.digital-price-card.is-popular .digital-card-top { color: #ebd2a6; font-weight: 600; }
+.digital-offer-heading { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 20px; }
+.digital-offer-heading .digital-offer { margin-top: 0; font-size: .56rem; letter-spacing: .055em; }
+.digital-discount-badge {
+  display: inline-flex; padding: 7px 9px; border: 1px solid #82c8ad59;
+  background: #539f7d14; color: #b4e2cf; font-size: .65rem; letter-spacing: .08em; font-weight: 700;
+}
+.digital-reference-price { margin-top: 18px; font-size: .7rem; color: #acb9c9; }
+.digital-reference-price s { margin-left: 8px; text-decoration-thickness: 1px; }
+.digital-price strong { font-weight: 650; letter-spacing: -.045em; }
+.digital-price-note { color: #b4c1cf; font-size: .65rem; margin-top: 3px; }
+.digital-saving { color: #b4e2cf; font-size: .75rem; margin: -6px 0 18px; }
+.digital-price-card .button { transition: background .2s, border-color .2s, box-shadow .2s; }
+.digital-price-card .button:hover { box-shadow: 0 6px 24px #d2b88a12; }
+@media (prefers-reduced-motion: no-preference) {
+  .digital-price-card.offer-entered { animation: digital-offer-enter .65s cubic-bezier(.2,.65,.3,1) backwards; }
+  .digital-price-card.offer-entered:nth-child(2) { animation-delay: .12s; }
+  .digital-price-card.offer-entered:nth-child(3) { animation-delay: .24s; }
+  .offer-entered .digital-discount-badge { animation: digital-offer-highlight .9s ease-out; }
+  .offer-entered .digital-price { animation: digital-offer-enter .6s ease-out backwards; animation-delay: .12s; }
+}
+@keyframes digital-offer-enter { from { opacity: .72; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes digital-offer-highlight { from { border-color: #e9d4ad; transform: translateY(3px); } to { border-color: #82c8ad59; transform: none; } }
+@media (max-width: 500px) {
+  .digital-launch-banner { font-size: .55rem; letter-spacing: .075em; padding: 11px 12px; }
+  .digital-offer-heading { gap: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .digital-price-card.offer-entered, .offer-entered .digital-price, .offer-entered .digital-discount-badge { animation: none; }
+}
+.digital-proposed-reference { display: flex; flex-wrap: wrap; gap: 5px 10px; font-size: .65rem; color: #aebaca; }
+.digital-proposed-reference span { color: #c3ceda; font-variant-numeric: tabular-nums; }

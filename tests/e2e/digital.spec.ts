@@ -78,8 +78,16 @@ test("services prices, supplied logos, metadata and responsive concepts", async 
   expect(html).toContain("LKR 24,900");
   expect(html).toContain("LKR 59,900");
   expect(html).toContain("LKR 119,900");
-  expect(html).not.toContain("<s>");
+  expect(html.match(/<s>/g)).toHaveLength(3);
+  for (const reference of ["LKR 39,900", "LKR 99,900", "LKR 199,900"]) expect(html).toContain(reference);
+  for (const claim of ["38% OFF", "40% OFF", "You save", "LKR 15,000", "LKR 40,000", "LKR 80,000"]) expect(html).toContain(claim);
+  expect(html).toContain("Reference value");
+
+  expect(html).toContain("SRI LANKA BUSINESS LAUNCH SPECIAL");
+  expect(html).toContain("All Sri Lankan Businesses Welcome.");
   await page.goto(path);
+  await expect(page.locator(".digital-offer")).toHaveCount(3);
+  await expect(page.getByRole("button", { name: "Claim Premium Offer", exact: true })).toBeVisible();
   await expect(page.locator("h1")).toHaveText(
     "Your BusinessDeserves aBrilliant Website.",
   );
@@ -110,9 +118,12 @@ test("services prices, supplied logos, metadata and responsive concepts", async 
     page.getByRole("button", { name: "Essential Features", exact: true }),
   ).toHaveAttribute("aria-expanded", "true");
   await page.getByRole("button", { name: "Guesthouses", exact: true }).click();
+  await expect(page.locator('.digital-industry-image img')).toHaveAttribute('src', /sri-lanka-guesthouse/);
   await expect(
     page.getByRole("heading", { name: "A warmer welcome, online." }),
   ).toBeVisible();
+  await page.getByRole("button", { name: "Villas", exact: true }).click();
+  await expect(page.locator('.digital-industry-image img')).toHaveAttribute('src', /sri-lanka-villa/);
   await page.getByRole("button", { name: "Mobile", exact: true }).click();
   await expect(page.locator(".digital-device-mobile")).toBeVisible();
   await page.getByRole("button", { name: /03.*Design/ }).click();
@@ -131,13 +142,16 @@ test("package selection preserves fields and server-confirmed success is require
   await captcha(page);
   await page.goto(path);
   await page
-    .getByRole("button", { name: "Choose Starter Presence", exact: true })
+    .getByRole("button", { name: "Claim Starter Offer", exact: true })
     .click();
   await expect(page.locator("#digital-fullName")).toBeFocused();
   await page.locator("#digital-fullName").fill("Browser Test Owner");
   await page.locator("#digital-businessName").fill("Example Villa");
+  await page.getByRole("button", { name: "Claim Premium Offer", exact: true }).click();
+  await expect(page.locator(".digital-form-summary")).toContainText("LKR 119,900");
+
   await page
-    .getByRole("button", { name: "Choose Business Growth", exact: true })
+    .getByRole("button", { name: "Claim Business Offer", exact: true })
     .click();
   await expect(page.locator("#digital-fullName")).toHaveValue(
     "Browser Test Owner",
@@ -275,7 +289,7 @@ test("services vendor scripts require the newly disclosed commercial consent", a
     )
     .toBe(1);
   await page
-    .getByRole("button", { name: "Choose Starter Presence", exact: true })
+    .getByRole("button", { name: "Claim Starter Offer", exact: true })
     .click();
   await page.locator("#digital-fullName").fill("Do Not Put This In Events");
   await page.locator("#digital-email").fill("private-browser@example.test");

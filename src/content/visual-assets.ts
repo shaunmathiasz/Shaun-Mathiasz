@@ -13,6 +13,28 @@ export type Photograph = {
 };
 const unsplash = "Unsplash License — https://unsplash.com/license";
 export const photography = {
+  sriLankanVilla: {
+    src: "/images/editorial/sri-lanka-villa.jpg",
+    width: 1200, height: 800,
+    alt: "Pool and tropical garden beside a villa in Ahangama, Sri Lanka",
+    purpose: "Distinct Sri Lankan villa context for the illustrative SDM Digital industry concept.",
+    pages: ["/services/web-development"],
+    attribution: "Dinuka Lankaloka / Unsplash",
+    source: "https://unsplash.com/photos/white-and-brown-house-near-swimming-pool-during-daytime-HKr5cn6S0q0",
+    licence: unsplash,
+    reuse: "Villa concept only; no client relationship or completed project implied.",
+  },
+  sriLankanGuesthouse: {
+    src: "/images/editorial/sri-lanka-guesthouse.jpg",
+    width: 1200, height: 800,
+    alt: "Arched wooden entrance framed by tropical plants in Sri Lanka",
+    purpose: "Local architectural context for the illustrative guesthouse concept, distinct from the villa pool.",
+    pages: ["/services/web-development"],
+    attribution: "Thilina Alagiyawanna / Unsplash",
+    source: "https://unsplash.com/photos/elegant-arched-wooden-door-framed-by-lush-green-plants-je1J85Ow79M",
+    licence: unsplash,
+    reuse: "Guesthouse concept only; contextual architecture, not a verified SDM Digital client or claim about the photographed property's classification.",
+  },
   portrait: {
     src: "/images/shaun-mathiasz.jpg",
     width: 1254,

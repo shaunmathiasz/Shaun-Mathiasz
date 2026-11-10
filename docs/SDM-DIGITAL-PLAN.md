@@ -24,9 +24,12 @@ Real Cloudflare automation did not obtain a token and did not submit a lead. Own
 
 ## Remaining release gates
 
-- Real Preview form, email inbox and authenticated CRM verification.
+- Owner has now confirmed that the requested real Preview form/email/CRM flow works. No repeat provider setup is needed.
 - Optional GTM GA4 custom-event mapping and external reporting API connections; show Not connected until verified.
 - Public business phone/WhatsApp number, if those direct CTAs are wanted; no number invented.
 - Owner review of commercial terms/privacy and explicit approval before Production migration/deployment.
 
 Production remains dpl_7UG6F52jRyeTzNy4uNwQgApBQ5c4, commit b72714885d1a55f9fde6025a2537ed2ea025c523. Preserve the additive schema on any website rollback. Do not promote a Preview environment snapshot into Production.
+
+## Introductory pricing update
+Owner requested the Sri Lanka Business Launch Special presentation and new Claim Offer CTAs. The typed config now has packageId, regularPrice, launchPrice, calculated savingAmount/discountPercentage, discountDisplayApproved, packageFeatures and ctaLabel. Existing IDs are preserved. All commercial reads use launchPrice. The owner subsequently requested the explicit discount layout: per-package discountDisplayApproved flags are true for the Reference value comparisons; no historical selling-price verification is claimed. Focused pricing/SEO browser checks, all unit tests, accessibility checks and a new Preview follow; see SDM-DIGITAL-OFFERS.md.

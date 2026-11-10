@@ -61,7 +61,7 @@ export class DigitalService {
         reference =
           "SDM-" + randomUUID().replaceAll("-", "").slice(0, 12).toUpperCase();
       const price =
-        digital.packages.find((p) => p.id === input.selectedPackage)?.price ??
+        digital.packages.find((p) => p.id === input.selectedPackage)?.launchPrice ??
         null;
       const r = await sql.query<{ id: string; reference: string }>(
         `INSERT INTO sdm_digital.enquiries(id,reference,submission_hash,payload_hash,full_name,business_name,business_category,email,phone,selected_package,quoted_package_price,business_location,existing_website,project_description,estimated_budget,preferred_timeline,attribution) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17) ON CONFLICT(submission_hash) DO NOTHING RETURNING id,reference`,
