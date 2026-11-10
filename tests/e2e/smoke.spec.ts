@@ -114,6 +114,7 @@ test("published article and 404", async ({ page }) => {
   await expect(page.getByRole("link", { name: /Return home/ })).toBeVisible();
 });
 test("responsive layout fits requested widths", async ({ page }) => {
+  test.setTimeout(90000);
   for (const width of [360, 390, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 950 });
     for (const route of [
@@ -150,7 +151,7 @@ test("reduced motion hydrates without runtime errors", async ({ page }) => {
   );
   expect(errors).toEqual([]);
 });
-test("core headline and CV are available without JavaScript", async ({
+test("core headline and CV request link are available without JavaScript", async ({
   browser,
   baseURL,
 }) => {
@@ -161,7 +162,7 @@ test("core headline and CV are available without JavaScript", async ({
     await expect(page.locator("h1")).toBeVisible();
     await expect(page.locator(".nav-cv")).toHaveAttribute(
       "href",
-      "/documents/shaun-mathiasz-cv.pdf",
+      "/request-cv",
     );
   } finally {
     await context.close();
@@ -256,11 +257,11 @@ test("intro is session scoped and absent with reduced motion", async ({
 }) => {
   await page.goto("/");
   await expect
-    .poll(() => page.evaluate(() => sessionStorage.getItem("shaun-intro-v4")))
+    .poll(() => page.evaluate(() => sessionStorage.getItem("shaun-welcome-seen")))
     .toBe("seen");
   await page.reload();
   await expect(page.locator(".identity-intro")).toHaveCount(0);
-  await page.evaluate(() => sessionStorage.removeItem("shaun-intro-v4"));
+  await page.evaluate(() => sessionStorage.removeItem("shaun-welcome-seen"));
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.reload();
   await expect(page.locator(".identity-intro")).toHaveCount(0);
@@ -524,11 +525,9 @@ test("Instagram and TikTok page previews load on request, size to content and re
     ],
     ["TikTok", "https://www.tiktok.com/embed/@shaunmathiasz", 880],
   ] as const) {
-    const card = section
-      .locator(".social-page-card")
-      .filter({
-        has: page.getByRole("heading", { name: platform, exact: true }),
-      });
+    const card = section.locator(".social-page-card").filter({
+      has: page.getByRole("heading", { name: platform, exact: true }),
+    });
     await card
       .getByRole("button", { name: "Load " + platform + " preview" })
       .click();

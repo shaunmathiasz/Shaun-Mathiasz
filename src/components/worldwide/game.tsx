@@ -1,4 +1,6 @@
 "use client";
+import { LinkArrow } from "@/components/link-arrow";
+
 import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { animate, motion } from "motion/react";
@@ -454,7 +456,7 @@ export default function WorldwideGame() {
             <p className="eyebrow">YOUR NEXT CHAPTER IS GLOBAL</p>
             <h1 aria-label="WORLDWIDE">
               WORLD<span>WIDE</span>
-              <i aria-hidden="true">↗</i>
+              <i aria-hidden="true"><LinkArrow size="1em" /></i>
             </h1>
             <h2>The Travel Tycoon Challenge</h2>
             <p className="ww-tagline">
@@ -879,7 +881,7 @@ export default function WorldwideGame() {
                       <Copy size={16} /> Copy results
                     </button>
                     <button className="ww-secondary" onClick={downloadCard}>
-                      Download results card ↗
+                      Download results card <LinkArrow />
                     </button>
                   </div>
                   <p role="status" className="ww-share-status">
@@ -948,7 +950,7 @@ export default function WorldwideGame() {
           simulated; no bookings or financial advice.
         </p>
         <Link href="/about" className="text-link">
-          A game by Shaun Denver Mathiasz ↗
+          A game by Shaun Denver Mathiasz <LinkArrow />
         </Link>
       </footer>
     </div>

@@ -1,3 +1,6 @@
+import { LinkArrow } from "@/components/link-arrow";
+import type { Metadata } from "next";
+import { homepageSocial, socialImage } from "@/config/social";
 import { SocialPagePreviews } from "@/components/social-page-previews";
 import { BrandPerspective } from "@/components/brand-perspective";
 import { DigitalPresence } from "@/components/digital-presence";
@@ -22,11 +25,31 @@ import { PortfolioGallery } from "@/components/portfolio-gallery";
 import { Reveal } from "@/components/reveal";
 import { skills, education } from "@/content/profile";
 import { site } from "@/config/site";
-export const metadata = pageMetadata(
+const homepageMetadata = pageMetadata(
   "Travel, Commerce & Strategy",
   site.description,
   "/",
 );
+export const metadata: Metadata = {
+  ...homepageMetadata,
+  title: { absolute: "Shaun Denver Mathiasz | Travel Product Specialist" },
+  description: "Official website of Shaun Denver Mathiasz (Shaun Mathiasz), a travel product specialist based in Sri Lanka. Explore his professional experience, portfolio, education and projects.",
+  alternates: { canonical: homepageSocial.url },
+  openGraph: {
+    type: "website",
+    siteName: site.name,
+    title: homepageSocial.title,
+    description: homepageSocial.description,
+    url: homepageSocial.url,
+    images: [socialImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: homepageSocial.title,
+    description: homepageSocial.description,
+    images: [socialImage.url],
+  },
+};
 export default function Home() {
   const icons = [Globe2, ChartNoAxesCombined, Compass, Handshake];
   return (
@@ -40,7 +63,7 @@ export default function Home() {
             TRAVEL · COMMERCE · STRATEGY
           </p>
           <span className="hero-location">
-            COLOMBO, SRI LANKA <span className="gold">↗</span>
+            COLOMBO, SRI LANKA <span className="gold"><LinkArrow /></span>
           </span>
         </div>
         <div className="hero-content">
@@ -49,15 +72,12 @@ export default function Home() {
               Shaun Denver Mathiasz
               <span>Travel Product Specialist · UK outbound travel</span>
             </p>
-            <h1 className="cinematic-headline">
-              Beyond
-              <br />
-              Destinations.
-              <br />
+            <h1 className="hero-heading" aria-label="Beyond Destinations. Towards Possibilities.">
+              <span className="headline-mask"><span>Beyond</span></span>
+              <span className="headline-mask"><span>Destinations.</span></span>
               <em>
-                Towards
-                <br />
-                Possibilities.
+                <span className="headline-mask"><span>Towards</span></span>
+                <span className="headline-mask"><span>Possibilities.</span></span>
               </em>
             </h1>
             <p>
@@ -81,6 +101,11 @@ export default function Home() {
                 My story <ArrowUpRight size={18} />
               </Link>
             </div>
+            <nav className="recruiter-shortcuts" aria-label="Recruiter shortcuts">
+              <Link href="/experience" prefetch={false}>Career history</Link>
+              <span aria-hidden="true">/</span>
+              <Link href={site.cvRequestUrl} prefetch={false}>Request my CV</Link>
+            </nav>
           </div>
           <div className="hero-visual">
             <Link
@@ -226,15 +251,7 @@ export default function Home() {
       </section>
       <section className="cv-strip">
         <p>A closer look at my professional background.</p>
-        {site.cvUrl ? (
-          <a href={site.cvUrl} className="text-link" download>
-            Download CV ↗
-          </a>
-        ) : (
-          <span aria-disabled="true">
-            Download CV <small>Available on request</small>
-          </span>
-        )}
+        <TextLink href={site.cvRequestUrl}>REQUEST MY CV</TextLink>
       </section>
       <DigitalPresence />
       <SocialPagePreviews />

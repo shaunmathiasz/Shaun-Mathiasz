@@ -1,4 +1,6 @@
 "use client";
+import { LinkArrow } from "@/components/link-arrow";
+
 import Image from "next/image";
 import {
   useEffect,
@@ -117,7 +119,7 @@ function PreviewCard({ page }: { page: SocialPagePreview }) {
         <div>
           <h3>{page.platform}</h3>
           <a href={page.url} target="_blank" rel="noopener noreferrer">
-            {page.handle} ↗
+            {page.handle} <LinkArrow />
           </a>
         </div>
       </header>
@@ -175,7 +177,7 @@ function PreviewCard({ page }: { page: SocialPagePreview }) {
           {status === "loading" && (
             <div className="provider-notice" role="status">
               <span className="provider-route-mark" aria-hidden="true">
-                ↗
+                <LinkArrow />
               </span>
               <p className="eyebrow">
                 CONNECTING TO {page.platform.toUpperCase()}
@@ -192,14 +194,14 @@ function PreviewCard({ page }: { page: SocialPagePreview }) {
                 rel="noopener noreferrer"
                 className="text-link"
               >
-                Open {page.platform} ↗
+                Open {page.platform} <LinkArrow />
               </a>
             </div>
           )}
           {status === "error" && (
             <div className="provider-notice provider-error" role="status">
               <span className="provider-route-mark" aria-hidden="true">
-                ↗
+                <LinkArrow />
               </span>
               <p className="eyebrow">PREVIEW TEMPORARILY UNAVAILABLE</p>
               <h4 ref={errorHeading} tabIndex={-1}>
@@ -219,7 +221,7 @@ function PreviewCard({ page }: { page: SocialPagePreview }) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Open {page.platform} ↗
+                  Open {page.platform} <LinkArrow />
                 </a>
               </div>
             </div>
@@ -232,7 +234,7 @@ function PreviewCard({ page }: { page: SocialPagePreview }) {
             <p className="eyebrow">SHAUN DENVER MATHIASZ</p>
             <p>Explore a different side of the journey.</p>
             <button className="button outline-button" onClick={start}>
-              Load {page.platform} preview ↗
+              Load {page.platform} preview <LinkArrow />
             </button>
             <small>Loads content from {page.platform} when you choose.</small>
           </div>
@@ -245,7 +247,7 @@ function PreviewCard({ page }: { page: SocialPagePreview }) {
           rel="noopener noreferrer"
           className="text-link"
         >
-          Open {page.platform} page ↗
+          Open {page.platform} page <LinkArrow />
         </a>
         {(status === "ready" || status === "loading") && (
           <button className="text-link" onClick={fail}>

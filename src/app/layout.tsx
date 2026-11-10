@@ -1,14 +1,20 @@
+import { REVIEWED_GTM_CONTAINER_ID } from "@/config/analytics";
+import { ClarityAnalytics, AnalyticsPreferences } from "@/components/clarity-analytics";
+import { LinkArrow } from "@/components/link-arrow";
+import { motionTokens } from "@/lib/motion";
 import { PersonalLogo } from "@/components/personal-logo";
 import { CinematicSystem, MotionToggle } from "@/components/cinematic-system";
 import { ScrollProgress } from "@/components/editorial-tools";
-import { education } from "@/content/credentials";
+import { identitySchema } from "@/lib/structured-data";
 import localFont from "next/font/local";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 import { site } from "@/config/site";
+import { homepageSocial, socialImage } from "@/config/social";
 import "./globals.css";
 import "./motion.css";
+import "./experience.css";
 const editorial = localFont({
   src: [
     {
@@ -46,63 +52,55 @@ export const metadata: Metadata = {
     template: "%s | Shaun Denver Mathiasz",
   },
   description: site.description,
+  manifest: "/icons/sdm-v1/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/icons/sdm-v1/favicon.ico", type: "image/x-icon", sizes: "16x16 32x32 48x48" },
+      ...[16, 32, 48].map((size) => ({
+        url: `/icons/sdm-v1/favicon-${size}x${size}.png`,
+        type: "image/png",
+        sizes: `${size}x${size}`,
+      })),
+    ],
+    apple: [{ url: "/icons/sdm-v1/apple-touch-icon.png", type: "image/png", sizes: "180x180" }],
+  },
   openGraph: {
     type: "website",
     siteName: site.name,
-    title: "Shaun Denver Mathiasz — Travel, Commerce & Strategy",
-    description: site.description,
-    ...(site.url
-      ? { images: [{ url: "/opengraph-image", width: 1200, height: 630 }] }
-      : {}),
+    title: homepageSocial.title,
+    description: homepageSocial.description,
+    images: [socialImage],
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    title: homepageSocial.title,
+    description: homepageSocial.description,
+    images: [socialImage.url],
+  },
 };
+export const viewport: Viewport = { themeColor: "#080F1D" };
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const person = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: site.name,
-    jobTitle: site.role,
-    ...(site.url ? { url: site.url } : {}),
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Colombo",
-      addressCountry: "LK",
-    },
-    sameAs: site.socialLinks.map((link) => link.url),
-    hasCredential: education
-      .filter((e) => e.status === "Completed")
-      .map((e) => ({
-        "@type": "EducationalOccupationalCredential",
-        name: e.title,
-        credentialCategory:
-          e.category === "Executive Education" ? "Short course" : "Diploma",
-        recognizedBy: { "@type": "Organization", name: e.institution },
-      })),
-    memberOf: {
-      "@type": "Organization",
-      name: "Royal Aeronautical Society",
-      description: "Student Affiliate",
-    },
-    worksFor: {
-      "@type": "Organization",
-      name: "Moresand Group / Travel Center UK",
-    },
-  };
   return (
     <html lang="en" className={`${editorial.variable} ${body.variable}`}>
-      <body>
+      <body data-clarity-mask="true" style={{
+        "--motion-micro": `${motionTokens.duration.micro * 1000}ms`,
+        "--motion-reveal": `${motionTokens.duration.reveal * 1000}ms`,
+        "--motion-section": `${motionTokens.duration.section * 1000}ms`,
+        "--ease-editorial": motionTokens.easing,
+      } as React.CSSProperties}>
+        <ClarityAnalytics production={process.env.VERCEL_ENV === "production"} projectId={process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || ""} gtmId={process.env.NEXT_PUBLIC_GTM_ID || ""} gtmApproved={Boolean(REVIEWED_GTM_CONTAINER_ID && REVIEWED_GTM_CONTAINER_ID === process.env.NEXT_PUBLIC_GTM_ID)}>
         <a className="skip-link" href="#main">
           Skip to content
         </a>
         <ScrollProgress />
         <CinematicSystem />
         <Navigation />
-        <main id="main">{children}</main>
+        <main id="main" tabIndex={-1}>{children}</main>
         <footer className="footer">
           <Link prefetch={false} href="/" className="footer-name">
             <PersonalLogo />
@@ -113,22 +111,30 @@ export default function RootLayout({
           <div>
             <span>Colombo, Sri Lanka</span>
             <Link prefetch={false} href="/portfolio#travel-detour">
-              Play a little ↗
+              Play a little <LinkArrow />
             </Link>
             <Link prefetch={false} href="/contact">
-              Contact ↗
+              Contact <LinkArrow />
             </Link>
-            <a href={`mailto:${site.professionalEmail}`}>Email Me ↗</a>
+            <a href={`mailto:${site.professionalEmail}`}>Email Me <LinkArrow /></a>
+            <Link prefetch={false} href={site.cvRequestUrl}>
+              REQUEST MY CV <LinkArrow />
+            </Link>
+            <Link prefetch={false} href="/request-cv/privacy">
+              CV request privacy <LinkArrow />
+            </Link>
           </div>
+          <AnalyticsPreferences />
           <MotionToggle />
           <small>© {new Date().getFullYear()} Shaun Denver Mathiasz</small>
         </footer>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(person).replace(/</g, "\u003c"),
+            __html: JSON.stringify(identitySchema).replace(/</g, "\u003c"),
           }}
         />
+        </ClarityAnalytics>
       </body>
     </html>
   );

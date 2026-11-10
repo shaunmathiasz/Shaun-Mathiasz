@@ -1,5 +1,8 @@
 "use client";
+import { LinkArrow } from "@/components/link-arrow";
 
+
+import { motionTokens } from "@/lib/motion";
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { useSafeReducedMotion } from "@/lib/use-safe-reduced-motion";
@@ -17,13 +20,17 @@ export function CinematicSystem() {
       (entries) => {
         for (const entry of entries) {
           if (!entry.isIntersecting) continue;
+          if (entry.target.parentElement?.closest("[data-cinematic]")) {
+            observer.unobserve(entry.target);
+            continue;
+          }
           animations.push(
             entry.target.animate(
               [
-                { opacity: 0.6, transform: "translateY(20px)" },
+                { opacity: 0.6, transform: `translateY(${motionTokens.distance.reveal}px)` },
                 { opacity: 1, transform: "translateY(0)" },
               ],
-              { duration: 620, easing: "cubic-bezier(.22,1,.36,1)" },
+              { duration: motionTokens.duration.reveal * 1000, easing: motionTokens.easing },
             ),
           );
           observer.unobserve(entry.target);
@@ -119,8 +126,10 @@ export function CinematicSystem() {
         }
         const hint =
           target.closest<HTMLElement>("[data-cursor]")?.dataset.cursor ||
-          (target.closest("a,button,summary") ? "↗" : "");
-        el.textContent = hint;
+          (target.closest("a,button,summary") ? "link" : "");
+        const label = el.querySelector<HTMLElement>("[data-cursor-label]");
+        if (label) label.textContent = hint === "link" ? "" : hint;
+        el.dataset.icon = hint === "link" ? "true" : "false";
         el.dataset.hint = hint ? "true" : "false";
         el.dataset.visible = "true";
         el.style.transform = `translate3d(${Math.min(e.clientX + 18, window.innerWidth - 82)}px,${Math.min(e.clientY + 18, window.innerHeight - 82)}px,0)`;
@@ -148,7 +157,7 @@ export function CinematicSystem() {
       fine.removeEventListener("change", hide);
     };
   }, [pathname, reduced]);
-  return <div ref={cursor} className="cursor-companion" aria-hidden="true" />;
+  return <div ref={cursor} className="cursor-companion" aria-hidden="true"><LinkArrow /><span data-cursor-label /></div>;
 }
 
 export function MotionToggle() {

@@ -1,4 +1,6 @@
 "use client";
+import { LinkArrow } from "@/components/link-arrow";
+
 import Image from "next/image";
 import { careerLocations } from "@/content/career-locations";
 import Link from "next/link";
@@ -55,7 +57,7 @@ export function CareerGlobeLoader() {
                 alt="Geographic overview connecting Colombo, the Maldives and the UK market"
               />
               <div className="globe-controls static-controls">
-                <Link href="/experience">Explore my experience ↗</Link>
+                <Link href="/experience">Explore my experience <LinkArrow /></Link>
               </div>
               <p className="micro-copy">
                 Static geographic overview. Colombo · Maldives · UK market
@@ -68,7 +70,7 @@ export function CareerGlobeLoader() {
                   <div className="static-place" key={place.name}>
                     <span>0{i + 1}</span>
                     {place.name}
-                    <span>↗</span>
+                    <span><LinkArrow /></span>
                   </div>
                 ))}
               </div>

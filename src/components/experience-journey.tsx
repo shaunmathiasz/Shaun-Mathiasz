@@ -24,8 +24,13 @@ export function ExperienceJourney() {
       <p className="eyebrow">
         MY JOURNEY — FROM HOSPITALITY TO GLOBAL BUSINESS
       </p>
+      <nav className="chapter-shortcuts" aria-label="Career chapters">
+        {roles.map((role, index) => <a key={role.role} href={`#career-chapter-${index + 1}`}>
+          <span>0{index + 1}</span>{role.role}
+        </a>)}
+      </nav>
       {roles.map((e, i) => (
-        <article className="journey-stop" data-cinematic key={e.role}>
+        <article className="journey-stop" id={`career-chapter-${i + 1}`} tabIndex={-1} data-cinematic key={e.role}>
           <div className="stop-meta">
             <span className="stamp-number">0{i + 1}</span>
             <p>{e.period}</p>

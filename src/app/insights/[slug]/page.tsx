@@ -1,3 +1,5 @@
+import { entityIds } from "@/lib/structured-data";
+import { site } from "@/config/site";
 import Image from "next/image";
 import { ArticleTools } from "@/components/editorial-tools";
 import { readingMinutes } from "@/content/media";
@@ -43,7 +45,9 @@ export default async function Article({
             "@type": "BlogPosting",
             headline: a.title,
             datePublished: a.publishedAt,
-            author: { "@type": "Person", name: "Shaun Denver Mathiasz" },
+            author: { "@type": "Person", "@id": entityIds.person, name: site.name, url: new URL("/about", site.url || "https://www.shaunmathiasz.com").toString() },
+            mainEntityOfPage: new URL(`/insights/${a.slug}`, site.url || "https://www.shaunmathiasz.com").toString(),
+            image: new URL(a.cover, site.url || "https://www.shaunmathiasz.com").toString(),
             description: a.summary,
           }).replace(/</g, "\u003c"),
         }}
@@ -72,7 +76,7 @@ export default async function Article({
         <p className="micro-copy">
           {readingMinutes(a.body)} minute estimated read
         </p>
-        <article className="prose">
+        <article className="prose" id="article-body">
           <MDXRemote source={a.body} />
         </article>
         <div className="related">

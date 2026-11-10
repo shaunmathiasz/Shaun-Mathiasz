@@ -1,3 +1,5 @@
+import { profileSchema } from "@/lib/structured-data";
+import { LinkArrow } from "@/components/link-arrow";
 import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { EditorialImage } from "@/components/editorial-image";
@@ -12,10 +14,11 @@ export const metadata = pageMetadata(
 export default function About() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(profileSchema).replace(/</g, "\u003c") }} />
       <PageIntro
         eyebrow="THE PERSON BEHIND THE PERSPECTIVE"
         title="Hospitality at heart. A wider horizon in mind."
-        description="I’m Shaun Denver Mathiasz, a Colombo-based travel product professional interested in the intersection of international hospitality, global business and commercial growth."
+        description="I’m Shaun Denver Mathiasz, also known as Shaun Mathiasz, a Colombo-based travel product professional interested in the intersection of international hospitality, global business and commercial growth."
       />
       <section className="section story-grid">
         <aside
@@ -87,9 +90,9 @@ export default function About() {
             hospitality.
           </p>
           <div className="about-paths">
-            <Link href="/experience">Explore my experience ↗</Link>
-            <Link href="/portfolio">View professional work ↗</Link>
-            <Link href="/education">Education & development ↗</Link>
+            <Link href="/experience">Explore my experience <LinkArrow /></Link>
+            <Link href="/portfolio">View professional work <LinkArrow /></Link>
+            <Link href="/education">Education & development <LinkArrow /></Link>
           </div>
           <h3>A global perspective</h3>
           <p>
@@ -117,6 +120,20 @@ export default function About() {
           asset="colombo"
           caption="COLOMBO / MY PROFESSIONAL & ACADEMIC BASE · CONTEXTUAL PHOTOGRAPHY"
         />
+      </section>
+      <section className="section professional-perspectives">
+        <SectionTitle eyebrow="THREE CONNECTED CHAPTERS" title="One perspective. Still developing." />
+        <div className="perspective-grid">
+          {[
+            { number: "01", title: "A hospitality foundation.", text: "Guest operations and reservations in the Maldives taught me to consider the detail that sits behind an experience.", href: "/experience", label: "Explore the foundation" },
+            { number: "02", title: "A commercial practice.", text: "Today, I connect destination research, supplier evaluation and package construction for the UK outbound travel market, from Colombo.", href: "/portfolio", label: "Explore the practice" },
+            { number: "03", title: "A continuing education.", text: "Ongoing global business studies and professional development give me more ways to question, connect and improve the work.", href: "/education", label: "Explore the learning" },
+          ].map((chapter) => <Reveal key={chapter.number}><article>
+            <span className="eyebrow">{chapter.number} / IN PERSPECTIVE</span>
+            <h3>{chapter.title}</h3><p>{chapter.text}</p>
+            <Link href={chapter.href} prefetch={false} className="text-link">{chapter.label}<LinkArrow /></Link>
+          </article></Reveal>)}
+        </div>
       </section>
       <section className="section">
         <SectionTitle

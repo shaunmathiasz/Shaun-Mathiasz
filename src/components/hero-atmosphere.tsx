@@ -1,4 +1,5 @@
 "use client";
+import { useFinePointer } from "@/lib/use-fine-pointer";
 import { photography } from "@/content/visual-assets";
 import { useSafeReducedMotion as useReducedMotion } from "@/lib/use-safe-reduced-motion";
 import { useRef } from "react";
@@ -12,9 +13,10 @@ export function HeroAtmosphere() {
   });
   const y = useTransform(scrollYProgress, [0, 1], [0, 70]);
   const reduced = useReducedMotion();
+  const fine = useFinePointer();
   return (
     <div className="hero-atmosphere" ref={ref} aria-hidden="true">
-      <motion.div style={{ y: reduced ? 0 : y }}>
+      <motion.div style={{ y: reduced || !fine ? 0 : y }}>
         <Image
           src={photography.maldives.src}
           alt=""

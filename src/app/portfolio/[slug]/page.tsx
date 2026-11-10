@@ -51,6 +51,9 @@ export default async function Project({
       <section className="section detail-grid">
         <aside>
           <TextLink href="/portfolio">All practice overviews</TextLink>
+          <nav className="practice-sections" aria-label="Practice sections">
+            {["Challenge", "Approach", "The decision process", "Deliverables", "Commercial considerations", "Professional application"].map((section) => <a key={section} href={"#" + section.toLowerCase().replaceAll(" ", "-")}>{section}</a>)}
+          </nav>
           <p className="eyebrow">SKILLS</p>
           <div className="tags">
             {p.skills.map((s) => (
@@ -63,11 +66,11 @@ export default async function Project({
             Professional practice overview with an illustrative process
             framework.
           </div>
-          <h2>Challenge</h2>
+          <h2 id="challenge">Challenge</h2>
           <p>{p.challenge}</p>
-          <h2>Approach</h2>
+          <h2 id="approach">Approach</h2>
           <p>{p.approach}</p>
-          <h2>The decision process</h2>
+          <h2 id="the-decision-process">The decision process</h2>
           <ol className="process-diagram">
             {[
               "Understand the traveller",
@@ -85,19 +88,19 @@ export default async function Project({
             An illustrative framework for considering the traveller, destination
             and product together.
           </p>
-          <h2>Deliverables</h2>
+          <h2 id="deliverables">Deliverables</h2>
           <ul>
             {p.deliverables.map((d) => (
               <li key={d}>{d}</li>
             ))}
           </ul>
-          <h2>Commercial considerations</h2>
+          <h2 id="commercial-considerations">Commercial considerations</h2>
           <ul>
             {p.commercialConsiderations.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
-          <h2>Professional application</h2>
+          <h2 id="professional-application">Professional application</h2>
           <p>{p.outcome}</p>
         </div>
       </section>

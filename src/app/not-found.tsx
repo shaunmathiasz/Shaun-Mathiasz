@@ -1,3 +1,4 @@
+import { LinkArrow } from "@/components/link-arrow";
 import Link from "next/link";
 export const metadata = {
   title: "Page not found",
@@ -12,7 +13,7 @@ export default function NotFound() {
         This page could not be found. Let’s take you back to familiar ground.
       </p>
       <Link href="/" className="button gold-button">
-        Return home ↗
+        Return home <LinkArrow />
       </Link>
     </section>
   );

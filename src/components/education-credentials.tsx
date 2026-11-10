@@ -1,4 +1,6 @@
 "use client";
+import { LinkArrow } from "@/components/link-arrow";
+
 import { useState } from "react";
 import {
   education,
@@ -38,7 +40,7 @@ export function CredentialCard({ item }: { item: Credential }) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Verify credential ↗
+              Verify credential <LinkArrow />
             </a>
           )}
         </details>
@@ -75,7 +77,8 @@ export function EducationCredentials() {
           </button>
         ))}
       </div>
-      <div className="credentials-list" aria-live="polite">
+      <p className="filter-summary" role="status">{filter === "Certifications" ? visibleCertifications.length : main.length} {filter === "Certifications" ? "short-course credentials" : "education and development entries"}</p>
+      <div className="credentials-list">
         {main.map((e) => (
           <Reveal key={e.id}>
             <CredentialCard item={e} />

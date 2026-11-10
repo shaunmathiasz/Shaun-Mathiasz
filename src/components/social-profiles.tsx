@@ -1,3 +1,4 @@
+import { LinkArrow } from "@/components/link-arrow";
 import { PlatformArtwork, type SocialPlatform } from "./platform-artwork";
 import { site } from "@/config/site";
 const handles: Record<string, string> = {
@@ -26,7 +27,7 @@ export function SocialProfiles() {
               <span className="eyebrow">{link.label}</span>
               <strong>{handles[link.label]}</strong>
               <span className="social-preview-label">
-                Explore profile <span aria-hidden="true">↗</span>
+                Explore profile <span aria-hidden="true"><LinkArrow /></span>
               </span>
             </summary>
             <div className="social-profile-preview">
@@ -42,7 +43,7 @@ export function SocialProfiles() {
                 rel="noopener noreferrer"
                 className="text-link"
               >
-                Open on {link.label} ↗
+                Open on {link.label} <LinkArrow />
               </a>
             </div>
           </details>

@@ -1,6 +1,8 @@
 "use client";
+import { LinkArrow } from "@/components/link-arrow";
+
 import { useSafeReducedMotion as useReducedMotion } from "@/lib/use-safe-reduced-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useSpring } from "motion/react";
 import { site } from "@/config/site";
 export function ScrollProgress() {
@@ -30,7 +32,7 @@ export function CopyEmail() {
   return (
     <div className="copy-email">
       <button className="button outline-button" onClick={copy}>
-        Copy Email Address ↗
+        Copy Email Address <LinkArrow />
       </button>
       <p role="status">{status}</p>
     </div>
@@ -38,7 +40,27 @@ export function CopyEmail() {
 }
 export function ArticleTools() {
   const [status, setStatus] = useState("");
-  const { scrollYProgress } = useScroll();
+  const progress = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const article = document.getElementById("article-body");
+    if (!article) return;
+    let frame = 0;
+    const update = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const rect = article.getBoundingClientRect();
+        const end = rect.height - Math.min(window.innerHeight * 0.6, rect.height);
+        const value = end > 0 ? Math.min(1, Math.max(0, (window.innerHeight * 0.3 - rect.top) / end)) : (rect.top <= window.innerHeight * 0.3 ? 1 : 0);
+        if (progress.current) progress.current.style.transform = `scaleX(${value})`;
+      });
+    };
+    const resize = new ResizeObserver(update);
+    resize.observe(article);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => { cancelAnimationFrame(frame); resize.disconnect(); window.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
+  }, []);
   async function share() {
     try {
       if (navigator.share) {
@@ -57,12 +79,9 @@ export function ArticleTools() {
   return (
     <aside className="reading-tools">
       <span>FIELD NOTES / READING COMPANION</span>
-      <button onClick={share}>Share / copy link ↗</button>
+      <button onClick={share}>Share / copy link <LinkArrow /></button>
       <span role="status">{status}</span>
-      <motion.span
-        className="reading-rule"
-        style={{ scaleX: scrollYProgress }}
-      />
+      <span ref={progress} className="reading-rule" aria-hidden="true" style={{ transform: "scaleX(0)" }} />
     </aside>
   );
 }

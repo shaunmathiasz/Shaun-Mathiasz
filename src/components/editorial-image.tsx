@@ -3,6 +3,8 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useSafeReducedMotion } from "@/lib/use-safe-reduced-motion";
+import { motionTokens } from "@/lib/motion";
+import { useFinePointer } from "@/lib/use-fine-pointer";
 import { photography } from "@/content/visual-assets";
 export function EditorialImage({
   asset,
@@ -15,11 +17,12 @@ export function EditorialImage({
   const ref = useRef<HTMLElement>(null);
   const mask = useRef<HTMLDivElement>(null);
   const reduced = useSafeReducedMotion();
+  const fine = useFinePointer();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], [-9, 9]);
+  const y = useTransform(scrollYProgress, [0, 1], [-motionTokens.distance.parallax, motionTokens.distance.parallax]);
   useEffect(() => {
     const el = mask.current;
     if (!el || reduced) return;
@@ -32,7 +35,7 @@ export function EditorialImage({
               { clipPath: "inset(3% 3% 5% 3%)", opacity: 0.85 },
               { clipPath: "inset(0% 0% 0% 0%)", opacity: 1 },
             ],
-            { duration: 800, easing: "cubic-bezier(.2,.7,.2,1)" },
+            { duration: motionTokens.duration.section * 1000, easing: motionTokens.easing },
           );
           observer.disconnect();
         }
@@ -50,7 +53,7 @@ export function EditorialImage({
       <div ref={mask} className="curated-photo-mask">
         <motion.div
           className="curated-photo-motion"
-          style={{ y: reduced ? 0 : y }}
+          style={{ y: reduced || !fine ? 0 : y }}
         >
           <Image
             src={photo.src}

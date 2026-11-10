@@ -1,3 +1,4 @@
+import { LinkArrow } from "@/components/link-arrow";
 import Image from "next/image";
 import Link from "next/link";
 import { digitalPlatforms, combinedAudience } from "@/content/influence";
@@ -57,7 +58,7 @@ export function DigitalPresence() {
                 <div>
                   <h3>{p.name}</h3>
                   <a href={p.url} target="_blank" rel="noopener noreferrer">
-                    {p.handle} ↗
+                    {p.handle} <LinkArrow />
                   </a>
                 </div>
               </header>
@@ -84,7 +85,7 @@ export function DigitalPresence() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Visit {p.name} ↗
+                Visit {p.name} <LinkArrow />
               </a>
             </article>
           ))}
@@ -97,7 +98,7 @@ export function DigitalPresence() {
           <h3>{combinedAudience.label}</h3>
           <p>{combinedAudience.caption}</p>
           <Link prefetch={false} href="/contact#social" className="text-link">
-            Explore the profiles ↗
+            Explore the profiles <LinkArrow />
           </Link>
         </div>
       </section>

@@ -7,3 +7,7 @@ test-results/
 *.tsbuildinfo
 
 reports/
+
+# Local CV staging only; upload to private storage, never commit or bundle.
+private/*.pdf
+/.swc

@@ -1,3 +1,4 @@
+import { LinkArrow } from "@/components/link-arrow";
 import { organisations } from "@/content/organisations";
 import { OrganisationLogo } from "./organisation-logo";
 import { Reveal } from "./reveal";
@@ -64,7 +65,7 @@ export function BrandShowcase() {
                         rel="noopener noreferrer"
                         className="text-link"
                       >
-                        Official website ↗
+                        Official website <LinkArrow />
                       </a>
                     )}
                   </details>
