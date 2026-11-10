@@ -125,6 +125,8 @@ The reviewed container is empty: installing it does not activate GA4. Measuremen
 
 ## SDM Digital extension
 
+Live: https://www.shaunmathiasz.com/services/web-development. Approved release, migration and verification: [Production release report](docs/SDM-DIGITAL-PRODUCTION-RELEASE.md).
+
 The feature branch `feature/sdm-digital` adds `/services/web-development` and the protected `/admin/digital-solutions` workspace. Exact launch prices live in `src/config/digital.ts`; proposed reference-price claims remain disabled. Global personal branding and favicon remain unchanged.
 
 Read [SDM Digital operations](docs/SDM-DIGITAL-OPERATIONS.md) before deployment. Builds never mutate a database. The isolated SDM Preview schema is migrated explicitly using the verified Neon owner connection; see docs/SDM-DIGITAL-MIGRATION.md. Use `npm run digital:migrate` with an authorised migration connection for controlled setup. Production migration and deployment both require explicit owner approval.

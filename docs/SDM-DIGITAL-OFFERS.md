@@ -1,6 +1,6 @@
 # Sri Lanka introductory offers update
 
-10 November 2026. Preview only; Production release is not authorised.
+10 November 2026. Original Preview report. The owner subsequently authorised Production release; the page is now live at https://www.shaunmathiasz.com/services/web-development. See SDM-DIGITAL-PRODUCTION-RELEASE.md for the current release.
 
 The owner confirmed that the previously requested real Preview enquiry, emails and owner CRM check works. This is owner-reported confirmation; no new credentials, integrations or database migrations were needed for this pricing update.
 

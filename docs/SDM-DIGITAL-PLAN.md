@@ -1,6 +1,6 @@
 # SDM Digital implementation plan
 
-Updated 10 November 2026 (Asia/Colombo). The three supplied briefs form one extension of the existing personal website. Production release is not authorised.
+Updated 10 November 2026 (Asia/Colombo). The three supplied briefs form one extension of the existing personal website. The owner subsequently authorised Production deployment, completed at https://www.shaunmathiasz.com/services/web-development; see SDM-DIGITAL-PRODUCTION-RELEASE.md. Earlier Preview checkpoints below are historical.
 
 ## Completed
 
@@ -35,3 +35,6 @@ Production remains dpl_7UG6F52jRyeTzNy4uNwQgApBQ5c4, commit b72714885d1a55f9fde6
 Owner requested the Sri Lanka Business Launch Special presentation and new Claim Offer CTAs. The typed config now has packageId, regularPrice, launchPrice, calculated savingAmount/discountPercentage, discountDisplayApproved, packageFeatures and ctaLabel. Existing IDs are preserved. All commercial reads use launchPrice. The owner subsequently requested the explicit discount layout: per-package discountDisplayApproved flags are true for the Reference value comparisons; no historical selling-price verification is claimed. Focused pricing/SEO browser checks, all unit tests, accessibility checks and a new Preview follow; see SDM-DIGITAL-OFFERS.md.
 
 Final offers Preview: READY dpl_EJ6zpxUfkcTCXt1n8XKdhYKPiMtx, application commit 0823acda140d83ae7b61b8cbda9702dcaed99692, available at the existing cv-preview.shaunmathiasz.com alias. Validation: 143 unit tests, 16 focused desktop/mobile browser tests, build/types/lint, three-viewport Axe and live Preview browser/security/asset checks passed. Lighthouse mobile lab: Performance 80, Accessibility/Best Practices/SEO 100, LCP 4.2 s, CLS 0, TBT 300 ms; performance/LCP targets remain unmet. New Sri Lankan villa/guesthouse context imagery and owner-requested reference-value discount layout included. No Production release. See SDM-DIGITAL-OFFERS.md.
+
+## Production release complete
+Owner authorised deployment to www.shaunmathiasz.com/services/web-development. Guarded additive production schema migration verified on existing main/shaun_cv_production, with unchanged CV data/schema. Production build c2a1c7b5cbb05cdb1c8e42b49ca140327c24424a staged, checked and promoted as dpl_HoWxXpMD1vu2hi7h4ZfgsQKAovHM. Live desktop/mobile, pricing, image, protected-route, CV guard, consent and SEO checks passed. No new secrets/services or test enquiries. Full release proof: SDM-DIGITAL-PRODUCTION-RELEASE.md.
