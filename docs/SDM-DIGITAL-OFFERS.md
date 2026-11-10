@@ -47,7 +47,21 @@ Final comparison-enabled validation passed:
 - Axe checks at 1440 × 1000, 768 × 1024 and 390 × 844: zero selected WCAG A/AA violations and zero page errors.
 - Desktop/mobile pricing and both industry-image screenshots reviewed. Reports are in reports/sdm-offers-*.png.
 
-The existing broader regression results remain documented in SDM-DIGITAL-REPORT.md; a new full-site 152-case run was not claimed for this focused update. Latest local mobile Lighthouse: Performance 80, Accessibility 100, Best Practices 100, SEO 100; LCP 4.2 s, CLS 0, TBT 300 ms. This is a local simulated lab run, not production field data; performance/LCP targets remain unmet. The first benchmark attempt after an execution-context restart could not connect because the local server had stopped; it was restarted and this successful run replaced that invalid attempt. Final cloud Preview checks follow.
+The existing broader regression results remain documented in SDM-DIGITAL-REPORT.md; a new full-site 152-case run was not claimed for this focused update. Latest local mobile Lighthouse: Performance 80, Accessibility 100, Best Practices 100, SEO 100; LCP 4.2 s, CLS 0, TBT 300 ms. This is a local simulated lab run, not production field data; performance/LCP targets remain unmet. The first benchmark attempt after an execution-context restart could not connect because the local server had stopped; it was restarted and this successful run replaced that invalid attempt. Cloud Preview verification passed on the exact deployed build: all offer/reference/savings content is server-rendered; both new JPEGs return 200, are 1200 × 800 and exactly match the reviewed local files. Unauthorised CRM/export returns 401, owner dashboard redirects to login, bad Origin returns 403 and invalid security returns 400 rather than setup 503. Preview remains noindex with robots disallowing crawling. Read-only CV database guard passed.
+
+Real deployed browser checks at 1440 × 1000 and 390 × 844 also passed: all three CTAs select the correct launch fee, form input is preserved, the two distinct industry photos load, and there is no horizontal overflow or page error. No enquiry was submitted by these layout checks.
+
+## Deployment
+
+- Target: Preview only; status READY.
+- Review URL: https://cv-preview.shaunmathiasz.com/services/web-development#packages
+- Immutable URL: https://shaun-mathiasz-mtbfkcfz9-shaun-cd95.vercel.app/services/web-development
+- Application commit: 0823acda140d83ae7b61b8cbda9702dcaed99692.
+- Deployment: dpl_EJ6zpxUfkcTCXt1n8XKdhYKPiMtx.
+- Framework: Next.js 16.4.5.
+- Production remains dpl_7UG6F52jRyeTzNy4uNwQgApBQ5c4, commit b72714885d1a55f9fde6025a2537ed2ea025c523. No new environment variables or migrations were applied.
+
+Subsequent documentation commits do not change this tested application build. Production still requires the owner's separate approval.
 
 No environment-variable changes are required. Existing logos, package scope, payment terms, SEO architecture, consent, CV security, owner authentication and integrations are preserved. No GTM configuration or Production deployment is changed.
 
